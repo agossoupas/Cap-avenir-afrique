@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -7,20 +6,19 @@
 
     <title>Bourses d'études | Cap Avenir Afrique</title>
 
-    <meta name="description" content="Découvre des opportunités de bourses d'études au Bénin, en Afrique et à l'international.">
-
+    <meta name="description" content="Découvre des opportunités de bourses d'études au Bénin, en Afrique et à l'international grâce à Cap Avenir Afrique.">
     <meta name="theme-color" content="#064e3b">
 
     <style>
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         body {
             font-family: Arial, sans-serif;
-            background: #f4f7f6;
+            background: #f5f7fa;
             color: #263238;
             line-height: 1.6;
         }
@@ -29,9 +27,6 @@
             background: #064e3b;
             color: white;
             padding: 20px 7%;
-        }
-
-        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -40,13 +35,13 @@
         }
 
         header h1 {
-            font-size: 24px;
+            font-size: 23px;
         }
 
         nav {
             display: flex;
             flex-wrap: wrap;
-            gap: 16px;
+            gap: 18px;
         }
 
         nav a {
@@ -74,118 +69,160 @@
         .hero p {
             max-width: 700px;
             margin: auto;
+            font-size: 17px;
         }
 
-        main {
-            max-width: 1100px;
-            margin: 35px auto;
-            padding: 0 20px;
-            min-height: 350px;
+        .container {
+            max-width: 1150px;
+            margin: auto;
+            padding: 40px 20px 60px;
         }
 
         .search-box {
-            margin-bottom: 25px;
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+            margin-bottom: 30px;
         }
 
-        .search-box label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 8px;
+        .search-box h2 {
+            color: #065f46;
+            margin-bottom: 18px;
         }
 
-        #recherche {
+        .filters {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 12px;
+        }
+
+        input, select {
             width: 100%;
-            padding: 15px;
-            border: 2px solid #047857;
-            border-radius: 8px;
-            font-size: 16px;
+            padding: 13px;
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+            font-size: 15px;
+            background: white;
         }
 
-        #recherche:focus {
-            outline: 2px solid #a7f3d0;
+        input:focus, select:focus {
+            outline: 2px solid #10b981;
+            border-color: #10b981;
+        }
+
+        .results-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .results-heading h2 {
+            color: #065f46;
         }
 
         #compteur {
-            margin-bottom: 20px;
-            color: #475569;
+            color: #64748b;
+            font-size: 14px;
         }
 
-        .liste-bourses {
+        .offers {
             display: grid;
-            grid-template-columns: repeat(
-                auto-fit,
-                minmax(min(100%, 280px), 1fr)
-            );
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
             gap: 22px;
         }
 
-        .bourse {
+        .offer-card {
             background: white;
-            padding: 25px;
             border-radius: 12px;
-            border-top: 4px solid #047857;
-            box-shadow: 0 4px 15px #0000000d;
+            padding: 24px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-direction: column;
             overflow-wrap: anywhere;
-        }
-
-        .bourse h3 {
-            color: #065f46;
-            margin-bottom: 12px;
-            font-size: 21px;
         }
 
         .badge {
             display: inline-block;
+            align-self: flex-start;
             background: #d1fae5;
             color: #065f46;
-            padding: 5px 10px;
+            padding: 5px 11px;
             border-radius: 20px;
             font-size: 12px;
             font-weight: bold;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
 
-        .bourse p {
+        .offer-card h3 {
+            color: #064e3b;
+            font-size: 20px;
             margin-bottom: 10px;
         }
 
-        .description {
-            white-space: pre-line;
+        .organisation {
+            font-weight: bold;
+            color: #475569;
+            margin-bottom: 10px;
         }
 
-        .bouton {
+        .info {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 7px;
+        }
+
+        .description {
+            margin: 16px 0;
+            white-space: pre-line;
+            flex-grow: 1;
+        }
+
+        .deadline {
+            font-size: 13px;
+            color: #b45309;
+            margin-bottom: 15px;
+        }
+
+        .apply-button {
             display: inline-block;
-            margin-top: 12px;
-            padding: 10px 16px;
+            text-align: center;
             background: #047857;
             color: white;
-            border-radius: 6px;
             text-decoration: none;
+            padding: 12px 16px;
+            border-radius: 7px;
             font-weight: bold;
+            margin-top: auto;
         }
 
-        .bouton:hover {
+        .apply-button:hover {
             background: #065f46;
         }
 
-        .document {
-            display: inline-block;
-            margin-top: 12px;
-            color: #047857;
-            font-weight: bold;
-        }
-
-        .message {
+        .empty-state {
             background: white;
-            padding: 25px;
-            border-radius: 8px;
-            margin: 20px 0;
+            border-radius: 12px;
+            padding: 35px 20px;
             text-align: center;
+            color: #64748b;
+            grid-column: 1 / -1;
         }
 
-        .erreur {
-            color: #991b1b;
-            background: #fee2e2;
+        .empty-state h3 {
+            color: #334155;
+            margin-bottom: 10px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #047857;
+            text-decoration: none;
+            font-weight: bold;
         }
 
         footer {
@@ -193,21 +230,29 @@
             color: white;
             text-align: center;
             padding: 25px 15px;
-            margin-top: 50px;
         }
 
-        @media (max-width: 600px) {
-            .header-content {
+        @media (max-width: 700px) {
+            header {
                 justify-content: center;
                 text-align: center;
             }
 
             nav {
                 justify-content: center;
+                gap: 12px;
             }
 
             .hero h2 {
                 font-size: 28px;
+            }
+
+            .filters {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 28px 15px 45px;
             }
         }
     </style>
@@ -216,278 +261,268 @@
 <body>
 
 <header>
-    <div class="header-content">
-        <h1>🌍 Cap Avenir Afrique</h1>
+    <h1>🌍 Cap Avenir Afrique</h1>
 
-        <nav aria-label="Navigation principale">
-            <a href="index.html">Accueil</a>
-            <a href="emplois.html">Emplois</a>
-            <a href="bourses.html">Bourses</a>
-            <a href="formation.html">Formations</a>
-        </nav>
-    </div>
+    <nav aria-label="Navigation principale">
+        <a href="index.html">Accueil</a>
+        <a href="emplois.html">Emplois</a>
+        <a href="bourses.html">Bourses</a>
+        <a href="formation.html">Formations</a>
+    </nav>
 </header>
 
-<section class="hero">
-    <h2>🎓 Bourses d'études</h2>
-
-    <p>
-        Trouve des possibilités de financement pour tes études
-        au Bénin, en Afrique et à l'international.
-        Prépare ton avenir avec Cap Avenir Afrique !
-    </p>
-</section>
-
 <main>
-    <div class="search-box">
-        <label for="recherche">Rechercher une bourse</label>
+    <section class="hero">
+        <h2>🎓 Bourses d'études</h2>
+        <p>
+            Découvre des opportunités de financement pour poursuivre
+            tes études au Bénin, en Afrique et à l'international.
+        </p>
+    </section>
 
-        <input
-            type="search"
-            id="recherche"
-            placeholder="Ex. : Canada, licence, master, médecine..."
-        >
-    </div>
+    <section class="container">
 
-    <p id="compteur" aria-live="polite">
-        Chargement des bourses...
-    </p>
+        <div class="search-box">
+            <h2>🔎 Trouver une bourse</h2>
 
-    <div id="message" class="message" role="status" aria-live="polite">
-        Recherche des bourses disponibles...
-    </div>
+            <div class="filters">
+                <input
+                    type="search"
+                    id="recherche"
+                    placeholder="Titre, organisme, pays ou domaine..."
+                    aria-label="Rechercher une bourse"
+                >
 
-    <section
-        class="liste-bourses"
-        id="liste-bourses"
-        aria-label="Liste des bourses"
-    ></section>
+                <input
+                    type="search"
+                    id="filtreLieu"
+                    placeholder="Pays ou ville"
+                    aria-label="Filtrer par lieu"
+                >
+            </div>
+        </div>
+
+        <div class="results-heading">
+            <h2>Les bourses disponibles</h2>
+            <span id="compteur" aria-live="polite">Chargement...</span>
+        </div>
+
+        <div id="offres" class="offers" aria-live="polite">
+            <div class="empty-state">
+                Chargement des bourses...
+            </div>
+        </div>
+
+        <a class="back-link" href="index.html">← Retour à l'accueil</a>
+
+    </section>
 </main>
 
 <footer>
-    <p>© 2026 Cap Avenir Afrique</p>
-    <p>Informer les jeunes, ouvrir de nouvelles possibilités.</p>
+    <p>© 2026 Cap Avenir Afrique — Les opportunités pour tous.</p>
+    <p>Vérifie toujours les conditions d'admission et les dates limites.</p>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-    const SUPABASE_URL =
-        "https://fhqppofwnoxiexnxivfx.supabase.co";
+    const SUPABASE_URL = "https://fhqppofwnoxiexnxivfx.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_U2NwuXutHMG_F8Ee8sEuIg_mMBJ3TY0";
 
-    const SUPABASE_KEY =
-        "sb_publishable_U2NwuXutHMG_F8Ee8sEuIg_mMBJ3TY0";
-
-    const client = window.supabase.createClient(
+    const supabaseClient = window.supabase.createClient(
         SUPABASE_URL,
         SUPABASE_KEY
     );
 
-    const recherche = document.getElementById("recherche");
-    const liste = document.getElementById("liste-bourses");
+    const zoneOffres = document.getElementById("offres");
     const compteur = document.getElementById("compteur");
-    const message = document.getElementById("message");
+    const recherche = document.getElementById("recherche");
+    const filtreLieu = document.getElementById("filtreLieu");
 
-    let toutesLesBourses = [];
+    let toutesLesOffres = [];
+
+    function securiserTexte(valeur) {
+        return String(valeur ?? "").replace(/[&<>"']/g, caractere => ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#039;"
+        })[caractere]);
+    }
 
     function normaliser(texte) {
-        return String(texte || "")
+        return String(texte ?? "")
             .toLowerCase()
             .normalize("NFD")
             .replace(/[\u0300-\u036f]/g, "");
     }
 
-    function ajouterTexte(parent, balise, texte, classe = "") {
-        const element = document.createElement(balise);
-        element.textContent = texte || "";
-
-        if (classe) {
-            element.className = classe;
-        }
-
-        parent.appendChild(element);
-        return element;
-    }
-
-    function ajouterLien(parent, url, texte, classe) {
-        if (!url) return;
-
+    function urlValide(valeur) {
         try {
-            const adresse = new URL(url);
+            const url = new URL(valeur);
 
-            if (!["https:", "http:"].includes(adresse.protocol)) {
-                return;
+            if (url.protocol === "https:" || url.protocol === "http:") {
+                return url.href;
             }
-
-            const lien = document.createElement("a");
-            lien.href = adresse.href;
-            lien.textContent = texte;
-            lien.className = classe;
-            lien.target = "_blank";
-            lien.rel = "noopener noreferrer";
-
-            parent.appendChild(lien);
-        } catch (e) {
-            // Ne pas afficher de lien invalide.
+        } catch (erreur) {
+            return "";
         }
+
+        return "";
     }
 
-    function creerCarte(bourse) {
-        const carte = document.createElement("article");
-        carte.className = "bourse";
+    function dateLisible(date) {
+        if (!date) return "";
 
-        ajouterTexte(
-            carte,
-            "span",
-            "BOURSE D'ÉTUDES",
-            "badge"
-        );
+        const valeur = new Date(date);
 
-        ajouterTexte(
-            carte,
-            "h3",
-            bourse.titre || "Bourse d'études"
-        );
-
-        if (bourse.organisme) {
-            ajouterTexte(
-                carte,
-                "p",
-                "Organisme : " + bourse.organisme
-            );
+        if (Number.isNaN(valeur.getTime())) {
+            return securiserTexte(date);
         }
 
-        if (bourse.domaine) {
-            ajouterTexte(
-                carte,
-                "p",
-                "Domaine : " + bourse.domaine
-            );
-        }
-
-        if (bourse.lieu) {
-            ajouterTexte(
-                carte,
-                "p",
-                "Pays ou lieu : " + bourse.lieu
-            );
-        }
-
-        if (bourse.description) {
-            ajouterTexte(
-                carte,
-                "p",
-                "Description : " + bourse.description,
-                "description"
-            );
-        }
-
-        if (bourse.date_limite) {
-            ajouterTexte(
-                carte,
-                "p",
-                "Date limite : " + bourse.date_limite
-            );
-        }
-
-        if (bourse.document_url) {
-            ajouterLien(
-                carte,
-                bourse.document_url,
-                "📄 Consulter le document PDF",
-                "document"
-            );
-        }
-
-        if (bourse.lien_candidature) {
-            ajouterLien(
-                carte,
-                bourse.lien_candidature,
-                "Consulter la bourse / Postuler",
-                "bouton"
-            );
-        }
-
-        return carte;
+        return valeur.toLocaleDateString("fr-FR");
     }
 
-    function afficherBourses() {
-        const mot = normaliser(recherche.value);
+    function afficherOffres() {
+        const motCle = normaliser(recherche.value.trim());
+        const lieuRecherche = normaliser(filtreLieu.value.trim());
 
-        const resultats = toutesLesBourses.filter(function(bourse) {
+        const resultats = toutesLesOffres.filter(offre => {
             const contenu = normaliser([
-                bourse.titre,
-                bourse.organisme,
-                bourse.domaine,
-                bourse.lieu,
-                bourse.description
+                offre.titre,
+                offre.organisme,
+                offre.domaine,
+                offre.lieu,
+                offre.description
             ].join(" "));
 
-            return contenu.includes(mot);
+            return contenu.includes(motCle) &&
+                normaliser(offre.lieu).includes(lieuRecherche);
         });
 
-        liste.replaceChildren();
-
-        resultats.forEach(function(bourse) {
-            liste.appendChild(creerCarte(bourse));
-        });
-
-        compteur.textContent =
-            resultats.length +
-            (resultats.length > 1
-                ? " bourses trouvées"
-                : " bourse trouvée");
+        compteur.textContent = resultats.length +
+            (resultats.length > 1 ? " bourses trouvées" : " bourse trouvée");
 
         if (resultats.length === 0) {
-            message.hidden = false;
-            message.className = "message";
-
-            message.textContent = toutesLesBourses.length === 0
-                ? "Aucune bourse n'est actuellement publiée. Reviens bientôt pour découvrir les prochaines opportunités."
-                : "Aucune bourse ne correspond à ta recherche.";
-        } else {
-            message.hidden = true;
-        }
-    }
-
-    async function chargerBourses() {
-        message.hidden = false;
-        message.className = "message";
-        message.textContent = "Chargement des bourses...";
-        compteur.textContent = "Chargement...";
-
-        const { data, error } = await client
-            .from("offres")
-            .select("*")
-            .eq("publie", true)
-            .eq("type", "bourse")
-            .order("created_at", { ascending: false });
-
-        if (error) {
-            console.error("Erreur Supabase :", error);
-
-            toutesLesBourses = [];
-            liste.replaceChildren();
-
-            compteur.textContent = "Chargement impossible";
-            message.hidden = false;
-            message.className = "message erreur";
-            message.textContent =
-                "Impossible de charger les bourses. " +
-                "La connexion ou les autorisations de la base de données doivent être vérifiées.";
-
+            zoneOffres.innerHTML = `
+                <div class="empty-state">
+                    <h3>Aucune bourse disponible pour cette recherche</h3>
+                    <p>
+                        Aucune bourse publiée ne correspond à tes critères.
+                        Essaie avec d'autres mots-clés.
+                    </p>
+                </div>
+            `;
             return;
         }
 
-        toutesLesBourses = data || [];
-        afficherBourses();
+        zoneOffres.innerHTML = resultats.map(offre => {
+            const lien = urlValide(String(offre.lien_candidature || "").trim());
+            const documentUrl = urlValide(String(offre.document_url || "").trim());
+
+            let bouton = "";
+
+            if (lien) {
+                bouton = `
+                    <a class="apply-button"
+                       href="${securiserTexte(lien)}"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Consulter la bourse →
+                    </a>
+                `;
+            } else if (documentUrl) {
+                bouton = `
+                    <a class="apply-button"
+                       href="${securiserTexte(documentUrl)}"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Consulter le document →
+                    </a>
+                `;
+            } else {
+                bouton = `
+                    <p class="info">
+                        Les modalités de candidature ne sont pas encore renseignées.
+                    </p>
+                `;
+            }
+
+            return `
+                <article class="offer-card">
+                    <span class="badge">Bourse d'études</span>
+
+                    <h3>${securiserTexte(offre.titre || "Bourse d'études")}</h3>
+
+                    ${offre.organisme ? `
+                        <p class="organisation">
+                            ${securiserTexte(offre.organisme)}
+                        </p>
+                    ` : ""}
+
+                    ${offre.lieu ? `
+                        <p class="info">📍 ${securiserTexte(offre.lieu)}</p>
+                    ` : ""}
+
+                    ${offre.domaine ? `
+                        <p class="info">📚 Domaine : ${securiserTexte(offre.domaine)}</p>
+                    ` : ""}
+
+                    ${offre.date_limite ? `
+                        <p class="deadline">
+                            📅 Date limite : ${dateLisible(offre.date_limite)}
+                        </p>
+                    ` : ""}
+
+                    ${offre.description ? `
+                        <p class="description">${securiserTexte(offre.description)}</p>
+                    ` : ""}
+
+                    ${bouton}
+                </article>
+            `;
+        }).join("");
     }
 
-    recherche.addEventListener("input", afficherBourses);
+    async function chargerBourses() {
+        try {
+            const { data, error } = await supabaseClient
+                .from("offres")
+                .select("*")
+                .eq("publie", true)
+                .eq("type", "bourse")
+                .order("created_at", { ascending: false });
+
+            if (error) {
+                throw error;
+            }
+
+            toutesLesOffres = data || [];
+            afficherOffres();
+
+        } catch (erreur) {
+            console.error("Erreur de chargement des bourses :", erreur);
+
+            compteur.textContent = "";
+
+            zoneOffres.innerHTML = `
+                <div class="empty-state">
+                    <h3>Impossible de charger les bourses</h3>
+                    <p>
+                        Le service rencontre actuellement un problème.
+                        Réessaie plus tard.
+                    </p>
+                </div>
+            `;
+        }
+    }
+
+    recherche.addEventListener("input", afficherOffres);
+    filtreLieu.addEventListener("input", afficherOffres);
 
     chargerBourses();
 </script>
 
 </body>
 </html>
-```
