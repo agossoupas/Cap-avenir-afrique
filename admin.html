@@ -159,6 +159,42 @@
     const SUPABASE_KEY = "sb_publishable_U2NwuXutHMG_F8Ee8sEuIg_mMBJ3TY0";
 
     const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    async function telechargerDocument(fichier) {
+    if (!fichier) return null;
+
+    if (fichier.type !== "application/pdf" &&
+        !fichier.name.toLowerCase().endsWith(".pdf")) {
+        throw new Error("Le document doit être un fichier PDF.");
+    }
+
+    if (fichier.size > 10 * 1024 * 1024) {
+        throw new Error("Le PDF ne doit pas dépasser 10 Mo.");
+    }
+
+    const nomNettoye = fichier.name
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-zA-Z0-9._-]/g, "_");
+
+    const chemin = `${crypto.randomUUID()}-${nomNettoye}`;
+
+    const { data, error } = await client.storage
+        .from("documents")
+        .upload(chemin, fichier, {
+            contentType: "application/pdf",
+            upsert: false
+        });
+
+    if (error) {
+        throw new Error("Échec du téléchargement : " + error.message);
+    }
+
+    const { data: urlData } = client.storage
+        .from("documents")
+        .getPublicUrl(data.path);
+
+    return urlData.publicUrl;
+}
     const connexion = document.getElementById("connexion");
     const dashboard = document.getElementById("dashboard");
     const message = document.getElementById("message");
