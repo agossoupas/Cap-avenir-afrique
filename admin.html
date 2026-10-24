@@ -302,6 +302,22 @@
 
             const description = document.createElement("p");
             description.textContent = offre.description;
+            ```javascript
+let lienDocument = null;
+
+if (offre.document_url) {
+    lienDocument = document.createElement("a");
+    lienDocument.href = offre.document_url;
+    lienDocument.target = "_blank";
+    lienDocument.rel = "noopener noreferrer";
+    lienDocument.textContent = "📄 Consulter le document PDF";
+    lienDocument.style.display = "inline-block";
+    lienDocument.style.margin = "10px 0";
+    lienDocument.style.color = "#087f5b";
+    lienDocument.style.fontWeight = "bold";
+}
+```
+
 
             const bouton = document.createElement("button");
             bouton.className = "secondary";
@@ -331,7 +347,11 @@
                 await chargerOffres();
             });
 
-            carte.append(titre, details, description, bouton, supprimer);
+            if (lienDocument) {
+    carte.append(titre, details, description, lienDocument, bouton, supprimer);
+} else {
+    carte.append(titre, details, description, bouton, supprimer);
+}
             conteneur.appendChild(carte);
         });
     }
