@@ -1,251 +1,235 @@
 <!DOCTYPE html>
-
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-```
-<title>Emplois et stages | Cap Avenir Afrique</title>
+    <title>Emplois et stages | Cap Avenir Afrique</title>
 
-<meta name="description" content="Découvrez des opportunités d'emploi et de stage au Bénin et en Afrique sur Cap Avenir Afrique.">
+    <meta name="description" content="Découvre des offres d'emploi et de stage au Bénin et en Afrique sur Cap Avenir Afrique.">
 
-.ajout-offre {
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    margin-bottom: 35px;
-    box-shadow: 0 4px 15px #0000000d;
-}
+    <meta name="theme-color" content="#064e3b">
 
-.ajout-offre h2 {
-    color: #065f46;
-    margin-bottom: 20px;
-}
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-.ajout-offre label {
-    display: block;
-    margin: 15px 0 5px;
-    font-weight: bold;
-}
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7f6;
+            color: #263238;
+            line-height: 1.6;
+        }
 
-.ajout-offre input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
-    font-size: 16px;
-}
+        header {
+            background: #064e3b;
+            color: white;
+            padding: 20px 7%;
+        }
 
-.ajout-offre button {
-    margin-top: 20px;
-    padding: 12px 20px;
-    background: #047857;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 16px;
-}
-<style>
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
-
-    body {
-        font-family: Arial, sans-serif;
-        background: #f4f7f6;
-        color: #263238;
-        line-height: 1.6;
-    }
-
-    header {
-        background: #064e3b;
-        color: white;
-        padding: 20px 7%;
-    }
-
-    .header-content {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 15px;
-    }
-
-    header h1 {
-        font-size: 24px;
-    }
-
-    nav {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 16px;
-    }
-
-    nav a {
-        color: white;
-        text-decoration: none;
-        font-weight: bold;
-    }
-
-    nav a:hover {
-        color: #facc15;
-    }
-
-    .hero {
-        background: linear-gradient(135deg, #065f46, #10b981);
-        color: white;
-        text-align: center;
-        padding: 60px 20px;
-    }
-
-    .hero h2 {
-        font-size: 34px;
-        margin-bottom: 12px;
-    }
-
-    .hero p {
-        max-width: 650px;
-        margin: auto;
-    }
-
-    .container {
-        max-width: 1100px;
-        margin: 35px auto;
-        padding: 0 20px;
-    }
-
-    .search-box {
-        margin-bottom: 30px;
-    }
-
-    #recherche {
-        width: 100%;
-        padding: 15px;
-        border: 2px solid #047857;
-        border-radius: 8px;
-        font-size: 16px;
-        background: white;
-    }
-
-    #recherche:focus {
-        outline: 2px solid #a7f3d0;
-    }
-
-    .results {
-        margin-bottom: 20px;
-        color: #475569;
-    }
-
-    .job-list {
-        display: grid;
-        grid-template-columns: repeat(
-            auto-fit,
-            minmax(min(100%, 280px), 1fr)
-        );
-        gap: 22px;
-    }
-
-    .job-card {
-        background: white;
-        padding: 25px;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px #0000000d;
-        border-top: 4px solid #047857;
-    }
-
-    .job-card h3 {
-        color: #065f46;
-        margin-bottom: 12px;
-    }
-
-    .tag {
-        display: inline-block;
-        background: #d1fae5;
-        color: #065f46;
-        padding: 5px 10px;
-        border-radius: 20px;
-        font-size: 12px;
-        font-weight: bold;
-        margin-bottom: 12px;
-    }
-
-    .job-card p {
-        margin-bottom: 10px;
-    }
-
-    .apply {
-        display: inline-block;
-        margin-top: 12px;
-        padding: 10px 16px;
-        background: #047857;
-        color: white;
-        border-radius: 6px;
-        text-decoration: none;
-        font-weight: bold;
-    }
-
-    .apply:hover {
-        background: #065f46;
-    }
-
-    .empty {
-        display: none;
-        background: white;
-        padding: 25px;
-        border-radius: 8px;
-        text-align: center;
-    }
-
-    footer {
-        background: #064e3b;
-        color: white;
-        text-align: center;
-        padding: 25px 15px;
-        margin-top: 50px;
-    }
-
-    footer a {
-        color: #facc15;
-    }
-
-    @media (max-width: 600px) {
         .header-content {
-            justify-content: center;
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        header h1 {
+            font-size: 24px;
         }
 
         nav {
-            justify-content: center;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #facc15;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #065f46, #10b981);
+            color: white;
+            text-align: center;
+            padding: 65px 20px;
         }
 
         .hero h2 {
-            font-size: 27px;
+            font-size: 36px;
+            margin-bottom: 12px;
         }
-    }
-</style>
-```
 
+        .hero p {
+            max-width: 650px;
+            margin: auto;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 35px auto;
+            padding: 0 20px;
+            min-height: 350px;
+        }
+
+        .search-box {
+            margin-bottom: 25px;
+        }
+
+        .search-box label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        #recherche {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #047857;
+            border-radius: 8px;
+            font-size: 16px;
+            background: white;
+        }
+
+        #recherche:focus {
+            outline: 2px solid #a7f3d0;
+        }
+
+        .results {
+            margin-bottom: 20px;
+            color: #475569;
+        }
+
+        .job-list {
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(min(100%, 280px), 1fr)
+            );
+            gap: 22px;
+        }
+
+        .job-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px #0000000d;
+            border-top: 4px solid #047857;
+            overflow-wrap: anywhere;
+        }
+
+        .job-card h3 {
+            color: #065f46;
+            margin-bottom: 12px;
+            font-size: 20px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #d1fae5;
+            color: #065f46;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .job-card p {
+            margin-bottom: 10px;
+        }
+
+        .description {
+            white-space: pre-line;
+        }
+
+        .apply {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 10px 16px;
+            background: #047857;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .apply:hover {
+            background: #065f46;
+        }
+
+        .document-link {
+            display: inline-block;
+            margin-top: 12px;
+            color: #047857;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        .notice {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .error {
+            color: #991b1b;
+            background: #fee2e2;
+        }
+
+        footer {
+            background: #064e3b;
+            color: white;
+            text-align: center;
+            padding: 25px 15px;
+            margin-top: 50px;
+        }
+
+        footer a {
+            color: #facc15;
+        }
+
+        @media (max-width: 600px) {
+            .header-content {
+                justify-content: center;
+                text-align: center;
+            }
+
+            nav {
+                justify-content: center;
+            }
+
+            .hero h2 {
+                font-size: 28px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-```
 <header>
     <div class="header-content">
-
         <h1>🌍 Cap Avenir Afrique</h1>
 
-        <nav>
+        <nav aria-label="Navigation principale">
             <a href="index.html">Accueil</a>
-            <a href="bourses.html">Bourses</a>
             <a href="emplois.html">Emplois et stages</a>
-            <a href="formations.html">Formations</a>
+            <a href="bourses.html">Bourses</a>
+            <a href="formation.html">Formations</a>
         </nav>
-
     </div>
 </header>
 
@@ -253,8 +237,9 @@
     <h2>Emplois et stages</h2>
 
     <p>
-        Trouve des opportunités professionnelles pour
-        développer tes compétences et construire ton avenir.
+        Découvre des opportunités professionnelles au Bénin,
+        en Afrique et à l'international.
+        Construis ton avenir avec Cap Avenir Afrique !
     </p>
 </section>
 
@@ -262,7 +247,7 @@
 
     <div class="search-box">
         <label for="recherche">
-            <strong>Rechercher une opportunité</strong>
+            Rechercher un emploi ou un stage
         </label>
 
         <input
@@ -273,141 +258,14 @@
     </div>
 
     <p class="results" id="compteur" aria-live="polite">
-        3 exemples d'annonces
+        Chargement des opportunités...
     </p>
 
-    <section class="ajout-offre">
-    <h2>Ajouter une opportunité</h2>
+    <div id="message" class="notice" role="status" aria-live="polite">
+        Nous recherchons les offres disponibles.
+    </div>
 
-    <form id="formulaire-offre">
-
-        <label for="titre">Titre de l'offre</label>
-        <input
-            type="text"
-            id="titre"
-            placeholder="Ex. : Technicien de laboratoire"
-            required
-        >
-
-        <label for="domaine">Domaine</label>
-        <input
-            type="text"
-            id="domaine"
-            placeholder="Ex. : Santé"
-            required
-        >
-
-        <label for="lieu">Localisation</label>
-        <input
-            type="text"
-            id="lieu"
-            placeholder="Ex. : Cotonou"
-            required
-        >
-
-        <label for="date-limite">Date limite</label>
-        <input
-            type="date"
-            id="date-limite"
-            required
-        >
-
-        <button type="submit">Ajouter l'offre</button>
-
-    </form>
-</section>
-    <section class="job-list" id="liste-offres">
-
-        <article class="job-card">
-            <span class="tag">EXEMPLE PÉDAGOGIQUE</span>
-
-            <h3>Technicien de laboratoire</h3>
-
-            <p><strong>Domaine :</strong> Analyses biomédicales</p>
-
-            <p><strong>Localisation :</strong> Cotonou, Bénin</p>
-
-            <p>
-                <strong>Profil :</strong>
-                Formation en analyses biomédicales et connaissance
-                des techniques de laboratoire.
-            </p>
-
-            <p>
-                <strong>Publication :</strong>
-                Annonce fictive destinée à l'apprentissage.
-            </p>
-
-            <a
-                class="apply"
-                href="mailto:contact@exemple.invalid?subject=Demande%20de%20renseignements"
-            >
-                Exemple de contact
-            </a>
-        </article>
-
-        <article class="job-card">
-            <span class="tag">EXEMPLE PÉDAGOGIQUE</span>
-
-            <h3>Assistant informatique</h3>
-
-            <p><strong>Domaine :</strong> Informatique</p>
-
-            <p><strong>Localisation :</strong> Porto-Novo, Bénin</p>
-
-            <p>
-                <strong>Profil :</strong>
-                Connaissances en bureautique, organisation
-                et assistance aux utilisateurs.
-            </p>
-
-            <p>
-                <strong>Publication :</strong>
-                Annonce fictive destinée à l'apprentissage.
-            </p>
-
-            <a
-                class="apply"
-                href="mailto:contact@exemple.invalid?subject=Demande%20de%20renseignements"
-            >
-                Exemple de contact
-            </a>
-        </article>
-
-        <article class="job-card">
-            <span class="tag">EXEMPLE PÉDAGOGIQUE</span>
-
-            <h3>Stagiaire en communication</h3>
-
-            <p><strong>Domaine :</strong> Communication numérique</p>
-
-            <p><strong>Localisation :</strong> Abomey-Calavi, Bénin</p>
-
-            <p>
-                <strong>Profil :</strong>
-                Intérêt pour la rédaction web, les réseaux sociaux
-                et la création de contenu.
-            </p>
-
-            <p>
-                <strong>Publication :</strong>
-                Annonce fictive destinée à l'apprentissage.
-            </p>
-
-            <a
-                class="apply"
-                href="mailto:contact@exemple.invalid?subject=Demande%20de%20renseignements"
-            >
-                Exemple de contact
-            </a>
-        </article>
-
-    </section>
-
-    <p class="empty" id="aucun-resultat">
-        Aucune opportunité ne correspond à ta recherche.
-        Essaie un autre mot-clé.
-    </p>
+    <section class="job-list" id="liste-offres"></section>
 
 </main>
 
@@ -416,91 +274,225 @@
     <p>Informer les jeunes, ouvrir de nouvelles possibilités.</p>
 </footer>
 
-<script>
-    const recherche = document.getElementById("recherche");
-    const offres = document.querySelectorAll(".job-card");
-    const compteur = document.getElementById("compteur");
-    const aucunResultat = document.getElementById("aucun-resultat");
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    function rechercherOffres() {
-        const mot = recherche.value
+<script>
+    const SUPABASE_URL =
+        "https://fhqppofwnoxiexnxivfx.supabase.co";
+
+    const SUPABASE_KEY =
+        "sb_publishable_U2NwuXutHMG_F8Ee8sEuIg_mMBJ3TY0";
+
+    const client = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+    const recherche = document.getElementById("recherche");
+    const liste = document.getElementById("liste-offres");
+    const compteur = document.getElementById("compteur");
+    const message = document.getElementById("message");
+
+    let toutesLesOffres = [];
+
+    function normaliser(texte) {
+        return String(texte || "")
             .toLowerCase()
             .normalize("NFD")
             .replace(/[\u0300-\u036f]/g, "");
+    }
 
-        let nombre = 0;
+    function ajouterTexte(parent, balise, texte, classe = "") {
+        const element = document.createElement(balise);
+        element.textContent = texte || "";
 
-        offres.forEach(function(offre) {
-            const contenu = offre.textContent
-                .toLowerCase()
-                .normalize("NFD")
-                .replace(/[\u0300-\u036f]/g, "");
+        if (classe) {
+            element.className = classe;
+        }
 
-            const correspond = contenu.includes(mot);
+        parent.appendChild(element);
+        return element;
+    }
 
-            offre.style.display = correspond ? "block" : "none";
+    function ajouterLien(parent, url, texte, classe = "apply") {
+        if (!url) return;
 
-            if (correspond) {
-                nombre++;
+        try {
+            const adresse = new URL(url);
+
+            if (!["https:", "http:", "mailto:"].includes(adresse.protocol)) {
+                return;
             }
+
+            const lien = document.createElement("a");
+            lien.href = adresse.href;
+            lien.textContent = texte;
+            lien.className = classe;
+
+            if (adresse.protocol === "https:" ||
+                adresse.protocol === "http:") {
+                lien.target = "_blank";
+                lien.rel = "noopener noreferrer";
+            }
+
+            parent.appendChild(lien);
+        } catch (e) {
+            // Ne pas afficher de lien invalide.
+        }
+    }
+
+    function creerCarte(offre) {
+        const carte = document.createElement("article");
+        carte.className = "job-card";
+
+        const categorie = String(offre.type || "emploi");
+
+        ajouterTexte(
+            carte,
+            "span",
+            categorie === "stage" ? "STAGE" : "EMPLOI",
+            "tag"
+        );
+
+        ajouterTexte(carte, "h3", offre.titre || "Sans titre");
+
+        if (offre.organisme) {
+            ajouterTexte(
+                carte,
+                "p",
+                "Organisme : " + offre.organisme
+            );
+        }
+
+        if (offre.domaine) {
+            ajouterTexte(
+                carte,
+                "p",
+                "Domaine : " + offre.domaine
+            );
+        }
+
+        if (offre.lieu) {
+            ajouterTexte(
+                carte,
+                "p",
+                "Localisation : " + offre.lieu
+            );
+        }
+
+        if (offre.description) {
+            ajouterTexte(
+                carte,
+                "p",
+                "Description : " + offre.description,
+                "description"
+            );
+        }
+
+        if (offre.date_limite) {
+            ajouterTexte(
+                carte,
+                "p",
+                "Date limite : " + offre.date_limite
+            );
+        }
+
+        if (offre.document_url) {
+            ajouterLien(
+                carte,
+                offre.document_url,
+                "📄 Consulter le document PDF",
+                "document-link"
+            );
+        }
+
+        if (offre.lien_candidature) {
+            ajouterLien(
+                carte,
+                offre.lien_candidature,
+                "Consulter l'offre / Postuler"
+            );
+        }
+
+        return carte;
+    }
+
+    function afficherOffres() {
+        const mot = normaliser(recherche.value);
+
+        const resultats = toutesLesOffres.filter(function(offre) {
+            const contenu = normaliser([
+                offre.titre,
+                offre.type,
+                offre.organisme,
+                offre.domaine,
+                offre.lieu,
+                offre.description
+            ].join(" "));
+
+            return contenu.includes(mot);
+        });
+
+        liste.replaceChildren();
+
+        resultats.forEach(function(offre) {
+            liste.appendChild(creerCarte(offre));
         });
 
         compteur.textContent =
-            nombre + (nombre > 1
+            resultats.length +
+            (resultats.length > 1
                 ? " opportunités trouvées"
                 : " opportunité trouvée");
 
-        aucunResultat.style.display =
-            nombre === 0 ? "block" : "none";
+        if (resultats.length === 0) {
+            message.hidden = false;
+            message.className = "notice";
+            message.textContent = toutesLesOffres.length === 0
+                ? "Aucune offre d'emploi ou de stage n'est actuellement publiée. Reviens bientôt !"
+                : "Aucune offre ne correspond à ta recherche.";
+        } else {
+            message.hidden = true;
+        }
     }
 
-    recherche.addEventListener("input", rechercherOffres);
-</script>
-```
-<script>
-    const formulaire = document.getElementById("formulaire-offre");
+    async function chargerOffres() {
+        message.hidden = false;
+        message.className = "notice";
+        message.textContent = "Chargement des offres...";
+        compteur.textContent = "Chargement...";
 
-    formulaire.addEventListener("submit", function(e) {
-        e.preventDefault();
+        const { data, error } = await client
+            .from("offres")
+            .select("*")
+            .eq("publie", true)
+            .in("type", ["emploi", "stage"])
+            .order("created_at", { ascending: false });
 
-        const titre = document.getElementById("titre").value.trim();
-        const domaine = document.getElementById("domaine").value.trim();
-        const lieu = document.getElementById("lieu").value.trim();
-        const dateLimite = document.getElementById("date-limite").value;
+        if (error) {
+            console.error("Erreur Supabase :", error);
 
-        if (!titre || !domaine || !lieu || !dateLimite) {
-            alert("Veuillez remplir tous les champs.");
+            toutesLesOffres = [];
+            liste.replaceChildren();
+
+            compteur.textContent = "Chargement impossible";
+            message.hidden = false;
+            message.className = "notice error";
+            message.textContent =
+                "Impossible de charger les offres pour le moment. " +
+                "La configuration de la base de données doit être vérifiée.";
+
             return;
         }
 
-        const offre = document.createElement("article");
-        offre.className = "job-card";
+        toutesLesOffres = data || [];
+        afficherOffres();
+    }
 
-        const titreElement = document.createElement("h3");
-        titreElement.textContent = titre;
+    recherche.addEventListener("input", afficherOffres);
 
-        const domaineElement = document.createElement("p");
-        domaineElement.textContent = "Domaine : " + domaine;
-
-        const lieuElement = document.createElement("p");
-        lieuElement.textContent = "Localisation : " + lieu;
-
-        const dateElement = document.createElement("p");
-        dateElement.textContent = "Date limite : " + dateLimite;
-
-        offre.append(
-            titreElement,
-            domaineElement,
-            lieuElement,
-            dateElement
-        );
-
-        document.getElementById("liste-offres").prepend(offre);
-
-        formulaire.reset();
-
-        alert("L'offre a été ajoutée à la page !");
-    });
+    chargerOffres();
 </script>
+
 </body>
 </html>
