@@ -3,244 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Découvrez des offres de formation, des formations professionnelles et des opportunités pour les jeunes en Afrique.">
+  <meta name="description" content="Découvrez les formations, cours et programmes de renforcement des compétences sur Cap Avenir Afrique.">
   <title>Formations | Cap Avenir Afrique</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f7fb;
-      color: #243247;
-      line-height: 1.6;
-    }
-
-    header {
-      background: #087443;
-      color: white;
-      padding: 22px 16px;
-      text-align: center;
-    }
-
-    header h1 {
-      font-size: 30px;
-      margin-bottom: 5px;
-    }
-
-    nav {
-      background: #075b36;
-      padding: 13px;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
-    }
-
-    .hero {
-      background: linear-gradient(135deg, #087443, #16a36a);
-      color: white;
-      text-align: center;
-      padding: 45px 20px;
-    }
-
-    .hero h2 {
-      font-size: 30px;
-      margin-bottom: 10px;
-    }
-
-    .hero p {
-      max-width: 700px;
-      margin: auto;
-    }
-
-    .container {
-      width: 92%;
-      max-width: 1100px;
-      margin: 30px auto;
-    }
-
-    .search-box {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 3px 12px #0000000d;
-      margin-bottom: 25px;
-    }
-
-    .search-box h3 {
-      margin-bottom: 15px;
-    }
-
-    .filters {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 12px;
-    }
-
-    input {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #ccd5df;
-      border-radius: 7px;
-      font-size: 15px;
-    }
-
-    .section-title {
-      margin-bottom: 18px;
-      color: #087443;
-    }
-
-    #resultats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      background: white;
-      padding: 22px;
-      border-radius: 12px;
-      box-shadow: 0 3px 12px #0000000d;
-      border-top: 4px solid #087443;
-      overflow-wrap: anywhere;
-    }
-
-    .card h3 {
-      color: #087443;
-      margin-bottom: 10px;
-    }
-
-    .card p {
-      margin: 8px 0;
-    }
-
-    .badge {
-      display: inline-block;
-      background: #e0f5e9;
-      color: #087443;
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: bold;
-      margin-bottom: 12px;
-    }
-
-    .btn {
-      display: inline-block;
-      background: #087443;
-      color: white;
-      text-decoration: none;
-      padding: 10px 15px;
-      border-radius: 7px;
-      margin: 12px 7px 0 0;
-      font-weight: bold;
-    }
-
-    .btn:hover {
-      background: #075b36;
-    }
-
-    .message {
-      background: white;
-      border-radius: 10px;
-      padding: 20px;
-      text-align: center;
-      grid-column: 1 / -1;
-    }
-
-    footer {
-      background: #16352a;
-      color: white;
-      text-align: center;
-      padding: 22px 12px;
-      margin-top: 45px;
-    }
-
-    footer a {
-      color: #b7f4d1;
-    }
-
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 24px;
-      }
-
-      .hero h2 {
-        font-size: 24px;
-      }
-
-      nav {
-        gap: 12px;
-      }
-    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#263238;line-height:1.6}
+    header{background:#075e54;color:white;padding:25px 16px;text-align:center}
+    header h1{margin:0;font-size:30px}
+    header p{margin:8px 0 0}
+    nav{background:#064b43;padding:13px;text-align:center}
+    nav a{color:white;text-decoration:none;margin:0 12px;font-weight:bold}
+    main{max-width:1050px;margin:28px auto;padding:0 16px}
+    .intro,.filters,.card{background:white;border-radius:12px;padding:20px;margin-bottom:20px;box-shadow:0 3px 12px #0000000d}
+    .filters{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}
+    input{width:100%;padding:12px;border:1px solid #ccd5df;border-radius:8px;font-size:16px}
+    .card h2{margin-top:0;color:#075e54}
+    .meta{color:#52616b;font-size:14px}
+    .description{white-space:pre-wrap}
+    .button{display:inline-block;background:#087f5b;color:white;padding:10px 16px;border-radius:7px;text-decoration:none;margin:8px 8px 0 0;font-weight:bold}
+    .button:hover{background:#056746}
+    .secondary{background:#2457a6}
+    .message{text-align:center;padding:25px;background:white;border-radius:10px}
+    footer{text-align:center;padding:25px;background:#e6edf2;margin-top:35px}
+    @media(max-width:650px){.filters{grid-template-columns:1fr}nav a{display:inline-block;margin:5px 8px}header h1{font-size:25px}}
   </style>
 </head>
 
 <body>
   <header>
-    <h1>Cap Avenir Afrique</h1>
-    <p>Des opportunités pour construire ton avenir</p>
+    <h1>📚 Formations</h1>
+    <p>Développez vos compétences et préparez votre avenir</p>
   </header>
 
   <nav>
     <a href="index.html">Accueil</a>
-    <a href="emplois.html">Emplois & stages</a>
+    <a href="emplois.html">Emplois et stages</a>
     <a href="bourses.html">Bourses</a>
     <a href="formation.html">Formations</a>
   </nav>
 
-  <section class="hero">
-    <h2>Développe tes compétences !</h2>
-    <p>
-      Découvre des formations professionnelles, des formations gratuites
-      et des opportunités pour améliorer tes compétences et préparer ton avenir.
-    </p>
-  </section>
-
-  <main class="container">
-    <section class="search-box">
-      <h3>🔎 Rechercher une formation</h3>
-
-      <div class="filters">
-        <input
-          type="search"
-          id="recherche"
-          placeholder="Titre ou mot-clé..."
-          aria-label="Rechercher par titre ou mot-clé"
-        >
-
-        <input
-          type="search"
-          id="domaine"
-          placeholder="Domaine de formation..."
-          aria-label="Filtrer par domaine"
-        >
-
-        <input
-          type="search"
-          id="lieu"
-          placeholder="Pays ou ville..."
-          aria-label="Filtrer par lieu"
-        >
-      </div>
+  <main>
+    <section class="intro">
+      <h2>Trouvez une formation adaptée à vos objectifs</h2>
+      <p>Explorez les formations publiées sur Cap Avenir Afrique. Consultez les conditions d'admission, les modalités et les dates limites auprès des organismes concernés.</p>
     </section>
 
-    <h2 class="section-title">Les formations disponibles</h2>
+    <section class="filters">
+      <input id="recherche" type="search" placeholder="Mot-clé ou organisme">
+      <input id="domaine" type="search" placeholder="Domaine">
+      <input id="lieu" type="search" placeholder="Pays ou lieu">
+    </section>
 
     <section id="resultats" aria-live="polite">
       <div class="message">Chargement des formations...</div>
@@ -248,128 +61,85 @@
   </main>
 
   <footer>
-    <p>© <span id="annee"></span> Cap Avenir Afrique — Tous droits réservés.</p>
-    <p>Des opportunités pour la jeunesse africaine.</p>
+    <p>© <span id="annee"></span> Cap Avenir Afrique — Informer, orienter et inspirer.</p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
   <script>
     const SUPABASE_URL = "https://fhqppofwnoxiexnxivfx.supabase.co";
     const SUPABASE_KEY = "sb_publishable_U2NwuXutHMG_F8Ee8sEuIg_mMBJ3TY0";
-
-    const supabaseClient = window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_KEY
-    );
+    const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     const resultats = document.getElementById("resultats");
     const recherche = document.getElementById("recherche");
     const domaine = document.getElementById("domaine");
     const lieu = document.getElementById("lieu");
-
     let formations = [];
 
-    document.getElementById("annee").textContent =
-      new Date().getFullYear();
+    document.getElementById("annee").textContent = new Date().getFullYear();
 
-    function echapper(texte) {
-      return String(texte ?? "").replace(/[&<>"']/g, function(caractere) {
-        return {
-          "&": "&amp;",
-          "<": "&lt;",
-          ">": "&gt;",
-          '"': "&quot;",
-          "'": "&#039;"
-        }[caractere];
-      });
+    function echapper(valeur) {
+      return String(valeur ?? "").replace(/[&<>"']/g, c => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[c]);
     }
 
-    function lienSecurise(url) {
-      if (!url) return "";
-
+    function lienValide(url) {
       try {
         const adresse = new URL(url);
-
-        if (adresse.protocol === "https:" || adresse.protocol === "http:") {
-          return adresse.href;
-        }
-      } catch (erreur) {
+        return ["https:", "http:"].includes(adresse.protocol) ? adresse.href : "";
+      } catch {
         return "";
       }
-
-      return "";
     }
 
     function afficherFormations() {
-      const motCle = recherche.value.trim().toLowerCase();
-      const domaineChoisi = domaine.value.trim().toLowerCase();
-      const lieuChoisi = lieu.value.trim().toLowerCase();
+      const mot = recherche.value.trim().toLowerCase();
+      const dom = domaine.value.trim().toLowerCase();
+      const endroit = lieu.value.trim().toLowerCase();
 
-      const filtrees = formations.filter(function(formation) {
-        const texte = [
-          formation.titre,
-          formation.organisme,
-          formation.description
+      const filtrees = formations.filter(f => {
+        const contenu = [
+          f.titre, f.organisme, f.domaine, f.description
         ].join(" ").toLowerCase();
 
-        const domaineFormation =
-          String(formation.domaine ?? "").toLowerCase();
-
-        const lieuFormation =
-          String(formation.lieu ?? "").toLowerCase();
-
-        return (
-          texte.includes(motCle) &&
-          domaineFormation.includes(domaineChoisi) &&
-          lieuFormation.includes(lieuChoisi)
-        );
+        return contenu.includes(mot)
+          && String(f.domaine || "").toLowerCase().includes(dom)
+          && String(f.lieu || "").toLowerCase().includes(endroit);
       });
 
-      if (filtrees.length === 0) {
-        resultats.innerHTML =
-          '<div class="message">Aucune formation ne correspond à ta recherche pour le moment.</div>';
+      if (!filtrees.length) {
+        resultats.innerHTML = '<div class="message">Aucune formation ne correspond à votre recherche pour le moment.</div>';
         return;
       }
 
-      resultats.innerHTML = filtrees.map(function(formation) {
-        const lienCandidature = lienSecurise(formation.lien_candidature);
-        const lienDocument = lienSecurise(formation.document_url);
-
-        let boutons = "";
-
-        if (lienCandidature) {
-          boutons +=
-            '<a class="btn" href="' + echapper(lienCandidature) +
-            '" target="_blank" rel="noopener noreferrer">Candidater</a>';
-        }
-
-        if (lienDocument) {
-          boutons +=
-            '<a class="btn" href="' + echapper(lienDocument) +
-            '" target="_blank" rel="noopener noreferrer">Voir le document</a>';
-        }
+      resultats.innerHTML = filtrees.map(f => {
+        const candidature = lienValide(f.lien_candidature);
+        const documentUrl = lienValide(f.document_url);
 
         return `
           <article class="card">
-            <span class="badge">Formation</span>
-            <h3>${echapper(formation.titre || "Formation")}</h3>
-            <p><strong>Organisme :</strong> ${echapper(formation.organisme || "Non précisé")}</p>
-            <p><strong>Domaine :</strong> ${echapper(formation.domaine || "Non précisé")}</p>
-            <p><strong>Lieu :</strong> ${echapper(formation.lieu || "Non précisé")}</p>
-            <p><strong>Description :</strong><br>${echapper(formation.description || "Aucune description disponible.")}</p>
-            <p><strong>Date limite :</strong> ${echapper(formation.date_limite || "Non précisée")}</p>
-            ${boutons}
+            <h2>${echapper(f.titre)}</h2>
+            <p class="meta">
+              <strong>Organisme :</strong> ${echapper(f.organisme || "Non précisé")}<br>
+              <strong>Domaine :</strong> ${echapper(f.domaine || "Non précisé")}<br>
+              <strong>Lieu :</strong> ${echapper(f.lieu || "Non précisé")}<br>
+              <strong>Date limite :</strong> ${echapper(f.date_limite || "À vérifier")}
+            </p>
+            <p class="description">${echapper(f.description || "Consultez le lien officiel pour plus d'informations.")}</p>
+            ${candidature ? `<a class="button" href="${echapper(candidature)}" target="_blank" rel="noopener noreferrer">Consulter / s'inscrire</a>` : ""}
+            ${documentUrl ? `<a class="button secondary" href="${echapper(documentUrl)}" target="_blank" rel="noopener noreferrer">Voir le document</a>` : ""}
           </article>
         `;
       }).join("");
     }
 
     async function chargerFormations() {
-      resultats.innerHTML =
-        '<div class="message">Chargement des formations...</div>';
-
-      const { data, error } = await supabaseClient
+      const { data, error } = await client
         .from("offres")
         .select("*")
         .eq("publie", true)
@@ -378,8 +148,7 @@
 
       if (error) {
         console.error("Erreur Supabase :", error);
-        resultats.innerHTML =
-          '<div class="message">Impossible de charger les formations. Vérifie la connexion à la base de données et les autorisations Supabase.</div>';
+        resultats.innerHTML = '<div class="message">Impossible de charger les formations. Veuillez réessayer plus tard.</div>';
         return;
       }
 
