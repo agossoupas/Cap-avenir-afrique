@@ -119,8 +119,16 @@
                 <label for="date_limite">Date limite de candidature</label>
                 <input type="date" id="date_limite">
 
-                <label for="lien">Lien de candidature</label>
-                <input type="url" id="lien" placeholder="https://...">
+                <label for="document">Joindre un document PDF (facultatif)</label>
+<input
+    type="file"
+    id="document"
+    accept=".pdf,application/pdf"
+>
+<p class="hint">
+    Tu peux joindre un avis de recrutement, un communiqué,
+    un formulaire ou tout autre document PDF utile.
+</p>
 
                 <label for="publie">
                     <input type="checkbox" id="publie" style="width:auto;">
