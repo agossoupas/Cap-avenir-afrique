@@ -1,290 +1,580 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Cap Avenir Afrique : découvre des offres d'emploi, des stages, des bourses d'études et des formations pour construire ton avenir.">
+  <meta name="theme-color" content="#087443">
+  <title>Cap Avenir Afrique | Emplois, bourses et formations</title>
 
-    <title>Cap Avenir Afrique | Opportunités pour les jeunes</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    <meta name="description" content="Découvre des offres d'emploi, des bourses d'études, des stages et des formations pour construire ton avenir en Afrique et à l'international.">
+    :root {
+      --vert: #087443;
+      --vert-fonce: #064b2e;
+      --fond: #f4f7f5;
+      --texte: #243247;
+      --blanc: #ffffff;
+    }
 
-    <meta name="theme-color" content="#064e3b">
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--texte);
+      background: var(--fond);
+      line-height: 1.6;
+    }
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    a {
+      color: inherit;
+    }
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f7fa;
-            color: #263238;
-            line-height: 1.6;
-        }
+    header {
+      background: var(--blanc);
+      padding: 16px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      box-shadow: 0 2px 10px #0000000b;
+    }
 
-        header {
-            background: #064e3b;
-            color: white;
-            padding: 20px 8%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
+    .logo {
+      color: var(--vert);
+      font-size: 23px;
+      font-weight: bold;
+      text-decoration: none;
+    }
 
-        header h1 {
-            font-size: 24px;
-        }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      align-items: center;
+    }
 
-        nav {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 18px;
-        }
+    nav a {
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+    }
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
+    nav a:hover {
+      color: var(--vert);
+    }
 
-        nav a:hover {
-            color: #facc15;
-        }
+    .hero {
+      background: linear-gradient(135deg, #064b2e, #0b9658);
+      color: white;
+      text-align: center;
+      padding: 75px 20px;
+    }
 
-        .hero {
-            text-align: center;
-            padding: 85px 20px;
-            background: linear-gradient(135deg, #065f46, #10b981);
-            color: white;
-        }
+    .hero h1 {
+      font-size: clamp(30px, 5vw, 46px);
+      line-height: 1.2;
+      max-width: 850px;
+      margin: 0 auto 20px;
+    }
 
-        .hero h2 {
-            font-size: 38px;
-            margin-bottom: 15px;
-        }
+    .hero p {
+      max-width: 720px;
+      margin: 0 auto 28px;
+      font-size: 18px;
+    }
 
-        .hero p {
-            max-width: 650px;
-            margin: 0 auto 25px;
-            font-size: 18px;
-        }
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
 
-        .btn {
-            display: inline-block;
-            background: #facc15;
-            color: #263238;
-            padding: 12px 24px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: bold;
-        }
+    .button {
+      display: inline-block;
+      padding: 12px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: transform 0.2s, background 0.2s;
+    }
 
-        .btn:hover {
-            background: #fde68a;
-        }
+    .button:hover {
+      transform: translateY(-2px);
+    }
 
-        .opportunities {
-            padding: 55px 8%;
-            text-align: center;
-        }
+    .button-white {
+      background: white;
+      color: var(--vert-fonce);
+    }
 
-        .opportunities h2 {
-            font-size: 30px;
-            margin-bottom: 30px;
-        }
+    .button-outline {
+      border: 1px solid white;
+      color: white;
+    }
 
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 22px;
-        }
+    .container {
+      width: 92%;
+      max-width: 1150px;
+      margin: 45px auto;
+    }
 
-        .card {
-            background: white;
-            padding: 28px 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
-            transition: transform 0.2s;
-        }
+    .section-heading {
+      text-align: center;
+      margin-bottom: 28px;
+    }
 
-        .card:hover {
-            transform: translateY(-5px);
-        }
+    .section-heading h2 {
+      font-size: 29px;
+      color: var(--vert-fonce);
+      margin-bottom: 8px;
+    }
 
-        .icon {
-            font-size: 38px;
-        }
+    .section-heading p {
+      color: #657386;
+    }
 
-        .card h3 {
-            margin: 12px 0;
-            color: #047857;
-        }
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
 
-        .card p {
-            margin-bottom: 18px;
-        }
+    .category {
+      background: white;
+      padding: 26px 22px;
+      border-radius: 12px;
+      border: 1px solid #e5ebe7;
+      box-shadow: 0 4px 14px #00000008;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
 
-        .card a {
-            display: inline-block;
-            color: #047857;
-            font-weight: bold;
-            text-decoration: none;
-        }
+    .category:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px #00000010;
+    }
 
-        .card a:hover {
-            text-decoration: underline;
-        }
+    .category-icon {
+      font-size: 35px;
+      display: block;
+      margin-bottom: 12px;
+    }
 
-        .about {
-            padding: 45px 8%;
-            background: #e8f5ee;
-            text-align: center;
-        }
+    .category h3 {
+      color: var(--vert);
+      margin-bottom: 8px;
+      font-size: 20px;
+    }
 
-        .about h2 {
-            color: #065f46;
-            margin-bottom: 15px;
-        }
+    .category p {
+      color: #657386;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
 
-        .about p {
-            max-width: 800px;
-            margin: auto;
-        }
+    .category-link {
+      color: var(--vert);
+      font-weight: bold;
+      font-size: 14px;
+    }
 
-        footer {
-            background: #064e3b;
-            color: white;
-            text-align: center;
-            padding: 25px 15px;
-        }
+    .latest-section {
+      background: #eaf3ed;
+      padding: 45px 0;
+    }
 
-        footer a {
-            color: #facc15;
-            text-decoration: none;
-        }
+    .latest-section .container {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
 
-        @media (max-width: 600px) {
-            header {
-                justify-content: center;
-                text-align: center;
-            }
+    #dernieresOffres {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
 
-            nav {
-                justify-content: center;
-                gap: 12px;
-            }
+    .offer-card {
+      background: white;
+      padding: 22px;
+      border-radius: 10px;
+      border: 1px solid #e1e9e3;
+      overflow-wrap: anywhere;
+    }
 
-            .hero h2 {
-                font-size: 29px;
-            }
+    .offer-card h3 {
+      color: var(--vert-fonce);
+      margin-bottom: 10px;
+    }
 
-            .hero {
-                padding: 60px 20px;
-            }
+    .offer-card p {
+      margin: 6px 0;
+      font-size: 14px;
+    }
 
-            .opportunities {
-                padding: 40px 6%;
-            }
-        }
-    </style>
+    .badge {
+      display: inline-block;
+      background: #dff5e7;
+      color: #075b36;
+      border-radius: 20px;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .offer-link {
+      display: inline-block;
+      margin-top: 12px;
+      color: var(--vert);
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .offer-link:hover {
+      text-decoration: underline;
+    }
+
+    .message {
+      background: white;
+      padding: 22px;
+      text-align: center;
+      border-radius: 10px;
+      grid-column: 1 / -1;
+    }
+
+    .about {
+      text-align: center;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .about h2 {
+      color: var(--vert-fonce);
+      font-size: 28px;
+      margin-bottom: 15px;
+    }
+
+    .about p {
+      color: #536276;
+      margin-bottom: 15px;
+    }
+
+    .about .button {
+      background: var(--vert);
+      color: white;
+      margin-top: 10px;
+    }
+
+    footer {
+      background: #16352a;
+      color: white;
+      padding: 32px 5% 20px;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin: 15px 0;
+    }
+
+    .footer-links a {
+      color: #c8f4d9;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    footer p {
+      font-size: 13px;
+      color: #d9e6df;
+    }
+
+    @media (max-width: 650px) {
+      header {
+        justify-content: center;
+        text-align: center;
+      }
+
+      nav {
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .hero {
+        padding: 55px 18px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .section-heading h2 {
+        font-size: 25px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<header>
-    <h1>🌍 Cap Avenir Afrique</h1>
+  <header>
+    <a class="logo" href="index.html">Cap Avenir Afrique</a>
 
     <nav aria-label="Navigation principale">
-        <a href="index.html">Accueil</a>
-        <a href="emplois.html">Emplois</a>
-        <a href="bourses.html">Bourses</a>
-        <a href="formation.html">Formations</a>
+      <a href="index.html">Accueil</a>
+      <a href="emplois.html">Emplois & stages</a>
+      <a href="bourses.html">Bourses</a>
+      <a href="formation.html">Formations</a>
     </nav>
-</header>
+  </header>
 
-<main>
-    <section class="hero" id="accueil">
-        <h2>Construis ton avenir dès aujourd'hui !</h2>
+  <main>
 
-        <p>
-            Découvre des bourses d'études, des offres d'emploi,
-            des stages et des formations pour réaliser tes ambitions.
-        </p>
+    <section class="hero">
+      <h1>Construis ton avenir dès aujourd'hui !</h1>
 
-        <a href="#opportunites" class="btn">
-            Explorer les opportunités
+      <p>
+        Trouve des opportunités d'emploi, des stages, des bourses d'études
+        et des formations pour développer ton potentiel et réaliser tes ambitions.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="emplois.html" class="button button-white">
+          Découvrir les emplois
         </a>
+
+        <a href="bourses.html" class="button button-outline">
+          Explorer les bourses
+        </a>
+      </div>
     </section>
 
-    <section class="opportunities" id="opportunites">
-        <h2>Que recherches-tu ?</h2>
+    <section class="container">
+      <div class="section-heading">
+        <h2>Explore nos opportunités</h2>
+        <p>Choisis la catégorie qui correspond à ton projet.</p>
+      </div>
 
-        <div class="cards">
+      <div class="categories">
 
-            <article class="card">
-                <div class="icon" aria-hidden="true">🎓</div>
-                <h3>Bourses d'études</h3>
-                <p>
-                    Découvre des possibilités de financement
-                    pour poursuivre tes études.
-                </p>
-                <a href="bourses.html">Découvrir les bourses →</a>
-            </article>
+        <a href="emplois.html" class="category">
+          <span class="category-icon" aria-hidden="true">💼</span>
+          <h3>Emplois et stages</h3>
+          <p>
+            Découvre des offres d'emploi, des stages professionnels
+            et des possibilités de développer ton expérience.
+          </p>
+          <span class="category-link">Voir les offres →</span>
+        </a>
 
-            <article class="card">
-                <div class="icon" aria-hidden="true">💼</div>
-                <h3>Emplois et stages</h3>
-                <p>
-                    Explore des opportunités professionnelles
-                    au Bénin et dans d'autres pays.
-                </p>
-                <a href="emplois.html">Voir les offres →</a>
-            </article>
+        <a href="bourses.html" class="category">
+          <span class="category-icon" aria-hidden="true">🎓</span>
+          <h3>Bourses d'études</h3>
+          <p>
+            Explore les possibilités de financement des études
+            et les programmes de bourses accessibles aux étudiants.
+          </p>
+          <span class="category-link">Découvrir les bourses →</span>
+        </a>
 
-            <article class="card">
-                <div class="icon" aria-hidden="true">📚</div>
-                <h3>Formations</h3>
-                <p>
-                    Développe tes compétences grâce à des
-                    formations accessibles et utiles.
-                </p>
-                <a href="formation.html">Explorer les formations →</a>
-            </article>
+        <a href="formation.html" class="category">
+          <span class="category-icon" aria-hidden="true">📚</span>
+          <h3>Formations</h3>
+          <p>
+            Développe tes compétences grâce aux formations professionnelles,
+            aux cours et aux programmes d'apprentissage.
+          </p>
+          <span class="category-link">Trouver une formation →</span>
+        </a>
 
-            <article class="card">
-                <div class="icon" aria-hidden="true">🌍</div>
-                <h3>Opportunités internationales</h3>
-                <p>
-                    Prépare tes projets d'études, de formation
-                    et de mobilité internationale.
-                </p>
-                <a href="bourses.html">Commencer mes recherches →</a>
-            </article>
+        <a href="bourses.html" class="category">
+          <span class="category-icon" aria-hidden="true">🌍</span>
+          <h3>Opportunités internationales</h3>
+          <p>
+            Recherche des possibilités d'études, de formation
+            et de développement professionnel à l'international.
+          </p>
+          <span class="category-link">Explorer les opportunités →</span>
+        </a>
 
+      </div>
+    </section>
+
+    <section class="latest-section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Les dernières opportunités</h2>
+          <p>Retrouve ici les offres publiées sur notre plateforme.</p>
         </div>
+
+        <div id="dernieresOffres" aria-live="polite">
+          <div class="message">Chargement des opportunités...</div>
+        </div>
+      </div>
     </section>
 
-    <section class="about">
-        <h2>À propos de Cap Avenir Afrique</h2>
+    <section class="container">
+      <div class="about">
+        <h2>Pourquoi Cap Avenir Afrique ?</h2>
 
         <p>
-            Cap Avenir Afrique a pour ambition de faciliter l'accès
-            des jeunes Africains aux opportunités d'études,
-            d'emploi, de formation et de développement professionnel.
-            Notre objectif est de t'aider à trouver les informations
-            utiles pour construire ton avenir.
+          Notre objectif est de faciliter l'accès aux opportunités
+          éducatives et professionnelles pour les jeunes en Afrique.
         </p>
-    </section>
-</main>
 
-<footer id="contact">
-    <p>© 2026 Cap Avenir Afrique — Les opportunités pour tous.</p>
-    <p>Contact : consulte notre blog pour retrouver nos informations.</p>
-</footer>
+        <p>
+          Nous souhaitons t'aider à découvrir des offres utiles,
+          à préparer tes candidatures et à avancer dans ton projet d'avenir.
+          Pense toujours à vérifier les conditions et les dates limites
+          auprès de l'organisme qui propose chaque opportunité.
+        </p>
+
+        <a href="emplois.html" class="button">
+          Commencer ma recherche
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <strong>Cap Avenir Afrique</strong>
+
+    <div class="footer-links">
+      <a href="index.html">Accueil</a>
+      <a href="emplois.html">Emplois & stages</a>
+      <a href="bourses.html">Bourses</a>
+      <a href="formation.html">Formations</a>
+    </div>
+
+    <p>© <span id="annee"></span> Cap Avenir Afrique. Tous droits réservés.</p>
+    <p>Les opportunités pour construire ton avenir.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    const SUPABASE_URL = "https://fhqppofwnoxiexnxivfx.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_U2NwuXutHMG_F8Ee8sEuIg_mMBJ3TY0";
+
+    const affichage = document.getElementById("dernieresOffres");
+
+    document.getElementById("annee").textContent =
+      new Date().getFullYear();
+
+    function echapper(valeur) {
+      return String(valeur ?? "").replace(/[&<>"']/g, function(caractere) {
+        return {
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#039;"
+        }[caractere];
+      });
+    }
+
+    function lienSecurise(valeur) {
+      if (!valeur) return "";
+
+      try {
+        const url = new URL(valeur);
+
+        if (url.protocol === "https:" || url.protocol === "http:") {
+          return url.href;
+        }
+      } catch (erreur) {
+        return "";
+      }
+
+      return "";
+    }
+
+    function nomType(type) {
+      const types = {
+        emploi: "Emploi",
+        stage: "Stage",
+        bourse: "Bourse",
+        formation: "Formation"
+      };
+
+      return types[type] || "Opportunité";
+    }
+
+    async function chargerDernieresOffres() {
+      if (!window.supabase) {
+        affichage.innerHTML =
+          '<div class="message">Le service de chargement est momentanément indisponible.</div>';
+        return;
+      }
+
+      const client = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+      );
+
+      const { data, error } = await client
+        .from("offres")
+        .select("*")
+        .eq("publie", true)
+        .order("created_at", { ascending: false })
+        .limit(6);
+
+      if (error) {
+        console.error("Erreur lors du chargement des opportunités :", error);
+
+        affichage.innerHTML =
+          '<div class="message">Les dernières opportunités ne sont pas disponibles pour le moment. Consulte les catégories ci-dessus.</div>';
+        return;
+      }
+
+      if (!data || data.length === 0) {
+        affichage.innerHTML =
+          '<div class="message">Les nouvelles opportunités seront affichées ici dès leur publication.</div>';
+        return;
+      }
+
+      affichage.innerHTML = data.map(function(offre) {
+        const lienCandidature = lienSecurise(offre.lien_candidature);
+        const lienDocument = lienSecurise(offre.document_url);
+
+        let bouton = "";
+
+        if (lienCandidature) {
+          bouton =
+            '<a class="offer-link" href="' + echapper(lienCandidature) +
+            '" target="_blank" rel="noopener noreferrer">Consulter l’offre →</a>';
+        } else if (lienDocument) {
+          bouton =
+            '<a class="offer-link" href="' + echapper(lienDocument) +
+            '" target="_blank" rel="noopener noreferrer">Voir le document →</a>';
+        }
+
+        return `
+          <article class="offer-card">
+            <span class="badge">${echapper(nomType(offre.type))}</span>
+            <h3>${echapper(offre.titre || "Opportunité")}</h3>
+            <p><strong>Organisme :</strong> ${echapper(offre.organisme || "Non précisé")}</p>
+            <p><strong>Domaine :</strong> ${echapper(offre.domaine || "Non précisé")}</p>
+            <p><strong>Lieu :</strong> ${echapper(offre.lieu || "Non précisé")}</p>
+            <p><strong>Date limite :</strong> ${echapper(offre.date_limite || "Non précisée")}</p>
+            ${bouton}
+          </article>
+        `;
+      }).join("");
+    }
+
+    chargerDernieresOffres();
+  </script>
 
 </body>
 </html>
