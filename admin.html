@@ -1,374 +1,889 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administration - Cap Avenir Afrique</title>
-    <style>
-        * { box-sizing: border-box; }
-        body {
-            font-family: Arial, sans-serif;
-            background: #f1f5f9;
-            color: #1e293b;
-            margin: 0;
-        }
-        header {
-            background: #123b63;
-            color: white;
-            padding: 25px 15px;
-            text-align: center;
-        }
-        main { max-width: 800px; margin: 30px auto; padding: 20px; }
-        .card {
-            background: white;
-            padding: 25px;
-            margin-bottom: 25px;
-            border-radius: 12px;
-            box-shadow: 0 3px 12px #00000010;
-        }
-        h2 { color: #123b63; }
-        input, select, textarea, button {
-            width: 100%;
-            padding: 12px;
-            margin-top: 8px;
-            margin-bottom: 15px;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            font-size: 15px;
-        }
-        textarea { min-height: 120px; resize: vertical; }
-        button {
-            background: #087f5b;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        button:hover { opacity: 0.9; }
-        .secondary { background: #123b63; }
-        .danger { background: #b91c1c; }
-        .hidden { display: none; }
-        .offre {
-            border: 1px solid #e2e8f0;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 8px;
-        }
-        .message {
-            padding: 12px;
-            margin-bottom: 15px;
-            border-radius: 6px;
-            overflow-wrap: anywhere;
-        }
-        .success { background: #dcfce7; color: #166534; }
-        .error { background: #fee2e2; color: #991b1b; }
-        label { font-weight: bold; }
-        .hint { font-size: 13px; color: #64748b; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Administration | Cap Avenir Afrique</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f5f9;
+      color: #243247;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #075b36;
+      color: white;
+      padding: 22px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin-bottom: 5px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 18px;
+      padding: 12px;
+      background: #06472b;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      width: 94%;
+      max-width: 1100px;
+      margin: 30px auto;
+    }
+
+    .panel {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      box-shadow: 0 3px 12px #0000000d;
+    }
+
+    h2 {
+      color: #087443;
+      margin-bottom: 18px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccd5df;
+      border-radius: 7px;
+      font: inherit;
+      background: white;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    input[type="checkbox"] {
+      width: auto;
+      margin-right: 8px;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      margin: 12px 0;
+    }
+
+    button {
+      border: none;
+      border-radius: 7px;
+      padding: 11px 16px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+      margin: 5px 5px 5px 0;
+    }
+
+    .primary {
+      background: #087443;
+      color: white;
+    }
+
+    .primary:hover {
+      background: #075b36;
+    }
+
+    .secondary {
+      background: #e5eaf0;
+      color: #243247;
+    }
+
+    .danger {
+      background: #c62828;
+      color: white;
+    }
+
+    .warning {
+      background: #f0ad32;
+      color: #242424;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .notice {
+      padding: 12px;
+      border-radius: 7px;
+      margin: 15px 0;
+      overflow-wrap: anywhere;
+    }
+
+    .success {
+      background: #dff5e7;
+      color: #075b36;
+    }
+
+    .error {
+      background: #fde8e7;
+      color: #9b1c1c;
+    }
+
+    .info {
+      background: #e5efff;
+      color: #174a8b;
+    }
+
+    .offer {
+      border: 1px solid #e0e6ed;
+      border-radius: 10px;
+      padding: 18px;
+      margin-bottom: 15px;
+      overflow-wrap: anywhere;
+    }
+
+    .offer h3 {
+      color: #087443;
+      margin-bottom: 8px;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 4px 9px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      margin: 7px 0;
+    }
+
+    .published {
+      background: #dff5e7;
+      color: #075b36;
+    }
+
+    .unpublished {
+      background: #fff0d1;
+      color: #805500;
+    }
+
+    .muted {
+      color: #617086;
+      font-size: 14px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #16352a;
+      color: white;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 650px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .full {
+        grid-column: auto;
+      }
+
+      .panel {
+        padding: 17px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<header>
+  <header>
     <h1>Cap Avenir Afrique</h1>
-    <p>Tableau de bord administrateur</p>
-</header>
+    <p>Panneau d'administration</p>
+  </header>
 
-<main>
-    <div id="message" role="status" aria-live="polite"></div>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="emplois.html">Emplois & stages</a>
+    <a href="bourses.html">Bourses</a>
+    <a href="formation.html">Formations</a>
+  </nav>
 
-    <section class="card" id="connexion">
-        <h2>Connexion administrateur</h2>
-        <form id="loginForm">
-            <label for="email">Adresse e-mail</label>
-            <input type="email" id="email" autocomplete="username" required>
+  <main class="container">
 
-            <label for="password">Mot de passe</label>
-            <input type="password" id="password" autocomplete="current-password" required>
+    <section id="connexion" class="panel">
+      <h2>Connexion administrateur</h2>
 
-            <button type="submit">Se connecter</button>
+      <p class="muted">
+        Connecte-toi avec un compte déjà créé dans Supabase Authentication.
+      </p>
+
+      <form id="connexionForm">
+        <div style="margin-bottom:15px;">
+          <label for="email">Adresse e-mail</label>
+          <input
+            type="email"
+            id="email"
+            autocomplete="username"
+            required
+          >
+        </div>
+
+        <div style="margin-bottom:15px;">
+          <label for="motdepasse">Mot de passe</label>
+          <input
+            type="password"
+            id="motdepasse"
+            autocomplete="current-password"
+            required
+          >
+        </div>
+
+        <button class="primary" type="submit" id="boutonConnexion">
+          Se connecter
+        </button>
+      </form>
+
+      <div id="messageConnexion" aria-live="polite"></div>
+    </section>
+
+    <section id="administration" class="hidden">
+
+      <section class="panel">
+        <h2>Gestion des offres</h2>
+
+        <p>
+          Compte connecté :
+          <strong id="compteConnecte"></strong>
+        </p>
+
+        <button type="button" class="secondary" id="actualiser">
+          Actualiser les offres
+        </button>
+
+        <button type="button" class="danger" id="deconnexion">
+          Se déconnecter
+        </button>
+
+        <div id="messageGeneral" aria-live="polite"></div>
+      </section>
+
+      <section class="panel">
+        <h2 id="titreFormulaire">Ajouter une offre</h2>
+
+        <p class="muted">
+          Les nouvelles offres ne seront pas publiées tant que tu ne coches
+          pas la case de publication.
+        </p>
+
+        <form id="offreForm">
+          <div class="form-grid">
+
+            <div>
+              <label for="titre">Titre de l'offre *</label>
+              <input id="titre" name="titre" maxlength="250" required>
+            </div>
+
+            <div>
+              <label for="type">Type d'offre *</label>
+              <select id="type" name="type" required>
+                <option value="emploi">Emploi</option>
+                <option value="stage">Stage</option>
+                <option value="bourse">Bourse</option>
+                <option value="formation">Formation</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="organisme">Organisme</label>
+              <input id="organisme" name="organisme" maxlength="250">
+            </div>
+
+            <div>
+              <label for="domaine">Domaine</label>
+              <input id="domaine" name="domaine" maxlength="250">
+            </div>
+
+            <div>
+              <label for="lieu">Lieu / Pays</label>
+              <input id="lieu" name="lieu" maxlength="250">
+            </div>
+
+            <div>
+              <label for="date_limite">Date limite</label>
+              <input id="date_limite" name="date_limite" type="date">
+            </div>
+
+            <div class="full">
+              <label for="lien_candidature">Lien de candidature</label>
+              <input
+                id="lien_candidature"
+                name="lien_candidature"
+                type="url"
+                placeholder="https://..."
+              >
+            </div>
+
+            <div class="full">
+              <label for="description">Description de l'offre</label>
+              <textarea
+                id="description"
+                name="description"
+                maxlength="20000"
+                placeholder="Présente les conditions, les critères et les modalités de candidature."
+              ></textarea>
+            </div>
+
+            <div class="full">
+              <label for="document">Document PDF (facultatif)</label>
+              <input
+                id="document"
+                name="document"
+                type="file"
+                accept=".pdf,application/pdf"
+              >
+              <p class="muted">
+                Si le stockage Supabase est configuré, tu pourras joindre un PDF.
+                Lors d'une modification, laisse ce champ vide pour conserver
+                le document déjà associé.
+              </p>
+            </div>
+
+            <div class="full">
+              <label class="checkbox-label" for="publie">
+                <input type="checkbox" id="publie" name="publie">
+                Publier cette offre sur le site
+              </label>
+              <p class="muted">
+                Case décochée par défaut : l'offre reste masquée aux visiteurs.
+              </p>
+            </div>
+
+          </div>
+
+          <div id="messageFormulaire" aria-live="polite"></div>
+
+          <button class="primary" type="submit" id="enregistrer">
+            Enregistrer l'offre
+          </button>
+
+          <button
+            class="secondary hidden"
+            type="button"
+            id="annulerModification"
+          >
+            Annuler la modification
+          </button>
         </form>
-        <p class="hint">Utilise l’adresse e-mail et le mot de passe du compte créé dans Supabase Authentication.</p>
+      </section>
+
+      <section class="panel">
+        <h2>Offres enregistrées</h2>
+        <div id="listeOffres">
+          Chargement des offres...
+        </div>
+      </section>
+
     </section>
+  </main>
 
-    <section id="dashboard" class="hidden">
-        <div class="card">
-            <h2>Publier une nouvelle offre</h2>
-            <form id="offreForm">
-                <label for="titre">Titre de l’offre</label>
-                <input id="titre" required placeholder="Ex. : Recrutement de techniciens">
+  <footer>
+    <p>© <span id="annee"></span> Cap Avenir Afrique</p>
+    <p>Administration du site</p>
+  </footer>
 
-                <label for="type">Catégorie</label>
-                <select id="type" required>
-                    <option value="emploi">Emploi</option>
-                    <option value="stage">Stage</option>
-                    <option value="bourse">Bourse</option>
-                    <option value="formation">Formation</option>
-                </select>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-                <label for="organisme">Organisme</label>
-                <input id="organisme" placeholder="Nom de l’organisme">
-
-                <label for="domaine">Domaine</label>
-                <input id="domaine" required placeholder="Ex. : Santé, informatique, agriculture">
-
-                <label for="lieu">Lieu</label>
-                <input id="lieu" placeholder="Ex. : Cotonou, Bénin">
-
-                <label for="description">Description de l’offre</label>
-                <textarea id="description" required placeholder="Conditions, profil recherché, pièces à fournir..."></textarea>
-
-                <label for="date_limite">Date limite de candidature</label>
-                <input type="date" id="date_limite">
-
-                <label for="document">Joindre un document PDF (facultatif)</label>
-<input
-    type="file"
-    id="document"
-    accept=".pdf,application/pdf"
->
-<p class="hint">
-    Tu peux joindre un avis de recrutement, un communiqué,
-    un formulaire ou tout autre document PDF utile.
-</p>
-
-                <label for="publie">
-                    <input type="checkbox" id="publie" style="width:auto;">
-                    Publier immédiatement
-                </label>
-
-                <button type="submit">Enregistrer l’offre</button>
-            </form>
-        </div>
-
-        <div class="card">
-            <h2>Mes offres</h2>
-            <button type="button" class="secondary" id="actualiser">Actualiser la liste</button>
-            <div id="listeOffres">Chargement des offres...</div>
-        </div>
-
-        <div class="card">
-            <button type="button" class="danger" id="deconnexion">Se déconnecter</button>
-        </div>
-    </section>
-</main>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-    // URL DU PROJET : ne pas ajouter /rest/v1/ à la fin.
+  <script>
     const SUPABASE_URL = "https://fhqppofwnoxiexnxivfx.supabase.co";
-    // Clé publique Publishable fournie par l’utilisateur.
     const SUPABASE_KEY = "sb_publishable_U2NwuXutHMG_F8Ee8sEuIg_mMBJ3TY0";
 
-    const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-    async function telechargerDocument(fichier) {
-    if (!fichier) return null;
+    const supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
 
-    if (fichier.type !== "application/pdf" &&
-        !fichier.name.toLowerCase().endsWith(".pdf")) {
-        throw new Error("Le document doit être un fichier PDF.");
-    }
-
-    if (fichier.size > 10 * 1024 * 1024) {
-        throw new Error("Le PDF ne doit pas dépasser 10 Mo.");
-    }
-
-    const nomNettoye = fichier.name
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^a-zA-Z0-9._-]/g, "_");
-
-    const chemin = `${crypto.randomUUID()}-${nomNettoye}`;
-
-    const { data, error } = await client.storage
-        .from("documents")
-        .upload(chemin, fichier, {
-            contentType: "application/pdf",
-            upsert: false
-        });
-
-    if (error) {
-        throw new Error("Échec du téléchargement : " + error.message);
-    }
-
-    const { data: urlData } = client.storage
-        .from("documents")
-        .getPublicUrl(data.path);
-
-    return urlData.publicUrl;
-}
     const connexion = document.getElementById("connexion");
-    const dashboard = document.getElementById("dashboard");
-    const message = document.getElementById("message");
+    const administration = document.getElementById("administration");
+    const connexionForm = document.getElementById("connexionForm");
+    const offreForm = document.getElementById("offreForm");
+    const messageConnexion = document.getElementById("messageConnexion");
+    const messageGeneral = document.getElementById("messageGeneral");
+    const messageFormulaire = document.getElementById("messageFormulaire");
+    const listeOffres = document.getElementById("listeOffres");
 
-    function afficherMessage(texte, erreur = false) {
-        message.textContent = texte;
-        message.className = "message " + (erreur ? "error" : "success");
+    let utilisateur = null;
+    let offreEnModification = null;
+    let documentActuel = null;
+    let chargementEnCours = false;
+
+    document.getElementById("annee").textContent =
+      new Date().getFullYear();
+
+    function echapper(valeur) {
+      return String(valeur ?? "").replace(/[&<>"']/g, function(caractere) {
+        return {
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#039;"
+        }[caractere];
+      });
     }
 
-    function effacerMessage() {
-        message.textContent = "";
-        message.className = "";
+    function afficherMessage(element, texte, type) {
+      element.innerHTML =
+        '<div class="notice ' + type + '">' + echapper(texte) + '</div>';
     }
 
-    async function actualiserSession() {
-        const { data, error } = await client.auth.getSession();
-        if (error) {
-            afficherMessage("Erreur de session : " + error.message, true);
-            return;
+    function viderMessage(element) {
+      element.innerHTML = "";
+    }
+
+    function lienValide(valeur) {
+      if (!valeur) return "";
+
+      try {
+        const url = new URL(valeur);
+
+        if (url.protocol === "https:" || url.protocol === "http:") {
+          return url.href;
         }
-        const session = data.session;
-        connexion.classList.toggle("hidden", Boolean(session));
-        dashboard.classList.toggle("hidden", !session);
-        if (session) await chargerOffres();
+      } catch (erreur) {
+        return "";
+      }
+
+      return "";
     }
 
-    document.getElementById("loginForm").addEventListener("submit", async function(e) {
-        e.preventDefault();
-        effacerMessage();
-        const email = document.getElementById("email").value.trim();
-        const password = document.getElementById("password").value;
-        const { error } = await client.auth.signInWithPassword({ email, password });
-        if (error) {
-            afficherMessage("Connexion impossible : " + error.message, true);
-            return;
-        }
-        afficherMessage("Connexion réussie !");
-        await actualiserSession();
+    async function verifierSession() {
+      const { data, error } = await supabaseClient.auth.getSession();
+
+      if (error) {
+        afficherMessage(messageConnexion, error.message, "error");
+        return;
+      }
+
+      utilisateur = data.session ? data.session.user : null;
+      actualiserInterface();
+    }
+
+    function actualiserInterface() {
+      if (utilisateur) {
+        connexion.classList.add("hidden");
+        administration.classList.remove("hidden");
+        document.getElementById("compteConnecte").textContent =
+          utilisateur.email || "Compte connecté";
+
+        chargerOffres();
+      } else {
+        administration.classList.add("hidden");
+        connexion.classList.remove("hidden");
+      }
+    }
+
+    connexionForm.addEventListener("submit", async function(event) {
+      event.preventDefault();
+      viderMessage(messageConnexion);
+
+      const bouton = document.getElementById("boutonConnexion");
+      bouton.disabled = true;
+      bouton.textContent = "Connexion...";
+
+      const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email: document.getElementById("email").value.trim(),
+        password: document.getElementById("motdepasse").value
+      });
+
+      bouton.disabled = false;
+      bouton.textContent = "Se connecter";
+
+      if (error) {
+        afficherMessage(
+          messageConnexion,
+          "Connexion impossible : " + error.message,
+          "error"
+        );
+        return;
+      }
+
+      utilisateur = data.user;
+      connexionForm.reset();
+      actualiserInterface();
     });
 
-    document.getElementById("offreForm").addEventListener("submit", async function(e) {
-        e.preventDefault();
-        effacerMessage();
+    document.getElementById("deconnexion").addEventListener("click", async function() {
+      const { error } = await supabaseClient.auth.signOut();
 
-        const { data: sessionData, error: sessionError } = await client.auth.getSession();
-        if (sessionError || !sessionData.session) {
-            afficherMessage("Ta session a expiré. Connecte-toi à nouveau.", true);
-            await actualiserSession();
-            return;
-        }
+      if (error) {
+        afficherMessage(messageGeneral, error.message, "error");
+        return;
+      }
 
-        const offre = {
-            titre: document.getElementById("titre").value.trim(),
-            type: document.getElementById("type").value,
-            organisme: document.getElementById("organisme").value.trim() || null,
-            domaine: document.getElementById("domaine").value.trim(),
-            lieu: document.getElementById("lieu").value.trim() || null,
-            description: document.getElementById("description").value.trim(),
-            date_limite: document.getElementById("date_limite").value || null,
-            lien_candidature: document.getElementById("lien").value.trim() || null,
-            publie: document.getElementById("publie").checked
-        };
-
-        const { error } = await client.from("offres").insert(offre);
-        if (error) {
-            afficherMessage("Erreur lors de l’enregistrement : " + error.message, true);
-            return;
-        }
-
-        afficherMessage("Offre enregistrée avec succès !");
-        document.getElementById("offreForm").reset();
-        await chargerOffres();
+      utilisateur = null;
+      reinitialiserFormulaire();
+      actualiserInterface();
     });
 
     async function chargerOffres() {
-        const conteneur = document.getElementById("listeOffres");
-        conteneur.textContent = "Chargement...";
-        const { data, error } = await client
-            .from("offres")
-            .select("*")
-            .order("created_at", { ascending: false });
+      if (!utilisateur || chargementEnCours) return;
 
-        if (error) {
-            conteneur.textContent = "Impossible de charger les offres : " + error.message;
-            return;
-        }
+      chargementEnCours = true;
+      listeOffres.textContent = "Chargement des offres...";
 
-        conteneur.replaceChildren();
-        if (!data || data.length === 0) {
-            conteneur.textContent = "Aucune offre enregistrée pour le moment.";
-            return;
-        }
+      const { data, error } = await supabaseClient
+        .from("offres")
+        .select("*")
+        .order("created_at", { ascending: false });
 
-        data.forEach(function(offre) {
-            const carte = document.createElement("article");
-            carte.className = "offre";
+      chargementEnCours = false;
 
-            const titre = document.createElement("h3");
-            titre.textContent = offre.titre;
+      if (error) {
+        listeOffres.textContent =
+          "Impossible de charger les offres. Vérifie la table offres, la colonne created_at et les politiques de sécurité Supabase.";
+        afficherMessage(messageGeneral, error.message, "error");
+        return;
+      }
 
-            const details = document.createElement("p");
-            details.textContent = "Catégorie : " + offre.type +
-                " | Domaine : " + offre.domaine +
-                " | Statut : " + (offre.publie ? "Publiée" : "Brouillon");
+      if (!data || data.length === 0) {
+        listeOffres.innerHTML =
+          '<p class="muted">Aucune offre enregistrée pour le moment.</p>';
+        return;
+      }
 
-            const description = document.createElement("p");
-            description.textContent = offre.description;
-            ```javascript
-let lienDocument = null;
+      listeOffres.innerHTML = data.map(function(offre) {
+        const publie = offre.publie === true;
+        const lienDocument = lienValide(offre.document_url);
 
-if (offre.document_url) {
-    lienDocument = document.createElement("a");
-    lienDocument.href = offre.document_url;
-    lienDocument.target = "_blank";
-    lienDocument.rel = "noopener noreferrer";
-    lienDocument.textContent = "📄 Consulter le document PDF";
-    lienDocument.style.display = "inline-block";
-    lienDocument.style.margin = "10px 0";
-    lienDocument.style.color = "#087f5b";
-    lienDocument.style.fontWeight = "bold";
-}
-```
+        return `
+          <article class="offer">
+            <h3>${echapper(offre.titre || "Sans titre")}</h3>
 
+            <p><strong>Type :</strong> ${echapper(offre.type || "Non précisé")}</p>
+            <p><strong>Organisme :</strong> ${echapper(offre.organisme || "Non précisé")}</p>
+            <p><strong>Domaine :</strong> ${echapper(offre.domaine || "Non précisé")}</p>
+            <p><strong>Lieu :</strong> ${echapper(offre.lieu || "Non précisé")}</p>
 
-            const bouton = document.createElement("button");
-            bouton.className = "secondary";
-            bouton.textContent = offre.publie ? "Dépublier" : "Publier";
-            bouton.addEventListener("click", async function() {
-                const { error } = await client.from("offres")
-                    .update({ publie: !offre.publie }).eq("id", offre.id);
-                if (error) {
-                    afficherMessage("Impossible de modifier le statut : " + error.message, true);
-                    return;
-                }
-                afficherMessage("Statut de l’offre mis à jour.");
-                await chargerOffres();
-            });
+            <span class="status ${publie ? "published" : "unpublished"}">
+              ${publie ? "Publiée" : "Non publiée"}
+            </span>
 
-            const supprimer = document.createElement("button");
-            supprimer.className = "danger";
-            supprimer.textContent = "Supprimer";
-            supprimer.addEventListener("click", async function() {
-                if (!confirm("Veux-tu vraiment supprimer cette offre ?")) return;
-                const { error } = await client.from("offres").delete().eq("id", offre.id);
-                if (error) {
-                    afficherMessage("Impossible de supprimer l’offre : " + error.message, true);
-                    return;
-                }
-                afficherMessage("Offre supprimée.");
-                await chargerOffres();
-            });
+            ${
+              lienDocument
+                ? `<p><a href="${echapper(lienDocument)}" target="_blank" rel="noopener noreferrer">Consulter le document PDF</a></p>`
+                : ""
+            }
 
-            if (lienDocument) {
-    carte.append(titre, details, description, lienDocument, bouton, supprimer);
-} else {
-    carte.append(titre, details, description, bouton, supprimer);
-}
-            conteneur.appendChild(carte);
-        });
+            <div>
+              <button
+                type="button"
+                class="primary"
+                data-action="modifier"
+                data-id="${echapper(offre.id)}"
+              >Modifier</button>
+
+              <button
+                type="button"
+                class="warning"
+                data-action="publier"
+                data-id="${echapper(offre.id)}"
+              >${publie ? "Dépublier" : "Publier"}</button>
+
+              <button
+                type="button"
+                class="danger"
+                data-action="supprimer"
+                data-id="${echapper(offre.id)}"
+              >Supprimer</button>
+            </div>
+          </article>
+        `;
+      }).join("");
     }
 
-    document.getElementById("actualiser").addEventListener("click", chargerOffres);
+    listeOffres.addEventListener("click", async function(event) {
+      const bouton = event.target.closest("button[data-action]");
+      if (!bouton) return;
 
-    document.getElementById("deconnexion").addEventListener("click", async function() {
-        const { error } = await client.auth.signOut();
-        if (error) {
-            afficherMessage("Erreur lors de la déconnexion : " + error.message, true);
-            return;
+      const id = bouton.dataset.id;
+      const action = bouton.dataset.action;
+
+      const { data: offre, error } = await supabaseClient
+        .from("offres")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+      if (error || !offre) {
+        afficherMessage(
+          messageGeneral,
+          "Impossible de retrouver cette offre. " + (error ? error.message : ""),
+          "error"
+        );
+        return;
+      }
+
+      if (action === "modifier") {
+        offreEnModification = offre.id;
+        documentActuel = offre.document_url || null;
+
+        document.getElementById("titre").value = offre.titre || "";
+        document.getElementById("type").value = offre.type || "emploi";
+        document.getElementById("organisme").value = offre.organisme || "";
+        document.getElementById("domaine").value = offre.domaine || "";
+        document.getElementById("lieu").value = offre.lieu || "";
+        document.getElementById("description").value = offre.description || "";
+        document.getElementById("date_limite").value = offre.date_limite || "";
+        document.getElementById("lien_candidature").value =
+          offre.lien_candidature || "";
+        document.getElementById("publie").checked = offre.publie === true;
+        document.getElementById("document").value = "";
+
+        document.getElementById("titreFormulaire").textContent =
+          "Modifier une offre";
+        document.getElementById("enregistrer").textContent =
+          "Enregistrer les modifications";
+        document.getElementById("annulerModification").classList.remove("hidden");
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+
+      if (action === "publier") {
+        const confirmation = confirm(
+          offre.publie
+            ? "Veux-tu vraiment dépublier cette offre ?"
+            : "Veux-tu vraiment publier cette offre sur le site ?"
+        );
+
+        if (!confirmation) return;
+
+        const { error: updateError } = await supabaseClient
+          .from("offres")
+          .update({ publie: !offre.publie })
+          .eq("id", id);
+
+        if (updateError) {
+          afficherMessage(messageGeneral, updateError.message, "error");
+          return;
         }
-        afficherMessage("Déconnexion réussie.");
-        await actualiserSession();
+
+        afficherMessage(messageGeneral, "Statut de publication mis à jour.", "success");
+        await chargerOffres();
+        return;
+      }
+
+      if (action === "supprimer") {
+        const confirmation = confirm(
+          "Attention : cette suppression est définitive. Supprimer cette offre ?"
+        );
+
+        if (!confirmation) return;
+
+        const { error: deleteError } = await supabaseClient
+          .from("offres")
+          .delete()
+          .eq("id", id);
+
+        if (deleteError) {
+          afficherMessage(messageGeneral, deleteError.message, "error");
+          return;
+        }
+
+        if (String(offreEnModification) === String(id)) {
+          reinitialiserFormulaire();
+        }
+
+        afficherMessage(messageGeneral, "Offre supprimée.", "success");
+        await chargerOffres();
+      }
     });
 
-    actualiserSession();
-</script>
+    async function televerserPDF(fichier) {
+      if (!fichier) return documentActuel;
+
+      if (fichier.type !== "application/pdf" &&
+          !fichier.name.toLowerCase().endsWith(".pdf")) {
+        throw new Error("Le document doit être un fichier PDF.");
+      }
+
+      if (fichier.size > 10 * 1024 * 1024) {
+        throw new Error("Le PDF ne doit pas dépasser 10 Mo.");
+      }
+
+      const nomFichier = crypto.randomUUID() + ".pdf";
+      const chemin = "offres/" + nomFichier;
+
+      const { error } = await supabaseClient.storage
+        .from("documents")
+        .upload(chemin, fichier, {
+          contentType: "application/pdf",
+          upsert: false
+        });
+
+      if (error) {
+        throw new Error(
+          "Échec du dépôt du PDF. Vérifie que le bucket documents existe et que les droits de stockage sont configurés. " +
+          error.message
+        );
+      }
+
+      const { data } = supabaseClient.storage
+        .from("documents")
+        .getPublicUrl(chemin);
+
+      return data.publicUrl;
+    }
+
+    offreForm.addEventListener("submit", async function(event) {
+      event.preventDefault();
+
+      if (!utilisateur) {
+        afficherMessage(messageFormulaire, "Connecte-toi avant d'enregistrer.", "error");
+        return;
+      }
+
+      const bouton = document.getElementById("enregistrer");
+      bouton.disabled = true;
+      bouton.textContent = "Enregistrement...";
+      viderMessage(messageFormulaire);
+
+      try {
+        const fichier = document.getElementById("document").files[0];
+        const documentUrl = await televerserPDF(fichier);
+
+        const offre = {
+          titre: document.getElementById("titre").value.trim(),
+          type: document.getElementById("type").value,
+          organisme: document.getElementById("organisme").value.trim(),
+          domaine: document.getElementById("domaine").value.trim(),
+          lieu: document.getElementById("lieu").value.trim(),
+          description: document.getElementById("description").value.trim(),
+          date_limite: document.getElementById("date_limite").value || null,
+          lien_candidature: document.getElementById("lien_candidature").value.trim() || null,
+          document_url: documentUrl || null,
+          publie: document.getElementById("publie").checked
+        };
+
+        if (!offre.titre) {
+          throw new Error("Le titre de l'offre est obligatoire.");
+        }
+
+        if (offre.lien_candidature && !lienValide(offre.lien_candidature)) {
+          throw new Error("Le lien de candidature doit commencer par http:// ou https://.");
+        }
+
+        let resultat;
+
+        if (offreEnModification !== null) {
+          resultat = await supabaseClient
+            .from("offres")
+            .update(offre)
+            .eq("id", offreEnModification);
+        } else {
+          resultat = await supabaseClient
+            .from("offres")
+            .insert([offre]);
+        }
+
+        if (resultat.error) {
+          throw new Error(resultat.error.message);
+        }
+
+        afficherMessage(
+          messageFormulaire,
+          offreEnModification !== null
+            ? "Modifications enregistrées."
+            : "Offre enregistrée. Elle reste non publiée si tu n'as pas coché la case de publication.",
+          "success"
+        );
+
+        reinitialiserFormulaire();
+        await chargerOffres();
+
+      } catch (erreur) {
+        afficherMessage(messageFormulaire, erreur.message, "error");
+      } finally {
+        bouton.disabled = false;
+        bouton.textContent = offreEnModification !== null
+          ? "Enregistrer les modifications"
+          : "Enregistrer l'offre";
+      }
+    });
+
+    function reinitialiserFormulaire() {
+      offreForm.reset();
+      offreEnModification = null;
+      documentActuel = null;
+
+      document.getElementById("titreFormulaire").textContent = "Ajouter une offre";
+      document.getElementById("enregistrer").textContent = "Enregistrer l'offre";
+      document.getElementById("annulerModification").classList.add("hidden");
+
+      // Le formulaire est réinitialisé avec la publication décochée.
+      document.getElementById("publie").checked = false;
+    }
+
+    document.getElementById("annulerModification").addEventListener(
+      "click",
+      function() {
+        reinitialiserFormulaire();
+        viderMessage(messageFormulaire);
+      }
+    );
+
+    document.getElementById("actualiser").addEventListener(
+      "click",
+      chargerOffres
+    );
+
+    supabaseClient.auth.onAuthStateChange(function(event, session) {
+      utilisateur = session ? session.user : null;
+
+      if (event === "SIGNED_OUT") {
+        actualiserInterface();
+      }
+    });
+
+    verifierSession();
+  </script>
 </body>
 </html>
