@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration - Cap Avenir Afrique</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #1e293b;
+            margin: 0;
+        }
+        header {
+            background: #123b63;
+            color: white;
+            padding: 25px 15px;
+            text-align: center;
+        }
+        main { max-width: 800px; margin: 30px auto; padding: 20px; }
+        .card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px #00000010;
+        }
+        h2 { color: #123b63; }
+        input, select, textarea, button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+        textarea { min-height: 120px; resize: vertical; }
+        button {
+            background: #087f5b;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover { opacity: 0.9; }
+        .secondary { background: #123b63; }
+        .danger { background: #b91c1c; }
+        .hidden { display: none; }
+        .offre {
+            border: 1px solid #e2e8f0;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+        .message {
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            overflow-wrap: anywhere;
+        }
+        .success { background: #dcfce7; color: #166534; }
+        .error { background: #fee2e2; color: #991b1b; }
+        label { font-weight: bold; }
+        .hint { font-size: 13px; color: #64748b; }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Cap Avenir Afrique</h1>
+    <p>Tableau de bord administrateur</p>
+</header>
+
+<main>
+    <div id="message" role="status" aria-live="polite"></div>
+
+    <section class="card" id="connexion">
+        <h2>Connexion administrateur</h2>
+        <form id="loginForm">
+            <label for="email">Adresse e-mail</label>
+            <input type="email" id="email" autocomplete="username" required>
+
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" autocomplete="current-password" required>
+
+            <button type="submit">Se connecter</button>
+        </form>
+        <p class="hint">Utilise l’adresse e-mail et le mot de passe du compte créé dans Supabase Authentication.</p>
+    </section>
+
+    <section id="dashboard" class="hidden">
+        <div class="card">
+            <h2>Publier une nouvelle offre</h2>
+            <form id="offreForm">
+                <label for="titre">Titre de l’offre</label>
+                <input id="titre" required placeholder="Ex. : Recrutement de techniciens">
+
+                <label for="type">Catégorie</label>
+                <select id="type" required>
+                    <option value="emploi">Emploi</option>
+                    <option value="stage">Stage</option>
+                    <option value="bourse">Bourse</option>
+                    <option value="formation">Formation</option>
+                </select>
+
+                <label for="organisme">Organisme</label>
+                <input id="organisme" placeholder="Nom de l’organisme">
+
+                <label for="domaine">Domaine</label>
+                <input id="domaine" required placeholder="Ex. : Santé, informatique, agriculture">
+
+                <label for="lieu">Lieu</label>
+                <input id="lieu" placeholder="Ex. : Cotonou, Bénin">
+
+                <label for="description">Description de l’offre</label>
+                <textarea id="description" required placeholder="Conditions, profil recherché, pièces à fournir..."></textarea>
+
+                <label for="date_limite">Date limite de candidature</label>
+                <input type="date" id="date_limite">
+
+                <label for="lien">Lien de candidature</label>
+                <input type="url" id="lien" placeholder="https://...">
+
+                <label for="publie">
+                    <input type="checkbox" id="publie" style="width:auto;">
+                    Publier immédiatement
+                </label>
+
+                <button type="submit">Enregistrer l’offre</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Mes offres</h2>
+            <button type="button" class="secondary" id="actualiser">Actualiser la liste</button>
+            <div id="listeOffres">Chargement des offres...</div>
+        </div>
+
+        <div class="card">
+            <button type="button" class="danger" id="deconnexion">Se déconnecter</button>
+        </div>
+    </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+    // URL DU PROJET : ne pas ajouter /rest/v1/ à la fin.
+    const SUPABASE_URL = "https://fhqppofwnoxiexnxivfx.supabase.co";
+    // Clé publique Publishable fournie par l’utilisateur.
+    const SUPABASE_KEY = "sb_publishable_U2NwuXutHMG_F8Ee8sEuIg_mMBJ3TY0";
+
+    const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const connexion = document.getElementById("connexion");
+    const dashboard = document.getElementById("dashboard");
+    const message = document.getElementById("message");
+
+    function afficherMessage(texte, erreur = false) {
+        message.textContent = texte;
+        message.className = "message " + (erreur ? "error" : "success");
+    }
+
+    function effacerMessage() {
+        message.textContent = "";
+        message.className = "";
+    }
+
+    async function actualiserSession() {
+        const { data, error } = await client.auth.getSession();
+        if (error) {
+            afficherMessage("Erreur de session : " + error.message, true);
+            return;
+        }
+        const session = data.session;
+        connexion.classList.toggle("hidden", Boolean(session));
+        dashboard.classList.toggle("hidden", !session);
+        if (session) await chargerOffres();
+    }
+
+    document.getElementById("loginForm").addEventListener("submit", async function(e) {
+        e.preventDefault();
+        effacerMessage();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+        const { error } = await client.auth.signInWithPassword({ email, password });
+        if (error) {
+            afficherMessage("Connexion impossible : " + error.message, true);
+            return;
+        }
+        afficherMessage("Connexion réussie !");
+        await actualiserSession();
+    });
+
+    document.getElementById("offreForm").addEventListener("submit", async function(e) {
+        e.preventDefault();
+        effacerMessage();
+
+        const { data: sessionData, error: sessionError } = await client.auth.getSession();
+        if (sessionError || !sessionData.session) {
+            afficherMessage("Ta session a expiré. Connecte-toi à nouveau.", true);
+            await actualiserSession();
+            return;
+        }
+
+        const offre = {
+            titre: document.getElementById("titre").value.trim(),
+            type: document.getElementById("type").value,
+            organisme: document.getElementById("organisme").value.trim() || null,
+            domaine: document.getElementById("domaine").value.trim(),
+            lieu: document.getElementById("lieu").value.trim() || null,
+            description: document.getElementById("description").value.trim(),
+            date_limite: document.getElementById("date_limite").value || null,
+            lien_candidature: document.getElementById("lien").value.trim() || null,
+            publie: document.getElementById("publie").checked
+        };
+
+        const { error } = await client.from("offres").insert(offre);
+        if (error) {
+            afficherMessage("Erreur lors de l’enregistrement : " + error.message, true);
+            return;
+        }
+
+        afficherMessage("Offre enregistrée avec succès !");
+        document.getElementById("offreForm").reset();
+        await chargerOffres();
+    });
+
+    async function chargerOffres() {
+        const conteneur = document.getElementById("listeOffres");
+        conteneur.textContent = "Chargement...";
+        const { data, error } = await client
+            .from("offres")
+            .select("*")
+            .order("created_at", { ascending: false });
+
+        if (error) {
+            conteneur.textContent = "Impossible de charger les offres : " + error.message;
+            return;
+        }
+
+        conteneur.replaceChildren();
+        if (!data || data.length === 0) {
+            conteneur.textContent = "Aucune offre enregistrée pour le moment.";
+            return;
+        }
+
+        data.forEach(function(offre) {
+            const carte = document.createElement("article");
+            carte.className = "offre";
+
+            const titre = document.createElement("h3");
+            titre.textContent = offre.titre;
+
+            const details = document.createElement("p");
+            details.textContent = "Catégorie : " + offre.type +
+                " | Domaine : " + offre.domaine +
+                " | Statut : " + (offre.publie ? "Publiée" : "Brouillon");
+
+            const description = document.createElement("p");
+            description.textContent = offre.description;
+
+            const bouton = document.createElement("button");
+            bouton.className = "secondary";
+            bouton.textContent = offre.publie ? "Dépublier" : "Publier";
+            bouton.addEventListener("click", async function() {
+                const { error } = await client.from("offres")
+                    .update({ publie: !offre.publie }).eq("id", offre.id);
+                if (error) {
+                    afficherMessage("Impossible de modifier le statut : " + error.message, true);
+                    return;
+                }
+                afficherMessage("Statut de l’offre mis à jour.");
+                await chargerOffres();
+            });
+
+            const supprimer = document.createElement("button");
+            supprimer.className = "danger";
+            supprimer.textContent = "Supprimer";
+            supprimer.addEventListener("click", async function() {
+                if (!confirm("Veux-tu vraiment supprimer cette offre ?")) return;
+                const { error } = await client.from("offres").delete().eq("id", offre.id);
+                if (error) {
+                    afficherMessage("Impossible de supprimer l’offre : " + error.message, true);
+                    return;
+                }
+                afficherMessage("Offre supprimée.");
+                await chargerOffres();
+            });
+
+            carte.append(titre, details, description, bouton, supprimer);
+            conteneur.appendChild(carte);
+        });
+    }
+
+    document.getElementById("actualiser").addEventListener("click", chargerOffres);
+
+    document.getElementById("deconnexion").addEventListener("click", async function() {
+        const { error } = await client.auth.signOut();
+        if (error) {
+            afficherMessage("Erreur lors de la déconnexion : " + error.message, true);
+            return;
+        }
+        afficherMessage("Déconnexion réussie.");
+        await actualiserSession();
+    });
+
+    actualiserSession();
+</script>
+</body>
+</html>

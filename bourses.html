@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bourses d'études | Cap Avenir Afrique</title>
+
+```
+#recherche {
+    width: 100%;
+    max-width: 500px;
+    padding: 14px;
+    margin-top: 20px;
+    border: 2px solid #047857;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+}
+
+#recherche:focus {
+    box-shadow: 0 0 5px #047857;
+}
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f5f7fa;
+        color: #263238;
+        line-height: 1.6;
+    }
+
+    header {
+        background: #064e3b;
+        color: white;
+        padding: 20px;
+        text-align: center;
+    }
+
+    nav {
+        margin-top: 15px;
+    }
+
+    nav a {
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+    }
+
+    main {
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    .intro {
+        text-align: center;
+        margin-bottom: 35px;
+    }
+
+    .offre {
+        background: white;
+        padding: 25px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 3px 12px #00000010;
+    }
+
+    .offre h2 {
+        color: #047857;
+    }
+
+    .bouton {
+        display: inline-block;
+        background: #047857;
+        color: white;
+        padding: 10px 18px;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+    footer {
+        text-align: center;
+        background: #064e3b;
+        color: white;
+        padding: 20px;
+        margin-top: 50px;
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+```
+<header>
+    <h1>🎓 Cap Avenir Afrique</h1>
+
+    <nav>
+        <a href="index.html">Accueil</a>
+        <a href="bourses.html">Bourses</a>
+        <a href="emplois.html">Emplois</a>
+        <a href="formations.html">Formations</a>
+    </nav>
+</header>
+
+<main>
+    <section class="intro">
+    <h2>Les bourses d'études</h2>
+
+    <p>
+        Découvre des possibilités de financement
+        pour poursuivre tes études.
+    </p>
+
+    <input
+        type="search"
+        id="recherche"
+        placeholder="Rechercher une bourse..."
+        aria-label="Rechercher une bourse"
+    >
+</section>
+
+    <article class="offre">
+        <h2>Comment trouver une bourse d'études ?</h2>
+
+        <p>
+            Prépare ton dossier, vérifie les conditions d'admission
+            et consulte les sites officiels des organismes
+            qui proposent des bourses.
+        </p>
+
+        <p>
+            <strong>Conseil :</strong>
+            vérifie toujours la date limite et les critères d'éligibilité.
+        </p>
+    </article>
+
+    <article class="offre">
+        <h2>Tu recherches une bourse à l'étranger ?</h2>
+
+        <p>
+            Consulte régulièrement les annonces des universités,
+            des gouvernements et des organismes de financement.
+        </p>
+
+        <p>
+            Attention : cette page est un exemple pédagogique.
+            Elle ne présente pas d'offre de bourse actuellement ouverte.
+        </p>
+    </article>
+
+    <a href="index.html" class="bouton">← Retour à l'accueil</a>
+</main>
+
+<footer>
+    <p>© 2026 Cap Avenir Afrique</p>
+</footer>
+```
+<script>
+    const recherche = document.getElementById("recherche");
+
+    const offres = document.querySelectorAll(".offre");
+
+    recherche.addEventListener("input", function () {
+        const mot = recherche.value
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
+
+        offres.forEach(function (offre) {
+            const contenu = offre.textContent
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "");
+
+            if (contenu.includes(mot)) {
+                offre.style.display = "block";
+            } else {
+                offre.style.display = "none";
+            }
+        });
+    });
+</script>
+</body>
+</html>
