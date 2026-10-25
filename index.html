@@ -1,12 +1,24 @@
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta name="google-site-verification" content="lW7DfpDMJs_dR_Jhdtf-FIS6mE5osiWwshHjLE2u8OM" />
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Cap Avenir Afrique : découvre des offres d'emploi, des stages, des bourses d'études et des formations pour construire ton avenir.">
+
+  <meta name="google-site-verification" content="lW7DfpDMJs_dR_Jhdtf-FIS6mE5osiWwshHjLE2u8OM">
+  <meta name="description" content="Cap Avenir Afrique vous aide à découvrir des offres d'emploi, des stages, des bourses d'études et des formations pour construire votre avenir professionnel.">
+  <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#087443">
-  <title>Cap Avenir Afrique | Emplois, bourses et formations</title>
+
+  <title>Cap Avenir Afrique | Emplois, bourses, stages et formations</title>
+
+  <link rel="canonical" href="https://agossoupas.github.io/Cap-avenir-afrique/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Cap Avenir Afrique | Emplois, bourses et formations">
+  <meta property="og:description" content="Découvrez des opportunités professionnelles et éducatives en Afrique et à l'international.">
+  <meta property="og:url" content="https://agossoupas.github.io/Cap-avenir-afrique/">
+  <meta property="og:site_name" content="Cap Avenir Afrique">
 
   <style>
     * {
@@ -23,15 +35,24 @@
       --blanc: #ffffff;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: Arial, Helvetica, sans-serif;
       color: var(--texte);
       background: var(--fond);
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
     a {
       color: inherit;
+    }
+
+    a:focus-visible {
+      outline: 3px solid #f0b429;
+      outline-offset: 3px;
     }
 
     header {
@@ -78,13 +99,13 @@
 
     .hero h1 {
       font-size: clamp(30px, 5vw, 46px);
-      line-height: 1.2;
-      max-width: 850px;
+      line-height: 1.25;
+      max-width: 900px;
       margin: 0 auto 20px;
     }
 
     .hero p {
-      max-width: 720px;
+      max-width: 760px;
       margin: 0 auto 28px;
       font-size: 18px;
     }
@@ -134,10 +155,11 @@
       font-size: 29px;
       color: var(--vert-fonce);
       margin-bottom: 8px;
+      line-height: 1.4;
     }
 
     .section-heading p {
-      color: #657386;
+      color: #536276;
     }
 
     .categories {
@@ -147,6 +169,7 @@
     }
 
     .category {
+      display: block;
       background: white;
       padding: 26px 22px;
       border-radius: 12px;
@@ -174,7 +197,7 @@
     }
 
     .category p {
-      color: #657386;
+      color: #536276;
       font-size: 14px;
       margin-bottom: 15px;
     }
@@ -212,6 +235,7 @@
     .offer-card h3 {
       color: var(--vert-fonce);
       margin-bottom: 10px;
+      line-height: 1.4;
     }
 
     .offer-card p {
@@ -252,7 +276,7 @@
 
     .about {
       text-align: center;
-      max-width: 800px;
+      max-width: 850px;
       margin: auto;
     }
 
@@ -271,6 +295,26 @@
       background: var(--vert);
       color: white;
       margin-top: 10px;
+    }
+
+    .how-it-works {
+      background: white;
+      padding: 28px;
+      border-radius: 12px;
+      border: 1px solid #e5ebe7;
+    }
+
+    .how-it-works h2 {
+      color: var(--vert-fonce);
+      margin-bottom: 12px;
+    }
+
+    .how-it-works ul {
+      padding-left: 22px;
+    }
+
+    .how-it-works li {
+      margin-bottom: 8px;
     }
 
     footer {
@@ -294,9 +338,14 @@
       font-size: 14px;
     }
 
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+
     footer p {
       font-size: 13px;
       color: #d9e6df;
+      margin-top: 5px;
     }
 
     @media (max-width: 650px) {
@@ -321,36 +370,52 @@
       .section-heading h2 {
         font-size: 25px;
       }
+
+      .how-it-works {
+        padding: 20px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
     }
   </style>
 </head>
 
 <body>
-
   <header>
     <a class="logo" href="index.html">Cap Avenir Afrique</a>
 
     <nav aria-label="Navigation principale">
-      <a href="index.html">Accueil</a>
-      <a href="emplois.html">Emplois & stages</a>
-      <a href="bourses.html">Bourses</a>
+      <a href="index.html" aria-current="page">Accueil</a>
+      <a href="emplois.html">Emplois et stages</a>
+      <a href="bourses.html">Bourses d'études</a>
       <a href="formation.html">Formations</a>
     </nav>
   </header>
 
   <main>
-
     <section class="hero">
-      <h1>Construis ton avenir dès aujourd'hui !</h1>
+      <h1>Emplois, stages, bourses et formations pour construire ton avenir</h1>
 
       <p>
-        Trouve des opportunités d'emploi, des stages, des bourses d'études
-        et des formations pour développer ton potentiel et réaliser tes ambitions.
+        Cap Avenir Afrique t'aide à découvrir des opportunités éducatives
+        et professionnelles en Afrique et à l'international. Explore les annonces,
+        prépare tes candidatures et avance vers tes objectifs.
       </p>
 
       <div class="hero-buttons">
         <a href="emplois.html" class="button button-white">
-          Découvrir les emplois
+          Découvrir les emplois et stages
         </a>
 
         <a href="bourses.html" class="button button-outline">
@@ -359,20 +424,19 @@
       </div>
     </section>
 
-    <section class="container">
+    <section class="container" aria-labelledby="titre-categories">
       <div class="section-heading">
-        <h2>Explore nos opportunités</h2>
+        <h2 id="titre-categories">Explore nos opportunités</h2>
         <p>Choisis la catégorie qui correspond à ton projet.</p>
       </div>
 
       <div class="categories">
-
         <a href="emplois.html" class="category">
           <span class="category-icon" aria-hidden="true">💼</span>
           <h3>Emplois et stages</h3>
           <p>
-            Découvre des offres d'emploi, des stages professionnels
-            et des possibilités de développer ton expérience.
+            Consulte des offres d'emploi, des stages professionnels
+            et des possibilités d'acquérir une expérience.
           </p>
           <span class="category-link">Voir les offres →</span>
         </a>
@@ -381,8 +445,8 @@
           <span class="category-icon" aria-hidden="true">🎓</span>
           <h3>Bourses d'études</h3>
           <p>
-            Explore les possibilités de financement des études
-            et les programmes de bourses accessibles aux étudiants.
+            Recherche des possibilités de financement des études
+            et des programmes de bourses pour étudiants.
           </p>
           <span class="category-link">Découvrir les bourses →</span>
         </a>
@@ -401,23 +465,25 @@
           <span class="category-icon" aria-hidden="true">🌍</span>
           <h3>Opportunités internationales</h3>
           <p>
-            Recherche des possibilités d'études, de formation
-            et de développement professionnel à l'international.
+            Découvre des pistes pour étudier, te former ou développer
+            ton parcours professionnel à l'international.
           </p>
           <span class="category-link">Explorer les opportunités →</span>
         </a>
-
       </div>
     </section>
 
-    <section class="latest-section">
+    <section class="latest-section" aria-labelledby="titre-dernieres-offres">
       <div class="container">
         <div class="section-heading">
-          <h2>Les dernières opportunités</h2>
-          <p>Retrouve ici les offres publiées sur notre plateforme.</p>
+          <h2 id="titre-dernieres-offres">Les dernières opportunités publiées</h2>
+          <p>
+            Retrouve les annonces disponibles sur notre plateforme.
+            Consulte les conditions et les dates limites avant de postuler.
+          </p>
         </div>
 
-        <div id="dernieresOffres" aria-live="polite">
+        <div id="dernieresOffres" aria-live="polite" aria-busy="true">
           <div class="message">Chargement des opportunités...</div>
         </div>
       </div>
@@ -425,18 +491,25 @@
 
     <section class="container">
       <div class="about">
-        <h2>Pourquoi Cap Avenir Afrique ?</h2>
+        <h2>À propos de Cap Avenir Afrique</h2>
 
         <p>
-          Notre objectif est de faciliter l'accès aux opportunités
-          éducatives et professionnelles pour les jeunes en Afrique.
+          Cap Avenir Afrique est une plateforme d'information destinée
+          à faciliter la découverte d'opportunités éducatives et professionnelles.
+          Elle rassemble les annonces publiées dans les domaines de l'emploi,
+          des stages, des bourses d'études et des formations.
         </p>
 
         <p>
-          Nous souhaitons t'aider à découvrir des offres utiles,
-          à préparer tes candidatures et à avancer dans ton projet d'avenir.
-          Pense toujours à vérifier les conditions et les dates limites
-          auprès de l'organisme qui propose chaque opportunité.
+          Notre ambition est d'aider les jeunes et les personnes en recherche
+          d'opportunités à mieux s'informer, à préparer leurs démarches et à
+          construire leur projet d'avenir.
+        </p>
+
+        <p>
+          Les critères d'admission, les modalités de candidature et les dates
+          limites peuvent changer. Vérifie toujours les informations auprès
+          de l'organisme responsable de chaque annonce.
         </p>
 
         <a href="emplois.html" class="button">
@@ -445,6 +518,18 @@
       </div>
     </section>
 
+    <section class="container">
+      <div class="how-it-works">
+        <h2>Comment utiliser Cap Avenir Afrique ?</h2>
+        <ul>
+          <li>Choisis une catégorie : emploi, stage, bourse ou formation.</li>
+          <li>Lis attentivement la description et les conditions de l'opportunité.</li>
+          <li>Vérifie la date limite et l'authenticité de l'annonce.</li>
+          <li>Prépare les documents nécessaires et suis les instructions officielles.</li>
+          <li>Consulte régulièrement le site pour découvrir les nouvelles annonces publiées.</li>
+        </ul>
+      </div>
+    </section>
   </main>
 
   <footer>
@@ -452,8 +537,8 @@
 
     <div class="footer-links">
       <a href="index.html">Accueil</a>
-      <a href="emplois.html">Emplois & stages</a>
-      <a href="bourses.html">Bourses</a>
+      <a href="emplois.html">Emplois et stages</a>
+      <a href="bourses.html">Bourses d'études</a>
       <a href="formation.html">Formations</a>
     </div>
 
@@ -469,8 +554,7 @@
 
     const affichage = document.getElementById("dernieresOffres");
 
-    document.getElementById("annee").textContent =
-      new Date().getFullYear();
+    document.getElementById("annee").textContent = new Date().getFullYear();
 
     function echapper(valeur) {
       return String(valeur ?? "").replace(/[&<>"']/g, function(caractere) {
@@ -513,69 +597,77 @@
 
     async function chargerDernieresOffres() {
       if (!window.supabase) {
+        affichage.setAttribute("aria-busy", "false");
         affichage.innerHTML =
-          '<div class="message">Le service de chargement est momentanément indisponible.</div>';
+          '<div class="message">Le service de chargement est momentanément indisponible. Consulte les catégories ci-dessus.</div>';
         return;
       }
 
-      const client = window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-      );
+      try {
+        const client = window.supabase.createClient(
+          SUPABASE_URL,
+          SUPABASE_KEY
+        );
 
-      const { data, error } = await client
-        .from("offres")
-        .select("*")
-        .eq("publie", true)
-        .order("created_at", { ascending: false })
-        .limit(6);
+        const { data, error } = await client
+          .from("offres")
+          .select("*")
+          .eq("publie", true)
+          .order("created_at", { ascending: false })
+          .limit(6);
 
-      if (error) {
-        console.error("Erreur lors du chargement des opportunités :", error);
+        if (error) {
+          throw error;
+        }
+
+        if (!data || data.length === 0) {
+          affichage.innerHTML =
+            '<div class="message">Les nouvelles opportunités seront affichées ici dès leur publication. En attendant, explore les catégories ci-dessus.</div>';
+          return;
+        }
+
+        affichage.innerHTML = data.map(function(offre) {
+          const lienCandidature = lienSecurise(offre.lien_candidature);
+          const lienDocument = lienSecurise(offre.document_url);
+
+          let bouton = "";
+
+          if (lienCandidature) {
+            bouton =
+              '<a class="offer-link" href="' + echapper(lienCandidature) +
+              '" target="_blank" rel="noopener noreferrer">Consulter l’offre →</a>';
+          } else if (lienDocument) {
+            bouton =
+              '<a class="offer-link" href="' + echapper(lienDocument) +
+              '" target="_blank" rel="noopener noreferrer">Voir le document →</a>';
+          }
+
+          return `
+            <article class="offer-card">
+              <span class="badge">${echapper(nomType(offre.type))}</span>
+              <h3>${echapper(offre.titre || "Opportunité")}</h3>
+              <p><strong>Organisme :</strong> ${echapper(offre.organisme || "Non précisé")}</p>
+              <p><strong>Domaine :</strong> ${echapper(offre.domaine || "Non précisé")}</p>
+              <p><strong>Lieu :</strong> ${echapper(offre.lieu || "Non précisé")}</p>
+              <p><strong>Date limite :</strong> ${echapper(offre.date_limite || "Non précisée")}</p>
+              ${bouton}
+            </article>
+          `;
+        }).join("");
+
+      } catch (erreur) {
+        console.error("Erreur lors du chargement des opportunités :", erreur);
 
         affichage.innerHTML =
           '<div class="message">Les dernières opportunités ne sont pas disponibles pour le moment. Consulte les catégories ci-dessus.</div>';
-        return;
+
+      } finally {
+        affichage.setAttribute("aria-busy", "false");
       }
-
-      if (!data || data.length === 0) {
-        affichage.innerHTML =
-          '<div class="message">Les nouvelles opportunités seront affichées ici dès leur publication.</div>';
-        return;
-      }
-
-      affichage.innerHTML = data.map(function(offre) {
-        const lienCandidature = lienSecurise(offre.lien_candidature);
-        const lienDocument = lienSecurise(offre.document_url);
-
-        let bouton = "";
-
-        if (lienCandidature) {
-          bouton =
-            '<a class="offer-link" href="' + echapper(lienCandidature) +
-            '" target="_blank" rel="noopener noreferrer">Consulter l’offre →</a>';
-        } else if (lienDocument) {
-          bouton =
-            '<a class="offer-link" href="' + echapper(lienDocument) +
-            '" target="_blank" rel="noopener noreferrer">Voir le document →</a>';
-        }
-
-        return `
-          <article class="offer-card">
-            <span class="badge">${echapper(nomType(offre.type))}</span>
-            <h3>${echapper(offre.titre || "Opportunité")}</h3>
-            <p><strong>Organisme :</strong> ${echapper(offre.organisme || "Non précisé")}</p>
-            <p><strong>Domaine :</strong> ${echapper(offre.domaine || "Non précisé")}</p>
-            <p><strong>Lieu :</strong> ${echapper(offre.lieu || "Non précisé")}</p>
-            <p><strong>Date limite :</strong> ${echapper(offre.date_limite || "Non précisée")}</p>
-            ${bouton}
-          </article>
-        `;
-      }).join("");
     }
 
     chargerDernieresOffres();
   </script>
-
 </body>
 </html>
+```
