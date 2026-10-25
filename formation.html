@@ -1,97 +1,553 @@
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Découvrez les formations, cours et programmes de renforcement des compétences sur Cap Avenir Afrique.">
-  <title>Formations | Cap Avenir Afrique</title>
+
+  <title>Formations gratuites et professionnelles en Afrique | Cap Avenir Afrique</title>
+
+  <meta name="description" content="Découvrez comment trouver des formations gratuites, professionnelles et certifiantes en Afrique et à l'international. Consultez les opportunités publiées sur Cap Avenir Afrique.">
+
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://agossoupas.github.io/Cap-avenir-afrique/formation.html">
+
+  <meta property="og:title" content="Formations | Cap Avenir Afrique">
+  <meta property="og:description" content="Explorez les possibilités de formation, développez vos compétences et préparez votre avenir professionnel.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://agossoupas.github.io/Cap-avenir-afrique/formation.html">
 
   <style>
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#263238;line-height:1.6}
-    header{background:#075e54;color:white;padding:25px 16px;text-align:center}
-    header h1{margin:0;font-size:30px}
-    header p{margin:8px 0 0}
-    nav{background:#064b43;padding:13px;text-align:center}
-    nav a{color:white;text-decoration:none;margin:0 12px;font-weight:bold}
-    main{max-width:1050px;margin:28px auto;padding:0 16px}
-    .intro,.filters,.card{background:white;border-radius:12px;padding:20px;margin-bottom:20px;box-shadow:0 3px 12px #0000000d}
-    .filters{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}
-    input{width:100%;padding:12px;border:1px solid #ccd5df;border-radius:8px;font-size:16px}
-    .card h2{margin-top:0;color:#075e54}
-    .meta{color:#52616b;font-size:14px}
-    .description{white-space:pre-wrap}
-    .button{display:inline-block;background:#087f5b;color:white;padding:10px 16px;border-radius:7px;text-decoration:none;margin:8px 8px 0 0;font-weight:bold}
-    .button:hover{background:#056746}
-    .secondary{background:#2457a6}
-    .message{text-align:center;padding:25px;background:white;border-radius:10px}
-    footer{text-align:center;padding:25px;background:#e6edf2;margin-top:35px}
-    @media(max-width:650px){.filters{grid-template-columns:1fr}nav a{display:inline-block;margin:5px 8px}header h1{font-size:25px}}
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #263238;
+      line-height: 1.7;
+    }
+
+    header {
+      background: #075e54;
+      color: white;
+      padding: 35px 16px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 32px;
+    }
+
+    header p {
+      margin: 10px 0 0;
+    }
+
+    nav {
+      background: #064b43;
+      padding: 13px;
+      text-align: center;
+    }
+
+    nav a {
+      display: inline-block;
+      color: white;
+      text-decoration: none;
+      margin: 4px 12px;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 28px auto;
+      padding: 0 16px;
+    }
+
+    section,
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 23px;
+      margin-bottom: 22px;
+      box-shadow: 0 3px 12px #0000000d;
+    }
+
+    h2,
+    h3 {
+      color: #075e54;
+      line-height: 1.4;
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    .hero {
+      border-top: 5px solid #087f5b;
+    }
+
+    .hero p:last-child {
+      margin-bottom: 0;
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .info-box {
+      background: #f0f8f5;
+      padding: 17px;
+      border-radius: 10px;
+      border: 1px solid #d7ebe2;
+    }
+
+    .info-box h3 {
+      margin-top: 0;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 12px;
+      box-shadow: none;
+      border: 1px solid #e0e7ed;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccd5df;
+      border-radius: 8px;
+      font-size: 16px;
+      background: white;
+    }
+
+    input:focus {
+      outline: 2px solid #087f5b;
+      outline-offset: 1px;
+    }
+
+    .card h2 {
+      margin-top: 0;
+      color: #075e54;
+    }
+
+    .meta {
+      color: #52616b;
+      font-size: 14px;
+    }
+
+    .description {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .button {
+      display: inline-block;
+      background: #087f5b;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 7px;
+      text-decoration: none;
+      margin: 8px 8px 0 0;
+      font-weight: bold;
+    }
+
+    .button:hover {
+      background: #056746;
+    }
+
+    .secondary {
+      background: #2457a6;
+    }
+
+    .message {
+      text-align: center;
+      padding: 25px;
+      background: white;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .notice {
+      background: #fff8e7;
+      border-left: 5px solid #e4a11b;
+      padding: 16px;
+      border-radius: 7px;
+    }
+
+    .steps li,
+    .checklist li {
+      margin-bottom: 10px;
+    }
+
+    .text-link {
+      color: #075e54;
+      font-weight: bold;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid #e4e9ee;
+      padding: 12px 0;
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-item h3 {
+      margin-bottom: 5px;
+    }
+
+    .faq-item p {
+      margin-top: 5px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px 16px;
+      background: #e6edf2;
+      margin-top: 35px;
+    }
+
+    footer p {
+      margin: 5px 0;
+    }
+
+    @media (max-width: 750px) {
+      .intro-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .filters {
+        grid-template-columns: 1fr;
+      }
+
+      header h1 {
+        font-size: 26px;
+      }
+
+      section,
+      .card {
+        padding: 18px;
+      }
+    }
   </style>
 </head>
 
 <body>
   <header>
-    <h1>📚 Formations</h1>
-    <p>Développez vos compétences et préparez votre avenir</p>
+    <h1>📚 Formations et développement des compétences</h1>
+    <p>Apprenez, développez vos compétences et préparez votre avenir.</p>
   </header>
 
-  <nav>
+  <nav aria-label="Navigation principale">
     <a href="index.html">Accueil</a>
     <a href="emplois.html">Emplois et stages</a>
     <a href="bourses.html">Bourses</a>
-    <a href="formation.html">Formations</a>
+    <a href="formation.html" aria-current="page">Formations</a>
   </nav>
 
   <main>
-    <section class="intro">
+    <section class="hero">
       <h2>Trouvez une formation adaptée à vos objectifs</h2>
-      <p>Explorez les formations publiées sur Cap Avenir Afrique. Consultez les conditions d'admission, les modalités et les dates limites auprès des organismes concernés.</p>
+
+      <p>
+        La formation permet d'acquérir de nouvelles compétences, de renforcer
+        ses connaissances et d'améliorer ses chances d'insertion professionnelle.
+        Que vous soyez étudiant, jeune diplômé, demandeur d'emploi ou professionnel,
+        il existe différents parcours pour continuer à apprendre.
+      </p>
+
+      <p>
+        Sur <strong>Cap Avenir Afrique</strong>, cette page est consacrée aux
+        opportunités de formation : formations gratuites ou payantes, cours en ligne,
+        programmes professionnels, formations certifiantes et initiatives de
+        renforcement des capacités.
+      </p>
+
+      <p>
+        Consultez les opportunités ci-dessous et vérifiez toujours les conditions
+        d'inscription auprès de l'organisme responsable.
+      </p>
     </section>
 
-    <section class="filters">
-      <input id="recherche" type="search" placeholder="Mot-clé ou organisme">
-      <input id="domaine" type="search" placeholder="Domaine">
-      <input id="lieu" type="search" placeholder="Pays ou lieu">
+    <section>
+      <h2>Les types de formations à rechercher</h2>
+
+      <div class="intro-grid">
+        <article class="info-box">
+          <h3>🎓 Formations gratuites</h3>
+          <p>
+            Elles permettent d'apprendre sans payer de frais de formation.
+            Vérifiez si l'accès aux cours, aux évaluations et au certificat est
+            entièrement gratuit.
+          </p>
+        </article>
+
+        <article class="info-box">
+          <h3>💻 Formations en ligne</h3>
+          <p>
+            Elles permettent d'étudier à distance, selon votre disponibilité.
+            Certaines proposent des cours vidéo, des exercices et des attestations.
+          </p>
+        </article>
+
+        <article class="info-box">
+          <h3>🛠️ Formations professionnelles</h3>
+          <p>
+            Elles visent à développer des compétences pratiques dans un métier,
+            un secteur d'activité ou une spécialité professionnelle.
+          </p>
+        </article>
+      </div>
     </section>
 
-    <section id="resultats" aria-live="polite">
-      <div class="message">Chargement des formations...</div>
+    <section>
+      <h2>Opportunités de formation disponibles</h2>
+
+      <p>
+        Retrouvez ici les formations publiées sur Cap Avenir Afrique.
+        Utilisez les filtres pour rechercher une opportunité selon le domaine,
+        l'organisme ou le lieu.
+      </p>
+
+      <div class="filters" role="search" aria-label="Recherche de formations">
+        <input
+          id="recherche"
+          type="search"
+          placeholder="Mot-clé ou organisme"
+          aria-label="Rechercher par mot-clé ou organisme"
+        >
+
+        <input
+          id="domaine"
+          type="search"
+          placeholder="Domaine"
+          aria-label="Filtrer par domaine"
+        >
+
+        <input
+          id="lieu"
+          type="search"
+          placeholder="Pays ou lieu"
+          aria-label="Filtrer par pays ou lieu"
+        >
+      </div>
+
+      <p id="compteur" class="meta" aria-live="polite"></p>
+
+      <div id="resultats" aria-live="polite">
+        <div class="message">Chargement des formations...</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Comment trouver une bonne formation ?</h2>
+
+      <ol class="steps">
+        <li>
+          <strong>Définissez votre objectif :</strong>
+          choisissez les compétences que vous souhaitez acquérir et le métier
+          ou le domaine qui vous intéresse.
+        </li>
+
+        <li>
+          <strong>Recherchez des organismes fiables :</strong>
+          consultez les sites officiels des établissements, des universités,
+          des centres de formation et des organisations qui proposent des programmes.
+        </li>
+
+        <li>
+          <strong>Vérifiez les conditions d'admission :</strong>
+          certaines formations exigent un diplôme, une expérience, un niveau
+          de langue ou des documents spécifiques.
+        </li>
+
+        <li>
+          <strong>Contrôlez les frais :</strong>
+          une formation annoncée comme gratuite peut comporter des frais
+          d'examen, de certification ou d'inscription.
+        </li>
+
+        <li>
+          <strong>Respectez les délais :</strong>
+          consultez la date limite et préparez les documents demandés avant
+          de soumettre votre candidature.
+        </li>
+
+        <li>
+          <strong>Évaluez la valeur du certificat :</strong>
+          vérifiez l'organisme qui délivre le certificat et sa reconnaissance
+          dans votre secteur d'activité.
+        </li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Quels documents préparer pour s'inscrire ?</h2>
+
+      <p>
+        Les documents varient selon la formation et l'organisme. Il est utile
+        de préparer à l'avance certains éléments couramment demandés :
+      </p>
+
+      <ul class="checklist">
+        <li>Un curriculum vitae à jour, lorsque cela est demandé.</li>
+        <li>Une lettre de motivation ou un formulaire de candidature.</li>
+        <li>Les diplômes, attestations ou relevés de notes requis.</li>
+        <li>Une pièce d'identité valide, si elle est exigée.</li>
+        <li>Une adresse e-mail active et un numéro de téléphone accessible.</li>
+        <li>Tout document particulier mentionné dans l'appel à candidatures.</li>
+      </ul>
+
+      <p class="notice">
+        <strong>Conseil :</strong> ne transmettez que les documents nécessaires
+        et vérifiez que le site ou l'adresse de candidature appartient bien à
+        l'organisme concerné.
+      </p>
+    </section>
+
+    <section>
+      <h2>Comment reconnaître une offre de formation fiable ?</h2>
+
+      <p>
+        Avant de vous inscrire, vérifiez l'identité de l'organisme, les objectifs
+        du programme, les conditions d'admission, les coûts éventuels et les
+        coordonnées officielles. Comparez les informations avec celles du site
+        officiel de l'établissement.
+      </p>
+
+      <p>
+        Méfiez-vous des promesses de certification garantie, des demandes de
+        paiement urgentes sur des comptes personnels et des offres qui réclament
+        des informations sensibles sans justification.
+      </p>
+
+      <p>
+        Cap Avenir Afrique partage des informations sur les opportunités.
+        La décision d'admission et les conditions définitives relèvent de
+        l'organisme qui propose la formation.
+      </p>
+    </section>
+
+    <section>
+      <h2>Questions fréquentes sur les formations</h2>
+
+      <div class="faq-item">
+        <h3>Peut-on trouver des formations gratuites ?</h3>
+        <p>
+          Oui. Certains organismes proposent des cours gratuits, des programmes
+          financés ou des formations ouvertes en ligne. Vérifiez les conditions
+          et les éventuels frais liés au certificat.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Faut-il obligatoirement avoir un diplôme ?</h3>
+        <p>
+          Non, cela dépend du programme. Certaines formations sont ouvertes aux
+          débutants, tandis que d'autres exigent un niveau scolaire, un diplôme
+          ou une expérience professionnelle.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Comment connaître la date limite d'inscription ?</h3>
+        <p>
+          Consultez l'annonce et le site officiel de l'organisme. Si aucune date
+          n'est indiquée, contactez directement le responsable du programme.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Les formations publiées garantissent-elles une admission ?</h3>
+        <p>
+          Non. La publication d'une opportunité ne garantit ni l'admission,
+          ni l'obtention d'un certificat, ni un emploi. Chaque organisme applique
+          ses propres critères de sélection.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Continuez votre recherche sur Cap Avenir Afrique</h2>
+
+      <p>
+        Une formation peut vous aider à préparer votre entrée dans la vie active
+        ou à évoluer professionnellement. Découvrez également les offres d'emploi,
+        les stages et les possibilités de financement de vos études.
+      </p>
+
+      <p>
+        <a class="button" href="emplois.html">Voir les emplois et stages</a>
+        <a class="button secondary" href="bourses.html">Découvrir les bourses</a>
+        <a class="button secondary" href="index.html">Retour à l'accueil</a>
+      </p>
     </section>
   </main>
 
   <footer>
-    <p>© <span id="annee"></span> Cap Avenir Afrique — Informer, orienter et inspirer.</p>
+    <p>
+      © <span id="annee"></span> Cap Avenir Afrique —
+      Informer, orienter et inspirer.
+    </p>
+    <p>Vérifiez toujours les informations auprès des organismes officiels.</p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <script>
     const SUPABASE_URL = "https://fhqppofwnoxiexnxivfx.supabase.co";
     const SUPABASE_KEY = "sb_publishable_U2NwuXutHMG_F8Ee8sEuIg_mMBJ3TY0";
-    const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const client = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
 
     const resultats = document.getElementById("resultats");
+    const compteur = document.getElementById("compteur");
     const recherche = document.getElementById("recherche");
     const domaine = document.getElementById("domaine");
     const lieu = document.getElementById("lieu");
+
     let formations = [];
 
-    document.getElementById("annee").textContent = new Date().getFullYear();
+    document.getElementById("annee").textContent =
+      new Date().getFullYear();
 
     function echapper(valeur) {
-      return String(valeur ?? "").replace(/[&<>"']/g, c => ({
+      return String(valeur ?? "").replace(/[&<>"']/g, caractere => ({
         "&": "&amp;",
         "<": "&lt;",
         ">": "&gt;",
         '"': "&quot;",
         "'": "&#39;"
-      })[c]);
+      })[caractere]);
     }
 
     function lienValide(url) {
       try {
         const adresse = new URL(url);
-        return ["https:", "http:"].includes(adresse.protocol) ? adresse.href : "";
+
+        if (
+          adresse.protocol === "https:" ||
+          adresse.protocol === "http:"
+        ) {
+          return adresse.href;
+        }
+
+        return "";
       } catch {
         return "";
       }
@@ -102,58 +558,155 @@
       const dom = domaine.value.trim().toLowerCase();
       const endroit = lieu.value.trim().toLowerCase();
 
-      const filtrees = formations.filter(f => {
+      const filtrees = formations.filter(formation => {
         const contenu = [
-          f.titre, f.organisme, f.domaine, f.description
+          formation.titre,
+          formation.organisme,
+          formation.domaine,
+          formation.description,
+          formation.lieu
         ].join(" ").toLowerCase();
 
         return contenu.includes(mot)
-          && String(f.domaine || "").toLowerCase().includes(dom)
-          && String(f.lieu || "").toLowerCase().includes(endroit);
+          && String(formation.domaine || "")
+            .toLowerCase().includes(dom)
+          && String(formation.lieu || "")
+            .toLowerCase().includes(endroit);
       });
 
-      if (!filtrees.length) {
-        resultats.innerHTML = '<div class="message">Aucune formation ne correspond à votre recherche pour le moment.</div>';
+      compteur.textContent = filtrees.length === 1
+        ? "1 formation trouvée."
+        : filtrees.length + " formation(s) trouvée(s).";
+
+      if (filtrees.length === 0) {
+        if (formations.length === 0) {
+          resultats.innerHTML = `
+            <div class="message">
+              <h3>Aucune formation publiée pour le moment</h3>
+              <p>
+                Notre rubrique de formations est en cours de développement.
+                Nous y présenterons les opportunités disponibles dès qu'elles
+                auront été vérifiées et publiées.
+              </p>
+              <p>
+                En attendant, consultez les conseils de recherche et de
+                vérification présentés sur cette page.
+              </p>
+            </div>
+          `;
+        } else {
+          resultats.innerHTML = `
+            <div class="message">
+              <h3>Aucun résultat pour cette recherche</h3>
+              <p>
+                Essayez d'autres mots-clés ou effacez un ou plusieurs filtres
+                pour afficher les formations disponibles.
+              </p>
+              <button class="button" id="effacerFiltres" type="button">
+                Effacer les filtres
+              </button>
+            </div>
+          `;
+
+          document.getElementById("effacerFiltres")
+            .addEventListener("click", () => {
+              recherche.value = "";
+              domaine.value = "";
+              lieu.value = "";
+              afficherFormations();
+            });
+        }
+
         return;
       }
 
-      resultats.innerHTML = filtrees.map(f => {
-        const candidature = lienValide(f.lien_candidature);
-        const documentUrl = lienValide(f.document_url);
+      resultats.innerHTML = filtrees.map(formation => {
+        const candidature = lienValide(formation.lien_candidature);
+        const documentUrl = lienValide(formation.document_url);
 
         return `
           <article class="card">
-            <h2>${echapper(f.titre)}</h2>
+            <h2>${echapper(formation.titre)}</h2>
+
             <p class="meta">
-              <strong>Organisme :</strong> ${echapper(f.organisme || "Non précisé")}<br>
-              <strong>Domaine :</strong> ${echapper(f.domaine || "Non précisé")}<br>
-              <strong>Lieu :</strong> ${echapper(f.lieu || "Non précisé")}<br>
-              <strong>Date limite :</strong> ${echapper(f.date_limite || "À vérifier")}
+              <strong>Organisme :</strong>
+              ${echapper(formation.organisme || "Non précisé")}<br>
+
+              <strong>Domaine :</strong>
+              ${echapper(formation.domaine || "Non précisé")}<br>
+
+              <strong>Lieu :</strong>
+              ${echapper(formation.lieu || "Non précisé")}<br>
+
+              <strong>Date limite :</strong>
+              ${echapper(formation.date_limite || "À vérifier")}
             </p>
-            <p class="description">${echapper(f.description || "Consultez le lien officiel pour plus d'informations.")}</p>
-            ${candidature ? `<a class="button" href="${echapper(candidature)}" target="_blank" rel="noopener noreferrer">Consulter / s'inscrire</a>` : ""}
-            ${documentUrl ? `<a class="button secondary" href="${echapper(documentUrl)}" target="_blank" rel="noopener noreferrer">Voir le document</a>` : ""}
+
+            <p class="description">
+              ${echapper(
+                formation.description ||
+                "Consultez la source officielle pour obtenir plus d'informations."
+              )}
+            </p>
+
+            ${
+              candidature
+                ? `<a class="button"
+                      href="${echapper(candidature)}"
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      Consulter / s'inscrire
+                   </a>`
+                : ""
+            }
+
+            ${
+              documentUrl
+                ? `<a class="button secondary"
+                      href="${echapper(documentUrl)}"
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      Voir le document
+                   </a>`
+                : ""
+            }
           </article>
         `;
       }).join("");
     }
 
     async function chargerFormations() {
-      const { data, error } = await client
-        .from("offres")
-        .select("*")
-        .eq("publie", true)
-        .eq("type", "formation")
-        .order("created_at", { ascending: false });
+      try {
+        const { data, error } = await client
+          .from("offres")
+          .select("*")
+          .eq("publie", true)
+          .eq("type", "formation")
+          .order("created_at", { ascending: false });
 
-      if (error) {
-        console.error("Erreur Supabase :", error);
-        resultats.innerHTML = '<div class="message">Impossible de charger les formations. Veuillez réessayer plus tard.</div>';
-        return;
+        if (error) {
+          throw error;
+        }
+
+        formations = data || [];
+        afficherFormations();
+
+      } catch (error) {
+        console.error("Erreur lors du chargement des formations :", error);
+
+        compteur.textContent = "";
+
+        resultats.innerHTML = `
+          <div class="message">
+            <h3>Les formations ne sont pas accessibles actuellement</h3>
+            <p>
+              Le contenu informatif de cette page reste disponible.
+              Nous vous invitons à revenir plus tard pour consulter les
+              opportunités publiées.
+            </p>
+          </div>
+        `;
       }
-
-      formations = data || [];
-      afficherFormations();
     }
 
     recherche.addEventListener("input", afficherFormations);
@@ -164,3 +717,4 @@
   </script>
 </body>
 </html>
+```
