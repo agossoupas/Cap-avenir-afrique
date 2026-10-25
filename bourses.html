@@ -1,75 +1,390 @@
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Découvrez les bourses d'études, aides financières et opportunités de formation avec Cap Avenir Afrique.">
-  <title>Bourses d'études | Cap Avenir Afrique</title>
+
+  <title>Bourses d'études en Afrique et à l'étranger | Cap Avenir Afrique</title>
+  <meta name="description" content="Découvrez des opportunités de bourses d'études pour les étudiants africains : conditions d'admission, pièces à préparer, conseils de candidature et liens officiels.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://agossoupas.github.io/Cap-avenir-afrique/bourses.html">
+
+  <meta property="og:title" content="Bourses d'études en Afrique et à l'étranger | Cap Avenir Afrique">
+  <meta property="og:description" content="Explorez les opportunités de bourses d'études et préparez votre candidature avec les conseils de Cap Avenir Afrique.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://agossoupas.github.io/Cap-avenir-afrique/bourses.html">
+  <meta name="theme-color" content="#075e54">
+
   <style>
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#263238;line-height:1.6}
-    header{background:#075e54;color:white;padding:25px 16px;text-align:center}
-    header h1{margin:0;font-size:30px}
-    header p{margin:8px 0 0}
-    nav{background:#064b43;padding:13px;text-align:center}
-    nav a{color:white;text-decoration:none;margin:0 12px;font-weight:bold}
-    main{max-width:1050px;margin:28px auto;padding:0 16px}
-    .intro,.filters,.card{background:white;border-radius:12px;padding:20px;margin-bottom:20px;box-shadow:0 3px 12px #0000000d}
-    .filters{display:grid;grid-template-columns:2fr 1fr;gap:12px}
-    input{width:100%;padding:12px;border:1px solid #ccd5df;border-radius:8px;font-size:16px}
-    .card h2{margin-top:0;color:#075e54}
-    .meta{color:#52616b;font-size:14px}
-    .description{white-space:pre-wrap}
-    .button{display:inline-block;background:#087f5b;color:white;padding:10px 16px;border-radius:7px;text-decoration:none;margin:8px 8px 0 0;font-weight:bold}
-    .button:hover{background:#056746}
-    .secondary{background:#2457a6}
-    .message{text-align:center;padding:25px;background:white;border-radius:10px}
-    footer{text-align:center;padding:25px;background:#e6edf2;margin-top:35px}
-    @media(max-width:600px){.filters{grid-template-columns:1fr}nav a{display:inline-block;margin:5px 8px}header h1{font-size:25px}}
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #263238;
+      line-height: 1.7;
+    }
+
+    header {
+      background: #075e54;
+      color: white;
+      padding: 38px 16px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 32px;
+    }
+
+    header p {
+      margin: 10px 0 0;
+      font-size: 17px;
+    }
+
+    nav {
+      background: #064b43;
+      padding: 13px;
+      text-align: center;
+    }
+
+    nav a {
+      display: inline-block;
+      color: white;
+      text-decoration: none;
+      margin: 4px 12px;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      max-width: 1050px;
+      margin: 28px auto;
+      padding: 0 16px;
+    }
+
+    .section {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 22px;
+      box-shadow: 0 3px 12px #0000000d;
+    }
+
+    h2, h3 {
+      color: #075e54;
+      line-height: 1.4;
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 12px;
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 12px #0000000d;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ccd5df;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    input:focus {
+      outline: 2px solid #087f5b;
+      outline-offset: 1px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 12px #0000000d;
+      overflow-wrap: anywhere;
+    }
+
+    .card h2 {
+      margin-top: 0;
+      margin-bottom: 12px;
+    }
+
+    .meta {
+      color: #52616b;
+      font-size: 14px;
+    }
+
+    .description {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .button {
+      display: inline-block;
+      background: #087f5b;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 7px;
+      text-decoration: none;
+      margin: 8px 8px 0 0;
+      font-weight: bold;
+    }
+
+    .button:hover {
+      background: #056746;
+    }
+
+    .secondary {
+      background: #2457a6;
+    }
+
+    .secondary:hover {
+      background: #19417e;
+    }
+
+    .message {
+      text-align: center;
+      padding: 25px;
+      background: white;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .notice {
+      border-left: 4px solid #d89b19;
+      padding: 12px 16px;
+      background: #fff8e6;
+      border-radius: 5px;
+    }
+
+    .tips-list li {
+      margin-bottom: 10px;
+    }
+
+    .related-links a {
+      display: inline-block;
+      margin: 5px 12px 5px 0;
+      color: #075e54;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px 16px;
+      background: #e6edf2;
+      margin-top: 35px;
+    }
+
+    footer a {
+      color: #075e54;
+      margin: 0 8px;
+    }
+
+    @media (max-width: 600px) {
+      .filters {
+        grid-template-columns: 1fr;
+      }
+
+      header h1 {
+        font-size: 26px;
+      }
+
+      .section, .card {
+        padding: 18px;
+      }
+    }
   </style>
 </head>
+
 <body>
   <header>
-    <h1>🎓 Bourses d'études</h1>
-    <p>Des opportunités pour construire votre avenir</p>
+    <h1>🎓 Bourses d'études en Afrique et à l'étranger</h1>
+    <p>Explorez les opportunités pour poursuivre vos études et construire votre avenir.</p>
   </header>
 
-  <nav>
+  <nav aria-label="Navigation principale">
     <a href="index.html">Accueil</a>
     <a href="emplois.html">Emplois et stages</a>
-    <a href="bourses.html">Bourses</a>
+    <a href="bourses.html" aria-current="page">Bourses</a>
     <a href="formation.html">Formations</a>
   </nav>
 
   <main>
-    <section class="intro">
-      <h2>Recherchez une bourse</h2>
-      <p>Retrouvez ici les bourses publiées sur Cap Avenir Afrique. Vérifiez toujours les conditions et la date limite sur le site officiel de l'organisme.</p>
+    <section class="section">
+      <h2>Comment trouver une bourse d'études ?</h2>
+
+      <p>
+        Une bourse d'études peut aider à financer une formation universitaire,
+        un programme de recherche ou des études à l'étranger. Selon le programme,
+        elle peut couvrir les frais de scolarité, le logement, le transport,
+        l'assurance ou une partie des dépenses quotidiennes.
+      </p>
+
+      <p>
+        Cap Avenir Afrique vous aide à repérer les opportunités de financement
+        des études et à préparer vos démarches. Les conditions varient selon
+        l'organisme, le pays, le niveau d'études et le programme choisi.
+        Lisez toujours attentivement les critères d'admissibilité avant de postuler.
+      </p>
+
+      <div class="notice">
+        <strong>Conseil important :</strong>
+        vérifiez l'existence de chaque programme, les dates limites et les modalités
+        de candidature sur le site officiel de l'organisme financeur. Une bourse
+        annoncée en ligne n'est pas nécessairement encore ouverte.
+      </div>
     </section>
 
-    <section class="filters">
-      <input id="recherche" type="search" placeholder="Mot-clé : pays, diplôme, organisme...">
-      <input id="lieu" type="search" placeholder="Pays ou lieu">
+    <section class="section" id="liste-bourses">
+      <h2>Consulter les bourses disponibles</h2>
+
+      <p>
+        Recherchez les opportunités publiées sur notre plateforme par mot-clé,
+        organisme, domaine d'études ou pays. Si aucune offre ne correspond à votre
+        recherche, revenez consulter cette page ultérieurement.
+      </p>
+
+      <div class="filters">
+        <input
+          id="recherche"
+          type="search"
+          placeholder="Mot-clé : pays, diplôme, organisme..."
+          aria-label="Rechercher une bourse par mot-clé"
+        >
+
+        <input
+          id="lieu"
+          type="search"
+          placeholder="Pays ou lieu"
+          aria-label="Filtrer les bourses par pays ou lieu"
+        >
+      </div>
+
+      <p id="compteur" aria-live="polite"></p>
+
+      <section id="resultats" aria-live="polite">
+        <div class="message">Chargement des bourses...</div>
+      </section>
     </section>
 
-    <section id="resultats" aria-live="polite">
-      <div class="message">Chargement des bourses...</div>
+    <section class="section">
+      <h2>Quelles pièces préparer pour une candidature ?</h2>
+
+      <p>
+        Les documents demandés dépendent du programme. Il est toutefois utile
+        de préparer à l'avance les pièces fréquemment exigées :
+      </p>
+
+      <ul class="tips-list">
+        <li>Une pièce d'identité ou un passeport valide, selon les exigences.</li>
+        <li>Les diplômes et relevés de notes disponibles.</li>
+        <li>Un curriculum vitæ à jour.</li>
+        <li>Une lettre de motivation adaptée au programme.</li>
+        <li>Des lettres de recommandation, si elles sont demandées.</li>
+        <li>Une attestation de langue ou d'autres justificatifs, selon le pays et la formation.</li>
+        <li>Les formulaires et documents spécifiques indiqués dans l'appel à candidatures.</li>
+      </ul>
+
+      <p>
+        N'envoyez que les documents requis et respectez les formats et les délais
+        précisés dans le dossier officiel.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Comment augmenter ses chances d'obtenir une bourse ?</h2>
+
+      <ol class="tips-list">
+        <li><strong>Vérifiez votre admissibilité :</strong> confirmez le niveau d'études, l'âge éventuel, la nationalité admissible et les autres critères.</li>
+        <li><strong>Respectez les délais :</strong> ne commencez pas la préparation de votre dossier à la dernière minute.</li>
+        <li><strong>Personnalisez votre motivation :</strong> expliquez clairement votre parcours, vos objectifs et l'intérêt du programme pour votre projet.</li>
+        <li><strong>Préparez un dossier cohérent :</strong> vérifiez les noms, les dates, les pièces jointes et la qualité des documents.</li>
+        <li><strong>Suivez les instructions officielles :</strong> utilisez le portail indiqué par l'organisme et conservez une copie de votre candidature.</li>
+      </ol>
+    </section>
+
+    <section class="section">
+      <h2>Attention aux fausses offres de bourses</h2>
+
+      <p>
+        Méfiez-vous des annonces qui garantissent l'obtention d'une bourse,
+        réclament un paiement inhabituel pour vous assurer une place ou vous
+        demandent de transmettre des informations personnelles sensibles sans
+        justification claire.
+      </p>
+
+      <ul class="tips-list">
+        <li>Vérifiez le nom et les coordonnées de l'organisme sur son site officiel.</li>
+        <li>Comparez les informations de l'annonce avec celles du programme officiel.</li>
+        <li>Ne communiquez jamais vos mots de passe ou vos codes de validation.</li>
+        <li>Ne payez pas un intermédiaire sur la seule promesse d'obtenir une bourse.</li>
+      </ul>
+
+      <p>
+        La présence d'une annonce sur Cap Avenir Afrique ne garantit ni l'authenticité
+        de chaque information ni l'obtention d'un financement. Effectuez les vérifications
+        nécessaires avant toute démarche.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Découvrez aussi nos autres opportunités</h2>
+
+      <p>
+        Votre projet peut également avancer grâce à une formation complémentaire,
+        un stage ou une première expérience professionnelle.
+      </p>
+
+      <div class="related-links">
+        <a href="emplois.html">Consulter les emplois et stages</a>
+        <a href="formation.html">Découvrir les formations</a>
+        <a href="index.html">Retour à l'accueil</a>
+      </div>
     </section>
   </main>
 
   <footer>
     <p>© <span id="annee"></span> Cap Avenir Afrique — Informer, orienter et inspirer.</p>
+    <p>
+      <a href="index.html">Accueil</a> |
+      <a href="emplois.html">Emplois et stages</a> |
+      <a href="bourses.html">Bourses</a> |
+      <a href="formation.html">Formations</a>
+    </p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <script>
     const SUPABASE_URL = "https://fhqppofwnoxiexnxivfx.supabase.co";
     const SUPABASE_KEY = "sb_publishable_U2NwuXutHMG_F8Ee8sEuIg_mMBJ3TY0";
-    const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const client = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
 
     const resultats = document.getElementById("resultats");
     const recherche = document.getElementById("recherche");
     const lieu = document.getElementById("lieu");
+    const compteur = document.getElementById("compteur");
+
     let bourses = [];
 
     document.getElementById("annee").textContent = new Date().getFullYear();
@@ -87,7 +402,9 @@
     function lienValide(url) {
       try {
         const adresse = new URL(url);
-        return ["https:", "http:"].includes(adresse.protocol) ? adresse.href : "";
+        return ["https:", "http:"].includes(adresse.protocol)
+          ? adresse.href
+          : "";
       } catch {
         return "";
       }
@@ -99,15 +416,28 @@
 
       const filtrees = bourses.filter(b => {
         const contenu = [
-          b.titre, b.organisme, b.domaine, b.lieu, b.description
+          b.titre,
+          b.organisme,
+          b.domaine,
+          b.lieu,
+          b.description
         ].join(" ").toLowerCase();
 
         return contenu.includes(mot) &&
           String(b.lieu || "").toLowerCase().includes(endroit);
       });
 
+      compteur.textContent = filtrees.length === 1
+        ? "1 bourse affichée."
+        : `${filtrees.length} bourse(s) affichée(s).`;
+
       if (!filtrees.length) {
-        resultats.innerHTML = '<div class="message">Aucune bourse ne correspond à votre recherche pour le moment.</div>';
+        resultats.innerHTML = `
+          <div class="message">
+            Aucune bourse ne correspond à votre recherche pour le moment.
+            Essayez d'autres mots-clés ou revenez consulter cette page ultérieurement.
+          </div>
+        `;
         return;
       }
 
@@ -118,15 +448,25 @@
         return `
           <article class="card">
             <h2>${echapper(b.titre)}</h2>
+
             <p class="meta">
               <strong>Organisme :</strong> ${echapper(b.organisme || "Non précisé")}<br>
               <strong>Domaine :</strong> ${echapper(b.domaine || "Non précisé")}<br>
               <strong>Lieu :</strong> ${echapper(b.lieu || "Non précisé")}<br>
               <strong>Date limite :</strong> ${echapper(b.date_limite || "À vérifier")}
             </p>
-            <p class="description">${echapper(b.description || "Consultez le lien officiel pour obtenir plus d'informations.")}</p>
-            ${candidature ? `<a class="button" href="${echapper(candidature)}" target="_blank" rel="noopener noreferrer">Consulter / postuler</a>` : ""}
-            ${documentUrl ? `<a class="button secondary" href="${echapper(documentUrl)}" target="_blank" rel="noopener noreferrer">Voir le document</a>` : ""}
+
+            <p class="description">${echapper(
+              b.description || "Consultez le lien officiel pour obtenir plus d'informations."
+            )}</p>
+
+            ${candidature
+              ? `<a class="button" href="${echapper(candidature)}" target="_blank" rel="noopener noreferrer">Consulter / postuler</a>`
+              : ""}
+
+            ${documentUrl
+              ? `<a class="button secondary" href="${echapper(documentUrl)}" target="_blank" rel="noopener noreferrer">Voir le document</a>`
+              : ""}
           </article>
         `;
       }).join("");
@@ -135,26 +475,38 @@
     async function chargerBourses() {
       resultats.innerHTML = '<div class="message">Chargement des bourses...</div>';
 
-      const { data, error } = await client
-        .from("offres")
-        .select("*")
-        .eq("publie", true)
-        .eq("type", "bourse")
-        .order("created_at", { ascending: false });
+      try {
+        const { data, error } = await client
+          .from("offres")
+          .select("*")
+          .eq("publie", true)
+          .eq("type", "bourse")
+          .order("created_at", { ascending: false });
 
-      if (error) {
-        console.error("Erreur Supabase :", error);
-        resultats.innerHTML = '<div class="message">Impossible de charger les bourses. Veuillez réessayer plus tard.</div>';
-        return;
+        if (error) {
+          throw error;
+        }
+
+        bourses = data || [];
+        afficherBourses();
+
+      } catch (erreur) {
+        console.error("Erreur Supabase :", erreur);
+        compteur.textContent = "";
+        resultats.innerHTML = `
+          <div class="message">
+            Impossible de charger les bourses pour le moment.
+            Veuillez réessayer plus tard.
+          </div>
+        `;
       }
-
-      bourses = data || [];
-      afficherBourses();
     }
 
     recherche.addEventListener("input", afficherBourses);
     lieu.addEventListener("input", afficherBourses);
+
     chargerBourses();
   </script>
 </body>
 </html>
+```
