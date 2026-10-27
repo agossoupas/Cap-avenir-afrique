@@ -755,7 +755,7 @@
       const chemin = "offres/" + nomFichier;
 
       const { error } = await supabaseClient.storage
-        .from("documents")
+        .from("Documents")
         .upload(chemin, fichier, {
           contentType: "application/pdf",
           upsert: false
