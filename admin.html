@@ -769,7 +769,7 @@
       }
 
       const { data } = supabaseClient.storage
-        .from("documents")
+        .from("Documents")
         .getPublicUrl(chemin);
 
       return data.publicUrl;
