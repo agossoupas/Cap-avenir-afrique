@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Cap Avenir Afrique : découvrez des offres d'emploi, stages, bourses, formations, concours et opportunités pour construire votre avenir.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#087443">
+  <title>Cap Avenir Afrique | Trouve ton opportunité</title>
+  <link rel="canonical" href="https://agossoupas.github.io/Cap-avenir-afrique/">
+  <link rel="icon" type="image/png" href="cap-avenir-afrique-favicon.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Cap Avenir Afrique | Trouve ton opportunité">
+  <meta property="og:description" content="Emplois, stages, bourses, formations et opportunités en Afrique et à l'international.">
+  <meta property="og:url" content="https://agossoupas.github.io/Cap-avenir-afrique/">
+  <meta property="og:site_name" content="Cap Avenir Afrique">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green:#087443; --green-dark:#064b2e; --green-soft:#eaf5ee;
+      --ink:#172b23; --muted:#64736c; --paper:#f7faf8; --white:#fff;
+      --line:#e3ebe6; --gold:#f3bd52; --shadow:0 16px 45px rgba(13,55,34,.09);
+      --radius:20px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:"DM Sans",Arial,sans-serif;color:var(--ink);background:var(--paper);line-height:1.6}
+    a{color:inherit}
+    a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+    .topbar{background:var(--green-dark);color:#e8f5ed;font-size:12px;padding:8px 5%;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .topbar strong{color:#fff}
+    header{height:auto;min-height:78px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:14px 5%;gap:24px;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+    .brand{display:flex;align-items:center;gap:11px;text-decoration:none;min-width:max-content}
+    .brand-mark{width:42px;height:42px;border-radius:13px;background:linear-gradient(145deg,#0b8a50,#064b2e);display:grid;place-items:center;color:white;font-size:21px;font-weight:800;box-shadow:0 7px 18px #08744330}
+    .brand-name{font-family:Manrope,sans-serif;font-size:18px;font-weight:800;line-height:1.1;color:var(--green-dark)}
+    .brand-name small{display:block;font:600 10px "DM Sans",sans-serif;letter-spacing:1.7px;color:#829087;margin-top:4px}
+    nav{display:flex;align-items:center;gap:25px}
+    nav a{text-decoration:none;font-size:13px;font-weight:700;color:#45564d;transition:.2s}
+    nav a:hover,nav a[aria-current="page"]{color:var(--green)}
+    .nav-cta{background:var(--green);color:#fff!important;padding:10px 16px;border-radius:10px}
+    .hero{position:relative;overflow:hidden;background:radial-gradient(circle at 83% 20%,#1b9c5e 0,transparent 27%),linear-gradient(115deg,#063d28 0%,#087443 58%,#0b8750 100%);color:#fff;padding:76px 5% 88px}
+    .hero:before{content:"";position:absolute;width:420px;height:420px;border:1px solid #ffffff18;border-radius:50%;right:-120px;bottom:-260px;box-shadow:0 0 0 45px #ffffff08,0 0 0 90px #ffffff06}
+    .hero-inner{max-width:1160px;margin:auto;position:relative;z-index:1}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;color:#d8f3e3;background:#ffffff15;border:1px solid #ffffff2b;padding:7px 12px;border-radius:30px;font-size:12px;font-weight:700;letter-spacing:.3px;margin-bottom:20px}
+    .eyebrow i{width:7px;height:7px;border-radius:50%;background:#f6c45e;display:inline-block}
+    .hero h1{font-family:Manrope,sans-serif;font-size:clamp(34px,5.2vw,58px);line-height:1.13;letter-spacing:-1.8px;max-width:760px;margin-bottom:18px}
+    .hero h1 span{color:#f6c45e}
+    .hero-copy{font-size:16px;color:#dceee4;max-width:630px;line-height:1.8;margin-bottom:30px}
+    .search-panel{max-width:850px;background:#fff;padding:9px;border-radius:15px;display:flex;gap:8px;box-shadow:0 18px 45px #002c1c45}
+    .search-field{display:flex;align-items:center;gap:10px;flex:1;padding:0 13px;min-width:0}
+    .search-field span{font-size:20px}
+    .search-field input{border:0;outline:0;width:100%;font:500 14px "DM Sans",sans-serif;color:var(--ink);padding:13px 0;background:transparent}
+    .search-button{border:0;border-radius:10px;background:var(--gold);color:#34250c;font:800 13px "DM Sans",sans-serif;padding:0 24px;cursor:pointer;white-space:nowrap;transition:.2s}
+    .search-button:hover{background:#ffd276;transform:translateY(-1px)}
+    .hero-note{margin-top:15px;color:#c5e2d1;font-size:12px}
+    .hero-note strong{color:#fff}
+    .stats{max-width:1160px;margin:-30px auto 0;padding:0 5%;position:relative;z-index:2;display:grid;grid-template-columns:repeat(3,1fr)}
+    .stat{background:#fff;padding:20px 25px;border-right:1px solid var(--line);box-shadow:var(--shadow)}
+    .stat:first-child{border-radius:15px 0 0 15px}.stat:last-child{border:0;border-radius:0 15px 15px 0}
+    .stat strong{display:block;font:800 20px Manrope,sans-serif;color:var(--green-dark)}
+    .stat span{font-size:12px;color:var(--muted)}
+    .wrap{width:90%;max-width:1160px;margin:0 auto}
+    .section{padding:66px 0}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:25px}
+    .kicker{font-size:11px;letter-spacing:1.7px;text-transform:uppercase;color:var(--green);font-weight:800;margin-bottom:8px}
+    h2{font:800 clamp(24px,3vw,32px) Manrope,sans-serif;letter-spacing:-.7px;color:#173c2a;line-height:1.25}
+    .section-sub{color:var(--muted);font-size:14px;margin-top:7px}
+    .text-link{color:var(--green);font-size:13px;font-weight:800;text-decoration:none;white-space:nowrap}
+    .text-link:hover{text-decoration:underline}
+    .category-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:13px}
+    .category{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 15px;text-decoration:none;transition:.22s;min-height:145px}
+    .category:hover{transform:translateY(-5px);border-color:#a9d2b8;box-shadow:var(--shadow)}
+    .category-icon{width:43px;height:43px;display:grid;place-items:center;border-radius:13px;background:var(--green-soft);font-size:21px;margin-bottom:13px}
+    .category h3{font-size:13px;font-weight:800;color:#234533;margin-bottom:4px}
+    .category p{font-size:11px;color:var(--muted);line-height:1.5}
+    .latest{background:#eef5f0;padding:65px 0}
+    .filters{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 22px}
+    .filter{border:1px solid #dce7df;background:#fff;color:#53635a;border-radius:30px;padding:8px 14px;font:700 11px "DM Sans",sans-serif;cursor:pointer;transition:.2s}
+    .filter:hover,.filter.active{background:var(--green);border-color:var(--green);color:#fff}
+    #dernieresOffres{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .offer-card{background:#fff;border:1px solid #e0eae3;border-radius:16px;padding:21px;display:flex;flex-direction:column;min-height:220px;transition:.2s}
+    .offer-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+    .offer-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:13px}
+    .badge{display:inline-block;background:#e6f5eb;color:#087443;border-radius:30px;padding:5px 10px;font-size:10px;font-weight:800}
+    .offer-card h3{font:800 16px Manrope,sans-serif;color:#1b3c2b;line-height:1.4;margin-bottom:12px}
+    .offer-meta{font-size:12px;color:#68776e;margin:3px 0}
+    .offer-meta strong{color:#394b40}
+    .offer-link{display:inline-flex;align-items:center;gap:7px;margin-top:auto;padding-top:16px;color:var(--green);font-size:12px;font-weight:800;text-decoration:none}
+    .offer-link:hover{text-decoration:underline}
+    .message{background:#fff;padding:28px;text-align:center;border:1px dashed #c9d9ce;border-radius:15px;color:var(--muted);grid-column:1/-1;font-size:13px}
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+    .about-panel{background:linear-gradient(145deg,#e6f3e9,#f5faf6);border:1px solid #dcebe0;border-radius:22px;padding:32px}
+    .about-panel .big-icon{font-size:42px;margin-bottom:15px}
+    .about-panel h3{font:800 20px Manrope,sans-serif;color:#17452e;margin-bottom:10px}
+    .about-panel p{font-size:13px;color:#607168}
+    .about-copy p{font-size:14px;color:var(--muted);margin:13px 0}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:26px}
+    .step{background:#fff;border:1px solid var(--line);border-radius:15px;padding:20px}
+    .step b{display:grid;place-items:center;width:30px;height:30px;background:var(--green-soft);color:var(--green);border-radius:9px;margin-bottom:12px;font-size:12px}
+    .step h3{font-size:13px;color:#234533;margin-bottom:5px}
+    .step p{font-size:11px;color:var(--muted)}
+    footer{background:#102d20;color:#dce9e0;padding:38px 5% 22px}
+    .footer-inner{max-width:1160px;margin:auto;display:flex;justify-content:space-between;gap:25px;flex-wrap:wrap}
+    .footer-brand{font:800 18px Manrope,sans-serif;color:#fff}
+    footer p{font-size:12px;color:#b5c9bd;margin-top:7px}
+    .footer-links{display:flex;gap:17px;flex-wrap:wrap}
+    .footer-links a{font-size:12px;color:#d2e8da;text-decoration:none}
+    .footer-links a:hover{color:#f6c45e}
+    .copyright{max-width:1160px;margin:25px auto 0;padding-top:17px;border-top:1px solid #ffffff20;font-size:11px;color:#9db4a5}
+    @media(max-width:900px){.category-grid{grid-template-columns:repeat(3,1fr)}#dernieresOffres{grid-template-columns:repeat(2,1fr)}nav{gap:14px}}
+    @media(max-width:650px){
+      .topbar{justify-content:center;text-align:center}header{position:static;flex-direction:column;gap:13px;padding:14px 4%}
+      nav{justify-content:center;gap:10px 17px;flex-wrap:wrap}nav a{font-size:12px}.nav-cta{padding:8px 12px}
+      .hero{padding:54px 5% 65px}.hero h1{letter-spacing:-1px}.hero-copy{font-size:14px}
+      .search-panel{flex-direction:column;padding:8px}.search-field{padding:0 8px}.search-button{padding:14px}
+      .stats{grid-template-columns:1fr;margin-top:-22px}.stat{border-right:0;border-bottom:1px solid var(--line);padding:13px 20px}
+      .stat:first-child{border-radius:13px 13px 0 0}.stat:last-child{border-radius:0 0 13px 13px}
+      .wrap{width:90%}.section,.latest{padding:48px 0}.section-head{align-items:start;flex-direction:column}
+      .category-grid{grid-template-columns:repeat(2,1fr);gap:10px}.category{padding:15px 13px;min-height:130px}
+      #dernieresOffres{grid-template-columns:1fr}.about-grid{grid-template-columns:1fr;gap:22px}.steps{grid-template-columns:1fr}
+      .footer-inner{flex-direction:column}
+    }
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <span>🌍 <strong>Les opportunités qui font avancer l'Afrique</strong></span>
+    <span>Des annonces à explorer. Des projets à construire.</span>
+  </div>
+  <header>
+    <a class="brand" href="index.html" aria-label="Cap Avenir Afrique, accueil">
+      <span class="brand-mark">C</span>
+      <span class="brand-name">CAP AVENIR AFRIQUE<small>INFORMER · ORIENTER · INSPIRER</small></span>
+    </a>
+    <nav aria-label="Navigation principale">
+      <a href="index.html" aria-current="page">Accueil</a>
+      <a href="emplois.html">Emplois & stages</a>
+      <a href="bourses.html">Bourses</a>
+      <a href="formation.html">Formations</a>
+      <a class="nav-cta" href="#dernieres-offres">Voir les opportunités&nbsp; ↗</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="eyebrow"><i></i> TON PROCHAIN DÉPART COMMENCE ICI</div>
+        <h1>Ne passe pas à côté de <span>ta prochaine opportunité.</span></h1>
+        <p class="hero-copy">Emplois, stages, bourses, formations et bien plus : découvre des opportunités en Afrique et à l'international pour faire avancer tes ambitions.</p>
+        <form class="search-panel" id="searchForm" role="search">
+          <label class="search-field" for="searchInput"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Que recherches-tu ? (ex. bourse, stage, santé…)" autocomplete="off"></label>
+          <button class="search-button" type="submit">Rechercher les offres</button>
+        </form>
+        <p class="hero-note">Recherche parmi les annonces publiées sur <strong>Cap Avenir Afrique</strong>.</p>
+      </div>
+    </section>
+
+    <div class="stats" aria-label="Les engagements de Cap Avenir Afrique">
+      <div class="stat"><strong>Opportunités</strong><span>Emploi, études et développement professionnel</span></div>
+      <div class="stat"><strong>Afrique & international</strong><span>Des pistes pour élargir tes horizons</span></div>
+      <div class="stat"><strong>Accès simplifié</strong><span>Les informations essentielles au même endroit</span></div>
+    </div>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="kicker">Explore par catégorie</div><h2>Quelle opportunité recherches-tu ?</h2><p class="section-sub">Choisis un domaine pour commencer ton exploration.</p></div>
+        </div>
+        <div class="category-grid">
+          <a class="category" href="emplois.html"><span class="category-icon">💼</span><h3>Emplois</h3><p>Offres et recrutements</p></a>
+          <a class="category" href="emplois.html"><span class="category-icon">🧑‍💻</span><h3>Stages</h3><p>Expérience et insertion</p></a>
+          <a class="category" href="bourses.html"><span class="category-icon">🎓</span><h3>Bourses</h3><p>Financer ses études</p></a>
+          <a class="category" href="formation.html"><span class="category-icon">📚</span><h3>Formations</h3><p>Apprendre et progresser</p></a>
+          <a class="category" href="#dernieres-offres" data-filter="concours"><span class="category-icon">🏆</span><h3>Concours</h3><p>Concours et sélections</p></a>
+          <a class="category" href="#dernieres-offres" data-filter="volontariat"><span class="category-icon">🤝</span><h3>Volontariat</h3><p>Engagement et missions</p></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="latest" id="dernieres-offres">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="kicker">À ne pas manquer</div><h2>Les dernières opportunités</h2><p class="section-sub">Les annonces récemment publiées sur notre plateforme.</p></div>
+          <a class="text-link" href="emplois.html">Parcourir les offres ↗</a>
+        </div>
+        <div class="filters" aria-label="Filtrer les opportunités">
+          <button class="filter active" type="button" data-type="tous">Toutes</button>
+          <button class="filter" type="button" data-type="emploi">Emplois</button>
+          <button class="filter" type="button" data-type="stage">Stages</button>
+          <button class="filter" type="button" data-type="bourse">Bourses</button>
+          <button class="filter" type="button" data-type="formation">Formations</button>
+          <button class="filter" type="button" data-type="concours">Concours</button>
+          <button class="filter" type="button" data-type="volontariat">Volontariat</button>
+          <button class="filter" type="button" data-type="appel_a_projets">Appels à projets</button>
+        </div>
+        <div id="dernieresOffres" aria-live="polite" aria-busy="true">
+          <div class="message">Chargement des opportunités…</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap about-grid">
+        <div class="about-copy">
+          <div class="kicker">À propos de la plateforme</div>
+          <h2>Un cap plus clair vers ton avenir.</h2>
+          <p>Cap Avenir Afrique est une plateforme d'information qui facilite la découverte d'opportunités éducatives et professionnelles en Afrique et à l'international.</p>
+          <p>Notre ambition : aider les jeunes, les étudiants et les professionnels à trouver des pistes concrètes, à mieux s'informer et à préparer leurs prochaines étapes.</p>
+          <p><strong>Conseil :</strong> vérifie toujours les conditions, les dates limites et les modalités de candidature auprès de l'organisme responsable.</p>
+          <a class="text-link" href="emplois.html">Commencer ma recherche ↗</a>
+        </div>
+        <div class="about-panel">
+          <div class="big-icon">🌱</div>
+          <h3>Chaque opportunité peut ouvrir une nouvelle voie.</h3>
+          <p>Une candidature préparée, une compétence acquise ou une rencontre peuvent devenir le début d'un nouveau projet. Reste informé et donne-toi les moyens d'avancer.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="wrap">
+        <div class="kicker">Simple et pratique</div>
+        <h2>Comment ça marche ?</h2>
+        <div class="steps">
+          <article class="step"><b>01</b><h3>Explore</h3><p>Parcours les catégories et recherche les annonces qui correspondent à ton profil.</p></article>
+          <article class="step"><b>02</b><h3>Vérifie</h3><p>Lis les critères, les pièces à fournir et la date limite de chaque opportunité.</p></article>
+          <article class="step"><b>03</b><h3>Candidate</h3><p>Suis les instructions officielles de l'organisme et prépare soigneusement ton dossier.</p></article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div><div class="footer-brand">Cap Avenir Afrique</div><p>Les opportunités pour construire ton avenir.</p></div>
+      <div class="footer-links">
+        <a href="index.html">Accueil</a><a href="emplois.html">Emplois & stages</a><a href="bourses.html">Bourses</a><a href="formation.html">Formations</a>
+      </div>
+    </div>
+    <div class="copyright">© <span id="annee"></span> Cap Avenir Afrique. Tous droits réservés.</div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // Configuration publique Supabase existante du projet.
+    const SUPABASE_URL = "https://fhqppofwnoxiexnxivfx.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_U2NwuXutHMG_F8Ee8sEuIg_mMBJ3TY0";
+
+    const affichage = document.getElementById("dernieresOffres");
+    const recherche = document.getElementById("searchInput");
+    let toutesLesOffres = [];
+    let filtreActif = "tous";
+
+    document.getElementById("annee").textContent = new Date().getFullYear();
+
+    function echapper(valeur) {
+      return String(valeur ?? "").replace(/[&<>"']/g, c => ({
+        "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#039;"
+      }[c]));
+    }
+
+    function lienSecurise(valeur) {
+      if (!valeur) return "";
+      try {
+        const url = new URL(valeur);
+        return (url.protocol === "https:" || url.protocol === "http:") ? url.href : "";
+      } catch (_) { return ""; }
+    }
+
+    function nomType(type) {
+      const types = {
+        emploi:"Emploi", stage:"Stage", bourse:"Bourse", formation:"Formation",
+        concours:"Concours", volontariat:"Volontariat",
+        appel_a_projets:"Appel à projets", "appel à projets":"Appel à projets"
+      };
+      return types[String(type || "").toLowerCase()] || "Opportunité";
+    }
+
+    function afficherOffres() {
+      const terme = recherche.value.trim().toLocaleLowerCase("fr");
+      const resultats = toutesLesOffres.filter(offre => {
+        const type = String(offre.type || "").toLowerCase();
+        const correspondType = filtreActif === "tous" || type === filtreActif;
+        const contenu = [offre.titre, offre.type, offre.organisme, offre.domaine, offre.lieu, offre.description]
+          .filter(Boolean).join(" ").toLocaleLowerCase("fr");
+        return correspondType && (!terme || contenu.includes(terme));
+      });
+
+      if (!resultats.length) {
+        affichage.innerHTML = '<div class="message">Aucune annonce ne correspond à cette recherche. Essaie un autre mot-clé ou une autre catégorie.</div>';
+        return;
+      }
+
+      affichage.innerHTML = resultats.map(offre => {
+        const candidature = lienSecurise(offre.lien_candidature);
+        const documentPdf = lienSecurise(offre.document_url);
+        const url = candidature || documentPdf;
+        const texteLien = candidature ? "Voir les modalités et postuler" : "Consulter le document";
+        return `
+          <article class="offer-card">
+            <div class="offer-top"><span class="badge">${echapper(nomType(offre.type))}</span></div>
+            <h3>${echapper(offre.titre || "Opportunité")}</h3>
+            <p class="offer-meta"><strong>Organisme :</strong> ${echapper(offre.organisme || "Non précisé")}</p>
+            <p class="offer-meta"><strong>Domaine :</strong> ${echapper(offre.domaine || "Non précisé")}</p>
+            <p class="offer-meta"><strong>Lieu :</strong> ${echapper(offre.lieu || "Non précisé")}</p>
+            <p class="offer-meta"><strong>Date limite :</strong> ${echapper(offre.date_limite || "Non précisée")}</p>
+            ${url ? `<a class="offer-link" href="${echapper(url)}" target="_blank" rel="noopener noreferrer">${texteLien} →</a>` : ""}
+          </article>`;
+      }).join("");
+    }
+
+    async function chargerDernieresOffres() {
+      if (!window.supabase) {
+        affichage.innerHTML = '<div class="message">Le service de chargement est momentanément indisponible. Tu peux consulter les catégories ci-dessus.</div>';
+        affichage.setAttribute("aria-busy", "false");
+        return;
+      }
+      try {
+        const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        const { data, error } = await client.from("offres")
+          .select("*").eq("publie", true)
+          .order("created_at", { ascending: false }).limit(30);
+        if (error) throw error;
+        toutesLesOffres = data || [];
+        afficherOffres();
+      } catch (erreur) {
+        console.error("Erreur de chargement des opportunités :", erreur);
+        affichage.innerHTML = '<div class="message">Les opportunités ne sont pas disponibles pour le moment. Réessaie dans quelques instants.</div>';
+      } finally {
+        affichage.setAttribute("aria-busy", "false");
+      }
+    }
+
+    document.getElementById("searchForm").addEventListener("submit", event => {
+      event.preventDefault();
+      afficherOffres();
+      document.getElementById("dernieres-offres").scrollIntoView({ behavior:"smooth" });
+    });
+    recherche.addEventListener("input", afficherOffres);
+
+    document.querySelectorAll(".filter").forEach(bouton => {
+      bouton.addEventListener("click", () => {
+        filtreActif = bouton.dataset.type;
+        document.querySelectorAll(".filter").forEach(b => b.classList.toggle("active", b === bouton));
+        afficherOffres();
+      });
+    });
+
+    document.querySelectorAll("[data-filter]").forEach(lien => {
+      lien.addEventListener("click", () => {
+        filtreActif = lien.dataset.filter;
+        document.querySelectorAll(".filter").forEach(b => b.classList.toggle("active", b.dataset.type === filtreActif));
+        setTimeout(afficherOffres, 0);
+      });
+    });
+
+    chargerDernieresOffres();
+  </script>
+</body>
+</html>
