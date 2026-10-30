@@ -1,891 +1,364 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <link rel="icon" type="image/png" href="cap-avenir-afrique-favicon.png">
-<link rel="shortcut icon" href="favicon.ico">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="noindex, nofollow">
-  <title>Administration | Cap Avenir Afrique</title>
-
+  <meta name="description" content="Cap Avenir Afrique : découvrez des offres d'emploi, stages, bourses, formations, concours et opportunités pour construire votre avenir.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#087443">
+  <title>Cap Avenir Afrique | Trouve ton opportunité</title>
+  <link rel="canonical" href="https://agossoupas.github.io/Cap-avenir-afrique/">
+  <link rel="icon" type="image/png" href="cap-avenir-afrique-favicon.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Cap Avenir Afrique | Trouve ton opportunité">
+  <meta property="og:description" content="Emplois, stages, bourses, formations et opportunités en Afrique et à l'international.">
+  <meta property="og:url" content="https://agossoupas.github.io/Cap-avenir-afrique/">
+  <meta property="og:site_name" content="Cap Avenir Afrique">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    :root {
+      --green:#087443; --green-dark:#064b2e; --green-soft:#eaf5ee;
+      --ink:#172b23; --muted:#64736c; --paper:#f7faf8; --white:#fff;
+      --line:#e3ebe6; --gold:#f3bd52; --shadow:0 16px 45px rgba(13,55,34,.09);
+      --radius:20px;
     }
-
-    body {
-      font-family: Arial, sans-serif;
-      background: #f2f5f9;
-      color: #243247;
-      line-height: 1.6;
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:"DM Sans",Arial,sans-serif;color:var(--ink);background:var(--paper);line-height:1.6}
+    a{color:inherit}
+    a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+    .topbar{background:var(--green-dark);color:#e8f5ed;font-size:12px;padding:8px 5%;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .topbar strong{color:#fff}
+    header{height:auto;min-height:78px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:14px 5%;gap:24px;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+    .brand{display:flex;align-items:center;gap:11px;text-decoration:none;min-width:max-content}
+    .brand-mark{width:42px;height:42px;border-radius:13px;background:linear-gradient(145deg,#0b8a50,#064b2e);display:grid;place-items:center;color:white;font-size:21px;font-weight:800;box-shadow:0 7px 18px #08744330}
+    .brand-name{font-family:Manrope,sans-serif;font-size:18px;font-weight:800;line-height:1.1;color:var(--green-dark)}
+    .brand-name small{display:block;font:600 10px "DM Sans",sans-serif;letter-spacing:1.7px;color:#829087;margin-top:4px}
+    nav{display:flex;align-items:center;gap:25px}
+    nav a{text-decoration:none;font-size:13px;font-weight:700;color:#45564d;transition:.2s}
+    nav a:hover,nav a[aria-current="page"]{color:var(--green)}
+    .nav-cta{background:var(--green);color:#fff!important;padding:10px 16px;border-radius:10px}
+    .hero{position:relative;overflow:hidden;background:radial-gradient(circle at 83% 20%,#1b9c5e 0,transparent 27%),linear-gradient(115deg,#063d28 0%,#087443 58%,#0b8750 100%);color:#fff;padding:76px 5% 88px}
+    .hero:before{content:"";position:absolute;width:420px;height:420px;border:1px solid #ffffff18;border-radius:50%;right:-120px;bottom:-260px;box-shadow:0 0 0 45px #ffffff08,0 0 0 90px #ffffff06}
+    .hero-inner{max-width:1160px;margin:auto;position:relative;z-index:1}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;color:#d8f3e3;background:#ffffff15;border:1px solid #ffffff2b;padding:7px 12px;border-radius:30px;font-size:12px;font-weight:700;letter-spacing:.3px;margin-bottom:20px}
+    .eyebrow i{width:7px;height:7px;border-radius:50%;background:#f6c45e;display:inline-block}
+    .hero h1{font-family:Manrope,sans-serif;font-size:clamp(34px,5.2vw,58px);line-height:1.13;letter-spacing:-1.8px;max-width:760px;margin-bottom:18px}
+    .hero h1 span{color:#f6c45e}
+    .hero-copy{font-size:16px;color:#dceee4;max-width:630px;line-height:1.8;margin-bottom:30px}
+    .search-panel{max-width:850px;background:#fff;padding:9px;border-radius:15px;display:flex;gap:8px;box-shadow:0 18px 45px #002c1c45}
+    .search-field{display:flex;align-items:center;gap:10px;flex:1;padding:0 13px;min-width:0}
+    .search-field span{font-size:20px}
+    .search-field input{border:0;outline:0;width:100%;font:500 14px "DM Sans",sans-serif;color:var(--ink);padding:13px 0;background:transparent}
+    .search-button{border:0;border-radius:10px;background:var(--gold);color:#34250c;font:800 13px "DM Sans",sans-serif;padding:0 24px;cursor:pointer;white-space:nowrap;transition:.2s}
+    .search-button:hover{background:#ffd276;transform:translateY(-1px)}
+    .hero-note{margin-top:15px;color:#c5e2d1;font-size:12px}
+    .hero-note strong{color:#fff}
+    .stats{max-width:1160px;margin:-30px auto 0;padding:0 5%;position:relative;z-index:2;display:grid;grid-template-columns:repeat(3,1fr)}
+    .stat{background:#fff;padding:20px 25px;border-right:1px solid var(--line);box-shadow:var(--shadow)}
+    .stat:first-child{border-radius:15px 0 0 15px}.stat:last-child{border:0;border-radius:0 15px 15px 0}
+    .stat strong{display:block;font:800 20px Manrope,sans-serif;color:var(--green-dark)}
+    .stat span{font-size:12px;color:var(--muted)}
+    .wrap{width:90%;max-width:1160px;margin:0 auto}
+    .section{padding:66px 0}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:25px}
+    .kicker{font-size:11px;letter-spacing:1.7px;text-transform:uppercase;color:var(--green);font-weight:800;margin-bottom:8px}
+    h2{font:800 clamp(24px,3vw,32px) Manrope,sans-serif;letter-spacing:-.7px;color:#173c2a;line-height:1.25}
+    .section-sub{color:var(--muted);font-size:14px;margin-top:7px}
+    .text-link{color:var(--green);font-size:13px;font-weight:800;text-decoration:none;white-space:nowrap}
+    .text-link:hover{text-decoration:underline}
+    .category-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:13px}
+    .category{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 15px;text-decoration:none;transition:.22s;min-height:145px}
+    .category:hover{transform:translateY(-5px);border-color:#a9d2b8;box-shadow:var(--shadow)}
+    .category-icon{width:43px;height:43px;display:grid;place-items:center;border-radius:13px;background:var(--green-soft);font-size:21px;margin-bottom:13px}
+    .category h3{font-size:13px;font-weight:800;color:#234533;margin-bottom:4px}
+    .category p{font-size:11px;color:var(--muted);line-height:1.5}
+    .latest{background:#eef5f0;padding:65px 0}
+    .filters{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 22px}
+    .filter{border:1px solid #dce7df;background:#fff;color:#53635a;border-radius:30px;padding:8px 14px;font:700 11px "DM Sans",sans-serif;cursor:pointer;transition:.2s}
+    .filter:hover,.filter.active{background:var(--green);border-color:var(--green);color:#fff}
+    #dernieresOffres{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .offer-card{background:#fff;border:1px solid #e0eae3;border-radius:16px;padding:21px;display:flex;flex-direction:column;min-height:220px;transition:.2s}
+    .offer-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+    .offer-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:13px}
+    .badge{display:inline-block;background:#e6f5eb;color:#087443;border-radius:30px;padding:5px 10px;font-size:10px;font-weight:800}
+    .offer-card h3{font:800 16px Manrope,sans-serif;color:#1b3c2b;line-height:1.4;margin-bottom:12px}
+    .offer-meta{font-size:12px;color:#68776e;margin:3px 0}
+    .offer-meta strong{color:#394b40}
+    .offer-link{display:inline-flex;align-items:center;gap:7px;margin-top:auto;padding-top:16px;color:var(--green);font-size:12px;font-weight:800;text-decoration:none}
+    .offer-link:hover{text-decoration:underline}
+    .message{background:#fff;padding:28px;text-align:center;border:1px dashed #c9d9ce;border-radius:15px;color:var(--muted);grid-column:1/-1;font-size:13px}
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+    .about-panel{background:linear-gradient(145deg,#e6f3e9,#f5faf6);border:1px solid #dcebe0;border-radius:22px;padding:32px}
+    .about-panel .big-icon{font-size:42px;margin-bottom:15px}
+    .about-panel h3{font:800 20px Manrope,sans-serif;color:#17452e;margin-bottom:10px}
+    .about-panel p{font-size:13px;color:#607168}
+    .about-copy p{font-size:14px;color:var(--muted);margin:13px 0}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:26px}
+    .step{background:#fff;border:1px solid var(--line);border-radius:15px;padding:20px}
+    .step b{display:grid;place-items:center;width:30px;height:30px;background:var(--green-soft);color:var(--green);border-radius:9px;margin-bottom:12px;font-size:12px}
+    .step h3{font-size:13px;color:#234533;margin-bottom:5px}
+    .step p{font-size:11px;color:var(--muted)}
+    footer{background:#102d20;color:#dce9e0;padding:38px 5% 22px}
+    .footer-inner{max-width:1160px;margin:auto;display:flex;justify-content:space-between;gap:25px;flex-wrap:wrap}
+    .footer-brand{font:800 18px Manrope,sans-serif;color:#fff}
+    footer p{font-size:12px;color:#b5c9bd;margin-top:7px}
+    .footer-links{display:flex;gap:17px;flex-wrap:wrap}
+    .footer-links a{font-size:12px;color:#d2e8da;text-decoration:none}
+    .footer-links a:hover{color:#f6c45e}
+    .copyright{max-width:1160px;margin:25px auto 0;padding-top:17px;border-top:1px solid #ffffff20;font-size:11px;color:#9db4a5}
+    @media(max-width:900px){.category-grid{grid-template-columns:repeat(3,1fr)}#dernieresOffres{grid-template-columns:repeat(2,1fr)}nav{gap:14px}}
+    @media(max-width:650px){
+      .topbar{justify-content:center;text-align:center}header{position:static;flex-direction:column;gap:13px;padding:14px 4%}
+      nav{justify-content:center;gap:10px 17px;flex-wrap:wrap}nav a{font-size:12px}.nav-cta{padding:8px 12px}
+      .hero{padding:54px 5% 65px}.hero h1{letter-spacing:-1px}.hero-copy{font-size:14px}
+      .search-panel{flex-direction:column;padding:8px}.search-field{padding:0 8px}.search-button{padding:14px}
+      .stats{grid-template-columns:1fr;margin-top:-22px}.stat{border-right:0;border-bottom:1px solid var(--line);padding:13px 20px}
+      .stat:first-child{border-radius:13px 13px 0 0}.stat:last-child{border-radius:0 0 13px 13px}
+      .wrap{width:90%}.section,.latest{padding:48px 0}.section-head{align-items:start;flex-direction:column}
+      .category-grid{grid-template-columns:repeat(2,1fr);gap:10px}.category{padding:15px 13px;min-height:130px}
+      #dernieresOffres{grid-template-columns:1fr}.about-grid{grid-template-columns:1fr;gap:22px}.steps{grid-template-columns:1fr}
+      .footer-inner{flex-direction:column}
     }
-
-    header {
-      background: #075b36;
-      color: white;
-      padding: 22px;
-      text-align: center;
-    }
-
-    header h1 {
-      margin-bottom: 5px;
-    }
-
-    nav {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 18px;
-      padding: 12px;
-      background: #06472b;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
-    }
-
-    .container {
-      width: 94%;
-      max-width: 1100px;
-      margin: 30px auto;
-    }
-
-    .panel {
-      background: white;
-      padding: 24px;
-      border-radius: 12px;
-      margin-bottom: 25px;
-      box-shadow: 0 3px 12px #0000000d;
-    }
-
-    h2 {
-      color: #087443;
-      margin-bottom: 18px;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .full {
-      grid-column: 1 / -1;
-    }
-
-    label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 6px;
-    }
-
-    input,
-    select,
-    textarea {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #ccd5df;
-      border-radius: 7px;
-      font: inherit;
-      background: white;
-    }
-
-    textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
-
-    input[type="checkbox"] {
-      width: auto;
-      margin-right: 8px;
-    }
-
-    .checkbox-label {
-      display: flex;
-      align-items: center;
-      margin: 12px 0;
-    }
-
-    button {
-      border: none;
-      border-radius: 7px;
-      padding: 11px 16px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 14px;
-      margin: 5px 5px 5px 0;
-    }
-
-    .primary {
-      background: #087443;
-      color: white;
-    }
-
-    .primary:hover {
-      background: #075b36;
-    }
-
-    .secondary {
-      background: #e5eaf0;
-      color: #243247;
-    }
-
-    .danger {
-      background: #c62828;
-      color: white;
-    }
-
-    .warning {
-      background: #f0ad32;
-      color: #242424;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .notice {
-      padding: 12px;
-      border-radius: 7px;
-      margin: 15px 0;
-      overflow-wrap: anywhere;
-    }
-
-    .success {
-      background: #dff5e7;
-      color: #075b36;
-    }
-
-    .error {
-      background: #fde8e7;
-      color: #9b1c1c;
-    }
-
-    .info {
-      background: #e5efff;
-      color: #174a8b;
-    }
-
-    .offer {
-      border: 1px solid #e0e6ed;
-      border-radius: 10px;
-      padding: 18px;
-      margin-bottom: 15px;
-      overflow-wrap: anywhere;
-    }
-
-    .offer h3 {
-      color: #087443;
-      margin-bottom: 8px;
-    }
-
-    .status {
-      display: inline-block;
-      padding: 4px 9px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: bold;
-      margin: 7px 0;
-    }
-
-    .published {
-      background: #dff5e7;
-      color: #075b36;
-    }
-
-    .unpublished {
-      background: #fff0d1;
-      color: #805500;
-    }
-
-    .muted {
-      color: #617086;
-      font-size: 14px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #16352a;
-      color: white;
-      margin-top: 40px;
-    }
-
-    @media (max-width: 650px) {
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .full {
-        grid-column: auto;
-      }
-
-      .panel {
-        padding: 17px;
-      }
-    }
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
   </style>
 </head>
-
 <body>
+  <div class="topbar">
+    <span>🌍 <strong>Les opportunités qui font avancer l'Afrique</strong></span>
+    <span>Des annonces à explorer. Des projets à construire.</span>
+  </div>
   <header>
-    <h1>Cap Avenir Afrique</h1>
-    <p>Panneau d'administration</p>
+    <a class="brand" href="index.html" aria-label="Cap Avenir Afrique, accueil">
+      <span class="brand-mark">C</span>
+      <span class="brand-name">CAP AVENIR AFRIQUE<small>INFORMER · ORIENTER · INSPIRER</small></span>
+    </a>
+    <nav aria-label="Navigation principale">
+      <a href="index.html" aria-current="page">Accueil</a>
+      <a href="emplois.html">Emplois & stages</a>
+      <a href="bourses.html">Bourses</a>
+      <a href="formation.html">Formations</a>
+      <a class="nav-cta" href="#dernieres-offres">Voir les opportunités&nbsp; ↗</a>
+    </nav>
   </header>
 
-  <nav>
-    <a href="index.html">Accueil</a>
-    <a href="emplois.html">Emplois & stages</a>
-    <a href="bourses.html">Bourses</a>
-    <a href="formation.html">Formations</a>
-  </nav>
-
-  <main class="container">
-
-    <section id="connexion" class="panel">
-      <h2>Connexion administrateur</h2>
-
-      <p class="muted">
-        Connecte-toi avec un compte déjà créé dans Supabase Authentication.
-      </p>
-
-      <form id="connexionForm">
-        <div style="margin-bottom:15px;">
-          <label for="email">Adresse e-mail</label>
-          <input
-            type="email"
-            id="email"
-            autocomplete="username"
-            required
-          >
-        </div>
-
-        <div style="margin-bottom:15px;">
-          <label for="motdepasse">Mot de passe</label>
-          <input
-            type="password"
-            id="motdepasse"
-            autocomplete="current-password"
-            required
-          >
-        </div>
-
-        <button class="primary" type="submit" id="boutonConnexion">
-          Se connecter
-        </button>
-      </form>
-
-      <div id="messageConnexion" aria-live="polite"></div>
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="eyebrow"><i></i> TON PROCHAIN DÉPART COMMENCE ICI</div>
+        <h1>Ne passe pas à côté de <span>ta prochaine opportunité.</span></h1>
+        <p class="hero-copy">Emplois, stages, bourses, formations et bien plus : découvre des opportunités en Afrique et à l'international pour faire avancer tes ambitions.</p>
+        <form class="search-panel" id="searchForm" role="search">
+          <label class="search-field" for="searchInput"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Que recherches-tu ? (ex. bourse, stage, santé…)" autocomplete="off"></label>
+          <button class="search-button" type="submit">Rechercher les offres</button>
+        </form>
+        <p class="hero-note">Recherche parmi les annonces publiées sur <strong>Cap Avenir Afrique</strong>.</p>
+      </div>
     </section>
 
-    <section id="administration" class="hidden">
+    <div class="stats" aria-label="Les engagements de Cap Avenir Afrique">
+      <div class="stat"><strong>Opportunités</strong><span>Emploi, études et développement professionnel</span></div>
+      <div class="stat"><strong>Afrique & international</strong><span>Des pistes pour élargir tes horizons</span></div>
+      <div class="stat"><strong>Accès simplifié</strong><span>Les informations essentielles au même endroit</span></div>
+    </div>
 
-      <section class="panel">
-        <h2>Gestion des offres</h2>
-
-        <p>
-          Compte connecté :
-          <strong id="compteConnecte"></strong>
-        </p>
-
-        <button type="button" class="secondary" id="actualiser">
-          Actualiser les offres
-        </button>
-
-        <button type="button" class="danger" id="deconnexion">
-          Se déconnecter
-        </button>
-
-        <div id="messageGeneral" aria-live="polite"></div>
-      </section>
-
-      <section class="panel">
-        <h2 id="titreFormulaire">Ajouter une offre</h2>
-
-        <p class="muted">
-          Les nouvelles offres ne seront pas publiées tant que tu ne coches
-          pas la case de publication.
-        </p>
-
-        <form id="offreForm">
-          <div class="form-grid">
-
-            <div>
-              <label for="titre">Titre de l'offre *</label>
-              <input id="titre" name="titre" maxlength="250" required>
-            </div>
-
-            <div>
-              <label for="type">Type d'offre *</label>
-              <select id="type" name="type" required>
-                <option value="emploi">Emploi</option>
-                <option value="stage">Stage</option>
-                <option value="bourse">Bourse</option>
-                <option value="formation">Formation</option>
-              </select>
-            </div>
-
-            <div>
-              <label for="organisme">Organisme</label>
-              <input id="organisme" name="organisme" maxlength="250">
-            </div>
-
-            <div>
-              <label for="domaine">Domaine</label>
-              <input id="domaine" name="domaine" maxlength="250">
-            </div>
-
-            <div>
-              <label for="lieu">Lieu / Pays</label>
-              <input id="lieu" name="lieu" maxlength="250">
-            </div>
-
-            <div>
-              <label for="date_limite">Date limite</label>
-              <input id="date_limite" name="date_limite" type="date">
-            </div>
-
-            <div class="full">
-              <label for="lien_candidature">Lien de candidature</label>
-              <input
-                id="lien_candidature"
-                name="lien_candidature"
-                type="url"
-                placeholder="https://..."
-              >
-            </div>
-
-            <div class="full">
-              <label for="description">Description de l'offre</label>
-              <textarea
-                id="description"
-                name="description"
-                maxlength="20000"
-                placeholder="Présente les conditions, les critères et les modalités de candidature."
-              ></textarea>
-            </div>
-
-            <div class="full">
-              <label for="document">Document PDF (facultatif)</label>
-              <input
-                id="document"
-                name="document"
-                type="file"
-                accept=".pdf,application/pdf"
-              >
-              <p class="muted">
-                Si le stockage Supabase est configuré, tu pourras joindre un PDF.
-                Lors d'une modification, laisse ce champ vide pour conserver
-                le document déjà associé.
-              </p>
-            </div>
-
-            <div class="full">
-              <label class="checkbox-label" for="publie">
-                <input type="checkbox" id="publie" name="publie">
-                Publier cette offre sur le site
-              </label>
-              <p class="muted">
-                Case décochée par défaut : l'offre reste masquée aux visiteurs.
-              </p>
-            </div>
-
-          </div>
-
-          <div id="messageFormulaire" aria-live="polite"></div>
-
-          <button class="primary" type="submit" id="enregistrer">
-            Enregistrer l'offre
-          </button>
-
-          <button
-            class="secondary hidden"
-            type="button"
-            id="annulerModification"
-          >
-            Annuler la modification
-          </button>
-        </form>
-      </section>
-
-      <section class="panel">
-        <h2>Offres enregistrées</h2>
-        <div id="listeOffres">
-          Chargement des offres...
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="kicker">Explore par catégorie</div><h2>Quelle opportunité recherches-tu ?</h2><p class="section-sub">Choisis un domaine pour commencer ton exploration.</p></div>
         </div>
-      </section>
+        <div class="category-grid">
+          <a class="category" href="emplois.html"><span class="category-icon">💼</span><h3>Emplois</h3><p>Offres et recrutements</p></a>
+          <a class="category" href="emplois.html"><span class="category-icon">🧑‍💻</span><h3>Stages</h3><p>Expérience et insertion</p></a>
+          <a class="category" href="bourses.html"><span class="category-icon">🎓</span><h3>Bourses</h3><p>Financer ses études</p></a>
+          <a class="category" href="formation.html"><span class="category-icon">📚</span><h3>Formations</h3><p>Apprendre et progresser</p></a>
+          <a class="category" href="#dernieres-offres" data-filter="concours"><span class="category-icon">🏆</span><h3>Concours</h3><p>Concours et sélections</p></a>
+          <a class="category" href="#dernieres-offres" data-filter="volontariat"><span class="category-icon">🤝</span><h3>Volontariat</h3><p>Engagement et missions</p></a>
+        </div>
+      </div>
+    </section>
 
+    <section class="latest" id="dernieres-offres">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="kicker">À ne pas manquer</div><h2>Les dernières opportunités</h2><p class="section-sub">Les annonces récemment publiées sur notre plateforme.</p></div>
+          <a class="text-link" href="emplois.html">Parcourir les offres ↗</a>
+        </div>
+        <div class="filters" aria-label="Filtrer les opportunités">
+          <button class="filter active" type="button" data-type="tous">Toutes</button>
+          <button class="filter" type="button" data-type="emploi">Emplois</button>
+          <button class="filter" type="button" data-type="stage">Stages</button>
+          <button class="filter" type="button" data-type="bourse">Bourses</button>
+          <button class="filter" type="button" data-type="formation">Formations</button>
+          <button class="filter" type="button" data-type="concours">Concours</button>
+          <button class="filter" type="button" data-type="volontariat">Volontariat</button>
+          <button class="filter" type="button" data-type="appel_a_projets">Appels à projets</button>
+        </div>
+        <div id="dernieresOffres" aria-live="polite" aria-busy="true">
+          <div class="message">Chargement des opportunités…</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap about-grid">
+        <div class="about-copy">
+          <div class="kicker">À propos de la plateforme</div>
+          <h2>Un cap plus clair vers ton avenir.</h2>
+          <p>Cap Avenir Afrique est une plateforme d'information qui facilite la découverte d'opportunités éducatives et professionnelles en Afrique et à l'international.</p>
+          <p>Notre ambition : aider les jeunes, les étudiants et les professionnels à trouver des pistes concrètes, à mieux s'informer et à préparer leurs prochaines étapes.</p>
+          <p><strong>Conseil :</strong> vérifie toujours les conditions, les dates limites et les modalités de candidature auprès de l'organisme responsable.</p>
+          <a class="text-link" href="emplois.html">Commencer ma recherche ↗</a>
+        </div>
+        <div class="about-panel">
+          <div class="big-icon">🌱</div>
+          <h3>Chaque opportunité peut ouvrir une nouvelle voie.</h3>
+          <p>Une candidature préparée, une compétence acquise ou une rencontre peuvent devenir le début d'un nouveau projet. Reste informé et donne-toi les moyens d'avancer.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="wrap">
+        <div class="kicker">Simple et pratique</div>
+        <h2>Comment ça marche ?</h2>
+        <div class="steps">
+          <article class="step"><b>01</b><h3>Explore</h3><p>Parcours les catégories et recherche les annonces qui correspondent à ton profil.</p></article>
+          <article class="step"><b>02</b><h3>Vérifie</h3><p>Lis les critères, les pièces à fournir et la date limite de chaque opportunité.</p></article>
+          <article class="step"><b>03</b><h3>Candidate</h3><p>Suis les instructions officielles de l'organisme et prépare soigneusement ton dossier.</p></article>
+        </div>
+      </div>
     </section>
   </main>
 
   <footer>
-    <p>© <span id="annee"></span> Cap Avenir Afrique</p>
-    <p>Administration du site</p>
+    <div class="footer-inner">
+      <div><div class="footer-brand">Cap Avenir Afrique</div><p>Les opportunités pour construire ton avenir.</p></div>
+      <div class="footer-links">
+        <a href="index.html">Accueil</a><a href="emplois.html">Emplois & stages</a><a href="bourses.html">Bourses</a><a href="formation.html">Formations</a>
+      </div>
+    </div>
+    <div class="copyright">© <span id="annee"></span> Cap Avenir Afrique. Tous droits réservés.</div>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
   <script>
+    // Configuration publique Supabase existante du projet.
     const SUPABASE_URL = "https://fhqppofwnoxiexnxivfx.supabase.co";
     const SUPABASE_KEY = "sb_publishable_U2NwuXutHMG_F8Ee8sEuIg_mMBJ3TY0";
 
-    const supabaseClient = window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_KEY
-    );
+    const affichage = document.getElementById("dernieresOffres");
+    const recherche = document.getElementById("searchInput");
+    let toutesLesOffres = [];
+    let filtreActif = "tous";
 
-    const connexion = document.getElementById("connexion");
-    const administration = document.getElementById("administration");
-    const connexionForm = document.getElementById("connexionForm");
-    const offreForm = document.getElementById("offreForm");
-    const messageConnexion = document.getElementById("messageConnexion");
-    const messageGeneral = document.getElementById("messageGeneral");
-    const messageFormulaire = document.getElementById("messageFormulaire");
-    const listeOffres = document.getElementById("listeOffres");
-
-    let utilisateur = null;
-    let offreEnModification = null;
-    let documentActuel = null;
-    let chargementEnCours = false;
-
-    document.getElementById("annee").textContent =
-      new Date().getFullYear();
+    document.getElementById("annee").textContent = new Date().getFullYear();
 
     function echapper(valeur) {
-      return String(valeur ?? "").replace(/[&<>"']/g, function(caractere) {
-        return {
-          "&": "&amp;",
-          "<": "&lt;",
-          ">": "&gt;",
-          '"': "&quot;",
-          "'": "&#039;"
-        }[caractere];
-      });
+      return String(valeur ?? "").replace(/[&<>"']/g, c => ({
+        "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#039;"
+      }[c]));
     }
 
-    function afficherMessage(element, texte, type) {
-      element.innerHTML =
-        '<div class="notice ' + type + '">' + echapper(texte) + '</div>';
-    }
-
-    function viderMessage(element) {
-      element.innerHTML = "";
-    }
-
-    function lienValide(valeur) {
+    function lienSecurise(valeur) {
       if (!valeur) return "";
-
       try {
         const url = new URL(valeur);
-
-        if (url.protocol === "https:" || url.protocol === "http:") {
-          return url.href;
-        }
-      } catch (erreur) {
-        return "";
-      }
-
-      return "";
+        return (url.protocol === "https:" || url.protocol === "http:") ? url.href : "";
+      } catch (_) { return ""; }
     }
 
-    async function verifierSession() {
-      const { data, error } = await supabaseClient.auth.getSession();
-
-      if (error) {
-        afficherMessage(messageConnexion, error.message, "error");
-        return;
-      }
-
-      utilisateur = data.session ? data.session.user : null;
-      actualiserInterface();
+    function nomType(type) {
+      const types = {
+        emploi:"Emploi", stage:"Stage", bourse:"Bourse", formation:"Formation",
+        concours:"Concours", volontariat:"Volontariat",
+        appel_a_projets:"Appel à projets", "appel à projets":"Appel à projets"
+      };
+      return types[String(type || "").toLowerCase()] || "Opportunité";
     }
 
-    function actualiserInterface() {
-      if (utilisateur) {
-        connexion.classList.add("hidden");
-        administration.classList.remove("hidden");
-        document.getElementById("compteConnecte").textContent =
-          utilisateur.email || "Compte connecté";
-
-        chargerOffres();
-      } else {
-        administration.classList.add("hidden");
-        connexion.classList.remove("hidden");
-      }
-    }
-
-    connexionForm.addEventListener("submit", async function(event) {
-      event.preventDefault();
-      viderMessage(messageConnexion);
-
-      const bouton = document.getElementById("boutonConnexion");
-      bouton.disabled = true;
-      bouton.textContent = "Connexion...";
-
-      const { data, error } = await supabaseClient.auth.signInWithPassword({
-        email: document.getElementById("email").value.trim(),
-        password: document.getElementById("motdepasse").value
+    function afficherOffres() {
+      const terme = recherche.value.trim().toLocaleLowerCase("fr");
+      const resultats = toutesLesOffres.filter(offre => {
+        const type = String(offre.type || "").toLowerCase();
+        const correspondType = filtreActif === "tous" || type === filtreActif;
+        const contenu = [offre.titre, offre.type, offre.organisme, offre.domaine, offre.lieu, offre.description]
+          .filter(Boolean).join(" ").toLocaleLowerCase("fr");
+        return correspondType && (!terme || contenu.includes(terme));
       });
 
-      bouton.disabled = false;
-      bouton.textContent = "Se connecter";
-
-      if (error) {
-        afficherMessage(
-          messageConnexion,
-          "Connexion impossible : " + error.message,
-          "error"
-        );
+      if (!resultats.length) {
+        affichage.innerHTML = '<div class="message">Aucune annonce ne correspond à cette recherche. Essaie un autre mot-clé ou une autre catégorie.</div>';
         return;
       }
 
-      utilisateur = data.user;
-      connexionForm.reset();
-      actualiserInterface();
-    });
-
-    document.getElementById("deconnexion").addEventListener("click", async function() {
-      const { error } = await supabaseClient.auth.signOut();
-
-      if (error) {
-        afficherMessage(messageGeneral, error.message, "error");
-        return;
-      }
-
-      utilisateur = null;
-      reinitialiserFormulaire();
-      actualiserInterface();
-    });
-
-    async function chargerOffres() {
-      if (!utilisateur || chargementEnCours) return;
-
-      chargementEnCours = true;
-      listeOffres.textContent = "Chargement des offres...";
-
-      const { data, error } = await supabaseClient
-        .from("offres")
-        .select("*")
-        .order("created_at", { ascending: false });
-
-      chargementEnCours = false;
-
-      if (error) {
-        listeOffres.textContent =
-          "Impossible de charger les offres. Vérifie la table offres, la colonne created_at et les politiques de sécurité Supabase.";
-        afficherMessage(messageGeneral, error.message, "error");
-        return;
-      }
-
-      if (!data || data.length === 0) {
-        listeOffres.innerHTML =
-          '<p class="muted">Aucune offre enregistrée pour le moment.</p>';
-        return;
-      }
-
-      listeOffres.innerHTML = data.map(function(offre) {
-        const publie = offre.publie === true;
-        const lienDocument = lienValide(offre.document_url);
-
+      affichage.innerHTML = resultats.map(offre => {
+        const candidature = lienSecurise(offre.lien_candidature);
+        const documentPdf = lienSecurise(offre.document_url);
+        const url = candidature || documentPdf;
+        const texteLien = candidature ? "Voir les modalités et postuler" : "Consulter le document";
         return `
-          <article class="offer">
-            <h3>${echapper(offre.titre || "Sans titre")}</h3>
-
-            <p><strong>Type :</strong> ${echapper(offre.type || "Non précisé")}</p>
-            <p><strong>Organisme :</strong> ${echapper(offre.organisme || "Non précisé")}</p>
-            <p><strong>Domaine :</strong> ${echapper(offre.domaine || "Non précisé")}</p>
-            <p><strong>Lieu :</strong> ${echapper(offre.lieu || "Non précisé")}</p>
-
-            <span class="status ${publie ? "published" : "unpublished"}">
-              ${publie ? "Publiée" : "Non publiée"}
-            </span>
-
-            ${
-              lienDocument
-                ? `<p><a href="${echapper(lienDocument)}" target="_blank" rel="noopener noreferrer">Consulter le document PDF</a></p>`
-                : ""
-            }
-
-            <div>
-              <button
-                type="button"
-                class="primary"
-                data-action="modifier"
-                data-id="${echapper(offre.id)}"
-              >Modifier</button>
-
-              <button
-                type="button"
-                class="warning"
-                data-action="publier"
-                data-id="${echapper(offre.id)}"
-              >${publie ? "Dépublier" : "Publier"}</button>
-
-              <button
-                type="button"
-                class="danger"
-                data-action="supprimer"
-                data-id="${echapper(offre.id)}"
-              >Supprimer</button>
-            </div>
-          </article>
-        `;
+          <article class="offer-card">
+            <div class="offer-top"><span class="badge">${echapper(nomType(offre.type))}</span></div>
+            <h3>${echapper(offre.titre || "Opportunité")}</h3>
+            <p class="offer-meta"><strong>Organisme :</strong> ${echapper(offre.organisme || "Non précisé")}</p>
+            <p class="offer-meta"><strong>Domaine :</strong> ${echapper(offre.domaine || "Non précisé")}</p>
+            <p class="offer-meta"><strong>Lieu :</strong> ${echapper(offre.lieu || "Non précisé")}</p>
+            <p class="offer-meta"><strong>Date limite :</strong> ${echapper(offre.date_limite || "Non précisée")}</p>
+            ${url ? `<a class="offer-link" href="${echapper(url)}" target="_blank" rel="noopener noreferrer">${texteLien} →</a>` : ""}
+          </article>`;
       }).join("");
     }
 
-    listeOffres.addEventListener("click", async function(event) {
-      const bouton = event.target.closest("button[data-action]");
-      if (!bouton) return;
-
-      const id = bouton.dataset.id;
-      const action = bouton.dataset.action;
-
-      const { data: offre, error } = await supabaseClient
-        .from("offres")
-        .select("*")
-        .eq("id", id)
-        .single();
-
-      if (error || !offre) {
-        afficherMessage(
-          messageGeneral,
-          "Impossible de retrouver cette offre. " + (error ? error.message : ""),
-          "error"
-        );
+    async function chargerDernieresOffres() {
+      if (!window.supabase) {
+        affichage.innerHTML = '<div class="message">Le service de chargement est momentanément indisponible. Tu peux consulter les catégories ci-dessus.</div>';
+        affichage.setAttribute("aria-busy", "false");
         return;
       }
-
-      if (action === "modifier") {
-        offreEnModification = offre.id;
-        documentActuel = offre.document_url || null;
-
-        document.getElementById("titre").value = offre.titre || "";
-        document.getElementById("type").value = offre.type || "emploi";
-        document.getElementById("organisme").value = offre.organisme || "";
-        document.getElementById("domaine").value = offre.domaine || "";
-        document.getElementById("lieu").value = offre.lieu || "";
-        document.getElementById("description").value = offre.description || "";
-        document.getElementById("date_limite").value = offre.date_limite || "";
-        document.getElementById("lien_candidature").value =
-          offre.lien_candidature || "";
-        document.getElementById("publie").checked = offre.publie === true;
-        document.getElementById("document").value = "";
-
-        document.getElementById("titreFormulaire").textContent =
-          "Modifier une offre";
-        document.getElementById("enregistrer").textContent =
-          "Enregistrer les modifications";
-        document.getElementById("annulerModification").classList.remove("hidden");
-
-        window.scrollTo({ top: 0, behavior: "smooth" });
-        return;
-      }
-
-      if (action === "publier") {
-        const confirmation = confirm(
-          offre.publie
-            ? "Veux-tu vraiment dépublier cette offre ?"
-            : "Veux-tu vraiment publier cette offre sur le site ?"
-        );
-
-        if (!confirmation) return;
-
-        const { error: updateError } = await supabaseClient
-          .from("offres")
-          .update({ publie: !offre.publie })
-          .eq("id", id);
-
-        if (updateError) {
-          afficherMessage(messageGeneral, updateError.message, "error");
-          return;
-        }
-
-        afficherMessage(messageGeneral, "Statut de publication mis à jour.", "success");
-        await chargerOffres();
-        return;
-      }
-
-      if (action === "supprimer") {
-        const confirmation = confirm(
-          "Attention : cette suppression est définitive. Supprimer cette offre ?"
-        );
-
-        if (!confirmation) return;
-
-        const { error: deleteError } = await supabaseClient
-          .from("offres")
-          .delete()
-          .eq("id", id);
-
-        if (deleteError) {
-          afficherMessage(messageGeneral, deleteError.message, "error");
-          return;
-        }
-
-        if (String(offreEnModification) === String(id)) {
-          reinitialiserFormulaire();
-        }
-
-        afficherMessage(messageGeneral, "Offre supprimée.", "success");
-        await chargerOffres();
-      }
-    });
-
-    async function televerserPDF(fichier) {
-      if (!fichier) return documentActuel;
-
-      if (fichier.type !== "application/pdf" &&
-          !fichier.name.toLowerCase().endsWith(".pdf")) {
-        throw new Error("Le document doit être un fichier PDF.");
-      }
-
-      if (fichier.size > 10 * 1024 * 1024) {
-        throw new Error("Le PDF ne doit pas dépasser 10 Mo.");
-      }
-
-      const nomFichier = crypto.randomUUID() + ".pdf";
-      const chemin = "offres/" + nomFichier;
-
-      const { error } = await supabaseClient.storage
-        .from("Documents")
-        .upload(chemin, fichier, {
-          contentType: "application/pdf",
-          upsert: false
-        });
-
-      if (error) {
-        throw new Error(
-          "Échec du dépôt du PDF. Vérifie que le bucket documents existe et que les droits de stockage sont configurés. " +
-          error.message
-        );
-      }
-
-      const { data } = supabaseClient.storage
-        .from("Documents")
-        .getPublicUrl(chemin);
-
-      return data.publicUrl;
-    }
-
-    offreForm.addEventListener("submit", async function(event) {
-      event.preventDefault();
-
-      if (!utilisateur) {
-        afficherMessage(messageFormulaire, "Connecte-toi avant d'enregistrer.", "error");
-        return;
-      }
-
-      const bouton = document.getElementById("enregistrer");
-      bouton.disabled = true;
-      bouton.textContent = "Enregistrement...";
-      viderMessage(messageFormulaire);
-
       try {
-        const fichier = document.getElementById("document").files[0];
-        const documentUrl = await televerserPDF(fichier);
-
-        const offre = {
-          titre: document.getElementById("titre").value.trim(),
-          type: document.getElementById("type").value,
-          organisme: document.getElementById("organisme").value.trim(),
-          domaine: document.getElementById("domaine").value.trim(),
-          lieu: document.getElementById("lieu").value.trim(),
-          description: document.getElementById("description").value.trim(),
-          date_limite: document.getElementById("date_limite").value || null,
-          lien_candidature: document.getElementById("lien_candidature").value.trim() || null,
-          document_url: documentUrl || null,
-          publie: document.getElementById("publie").checked
-        };
-
-        if (!offre.titre) {
-          throw new Error("Le titre de l'offre est obligatoire.");
-        }
-
-        if (offre.lien_candidature && !lienValide(offre.lien_candidature)) {
-          throw new Error("Le lien de candidature doit commencer par http:// ou https://.");
-        }
-
-        let resultat;
-
-        if (offreEnModification !== null) {
-          resultat = await supabaseClient
-            .from("offres")
-            .update(offre)
-            .eq("id", offreEnModification);
-        } else {
-          resultat = await supabaseClient
-            .from("offres")
-            .insert([offre]);
-        }
-
-        if (resultat.error) {
-          throw new Error(resultat.error.message);
-        }
-
-        afficherMessage(
-          messageFormulaire,
-          offreEnModification !== null
-            ? "Modifications enregistrées."
-            : "Offre enregistrée. Elle reste non publiée si tu n'as pas coché la case de publication.",
-          "success"
-        );
-
-        reinitialiserFormulaire();
-        await chargerOffres();
-
+        const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        const { data, error } = await client.from("offres")
+          .select("*").eq("publie", true)
+          .order("created_at", { ascending: false }).limit(30);
+        if (error) throw error;
+        toutesLesOffres = data || [];
+        afficherOffres();
       } catch (erreur) {
-        afficherMessage(messageFormulaire, erreur.message, "error");
+        console.error("Erreur de chargement des opportunités :", erreur);
+        affichage.innerHTML = '<div class="message">Les opportunités ne sont pas disponibles pour le moment. Réessaie dans quelques instants.</div>';
       } finally {
-        bouton.disabled = false;
-        bouton.textContent = offreEnModification !== null
-          ? "Enregistrer les modifications"
-          : "Enregistrer l'offre";
+        affichage.setAttribute("aria-busy", "false");
       }
-    });
-
-    function reinitialiserFormulaire() {
-      offreForm.reset();
-      offreEnModification = null;
-      documentActuel = null;
-
-      document.getElementById("titreFormulaire").textContent = "Ajouter une offre";
-      document.getElementById("enregistrer").textContent = "Enregistrer l'offre";
-      document.getElementById("annulerModification").classList.add("hidden");
-
-      // Le formulaire est réinitialisé avec la publication décochée.
-      document.getElementById("publie").checked = false;
     }
 
-    document.getElementById("annulerModification").addEventListener(
-      "click",
-      function() {
-        reinitialiserFormulaire();
-        viderMessage(messageFormulaire);
-      }
-    );
+    document.getElementById("searchForm").addEventListener("submit", event => {
+      event.preventDefault();
+      afficherOffres();
+      document.getElementById("dernieres-offres").scrollIntoView({ behavior:"smooth" });
+    });
+    recherche.addEventListener("input", afficherOffres);
 
-    document.getElementById("actualiser").addEventListener(
-      "click",
-      chargerOffres
-    );
-
-    supabaseClient.auth.onAuthStateChange(function(event, session) {
-      utilisateur = session ? session.user : null;
-
-      if (event === "SIGNED_OUT") {
-        actualiserInterface();
-      }
+    document.querySelectorAll(".filter").forEach(bouton => {
+      bouton.addEventListener("click", () => {
+        filtreActif = bouton.dataset.type;
+        document.querySelectorAll(".filter").forEach(b => b.classList.toggle("active", b === bouton));
+        afficherOffres();
+      });
     });
 
-    verifierSession();
+    document.querySelectorAll("[data-filter]").forEach(lien => {
+      lien.addEventListener("click", () => {
+        filtreActif = lien.dataset.filter;
+        document.querySelectorAll(".filter").forEach(b => b.classList.toggle("active", b.dataset.type === filtreActif));
+        setTimeout(afficherOffres, 0);
+      });
+    });
+
+    chargerDernieresOffres();
   </script>
 </body>
 </html>
