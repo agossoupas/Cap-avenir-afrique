@@ -1,891 +1,278 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <link rel="icon" type="image/png" href="cap-avenir-afrique-favicon.png">
-<link rel="shortcut icon" href="favicon.ico">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="noindex, nofollow">
-  <title>Administration | Cap Avenir Afrique</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      background: #f2f5f9;
-      color: #243247;
-      line-height: 1.6;
-    }
-
-    header {
-      background: #075b36;
-      color: white;
-      padding: 22px;
-      text-align: center;
-    }
-
-    header h1 {
-      margin-bottom: 5px;
-    }
-
-    nav {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 18px;
-      padding: 12px;
-      background: #06472b;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
-    }
-
-    .container {
-      width: 94%;
-      max-width: 1100px;
-      margin: 30px auto;
-    }
-
-    .panel {
-      background: white;
-      padding: 24px;
-      border-radius: 12px;
-      margin-bottom: 25px;
-      box-shadow: 0 3px 12px #0000000d;
-    }
-
-    h2 {
-      color: #087443;
-      margin-bottom: 18px;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .full {
-      grid-column: 1 / -1;
-    }
-
-    label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 6px;
-    }
-
-    input,
-    select,
-    textarea {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #ccd5df;
-      border-radius: 7px;
-      font: inherit;
-      background: white;
-    }
-
-    textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
-
-    input[type="checkbox"] {
-      width: auto;
-      margin-right: 8px;
-    }
-
-    .checkbox-label {
-      display: flex;
-      align-items: center;
-      margin: 12px 0;
-    }
-
-    button {
-      border: none;
-      border-radius: 7px;
-      padding: 11px 16px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 14px;
-      margin: 5px 5px 5px 0;
-    }
-
-    .primary {
-      background: #087443;
-      color: white;
-    }
-
-    .primary:hover {
-      background: #075b36;
-    }
-
-    .secondary {
-      background: #e5eaf0;
-      color: #243247;
-    }
-
-    .danger {
-      background: #c62828;
-      color: white;
-    }
-
-    .warning {
-      background: #f0ad32;
-      color: #242424;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .notice {
-      padding: 12px;
-      border-radius: 7px;
-      margin: 15px 0;
-      overflow-wrap: anywhere;
-    }
-
-    .success {
-      background: #dff5e7;
-      color: #075b36;
-    }
-
-    .error {
-      background: #fde8e7;
-      color: #9b1c1c;
-    }
-
-    .info {
-      background: #e5efff;
-      color: #174a8b;
-    }
-
-    .offer {
-      border: 1px solid #e0e6ed;
-      border-radius: 10px;
-      padding: 18px;
-      margin-bottom: 15px;
-      overflow-wrap: anywhere;
-    }
-
-    .offer h3 {
-      color: #087443;
-      margin-bottom: 8px;
-    }
-
-    .status {
-      display: inline-block;
-      padding: 4px 9px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: bold;
-      margin: 7px 0;
-    }
-
-    .published {
-      background: #dff5e7;
-      color: #075b36;
-    }
-
-    .unpublished {
-      background: #fff0d1;
-      color: #805500;
-    }
-
-    .muted {
-      color: #617086;
-      font-size: 14px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #16352a;
-      color: white;
-      margin-top: 40px;
-    }
-
-    @media (max-width: 650px) {
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .full {
-        grid-column: auto;
-      }
-
-      .panel {
-        padding: 17px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Espace sécurisé d'administration de Cap Avenir Afrique.">
+<meta name="theme-color" content="#0b1830">
+<title>Administration | Cap Avenir Afrique</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0b1830;--blue:#17345f;--blue2:#294b7b;--gold:#d6ad55;--bg:#f4f6fa;--ink:#1b2b43;--muted:#66758a;--line:#e1e7ef;--white:#fff;--green:#18794e;--red:#b42318;--shadow:0 12px 35px #10284a12}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"DM Sans",Arial,sans-serif;line-height:1.5}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+.top{background:linear-gradient(110deg,var(--navy),var(--blue));color:#fff;padding:22px 5%;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
+.brand{font:800 20px Manrope,sans-serif;letter-spacing:-.4px}.brand span{color:var(--gold)}.top small{display:block;color:#c8d4e5;font-size:12px;font-weight:500;letter-spacing:1px;margin-top:3px}
+.top a{color:#fff;text-decoration:none;font-size:13px;font-weight:700;border:1px solid #ffffff44;border-radius:9px;padding:9px 13px}
+main{max-width:1160px;margin:32px auto;padding:0 22px}.hidden{display:none!important}
+.panel,.card{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.login{max-width:480px;margin:55px auto;padding:30px}.login h1,.section-title{font:800 23px Manrope,sans-serif;color:var(--navy);margin:0 0 7px}.sub{color:var(--muted);font-size:13px;margin:0 0 23px}
+label{display:block;font-size:12px;font-weight:800;color:#34445b;margin:13px 0 6px}
+input,select,textarea{width:100%;border:1px solid #d4dce7;border-radius:9px;padding:11px 12px;background:#fff;color:var(--ink);outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--blue2);box-shadow:0 0 0 3px #294b7b16}
+textarea{min-height:110px;resize:vertical}
+.btn{border:0;border-radius:9px;padding:11px 15px;background:var(--blue);color:#fff;font-size:12px;font-weight:800;transition:.18s}
+.btn:hover{filter:brightness(1.12);transform:translateY(-1px)}.btn.gold{background:var(--gold);color:#2e2515}.btn.light{background:#edf1f7;color:var(--blue)}.btn.red{background:#fff0ef;color:var(--red)}.btn.green{background:#e9f6ef;color:var(--green)}
+.wide{width:100%;margin-top:18px}.hint{font-size:11px;color:var(--muted);margin-top:12px}
+.notice{padding:12px 14px;border-radius:10px;margin:0 0 17px;font-size:13px;overflow-wrap:anywhere}.notice:empty{display:none}.success{background:#e9f6ef;color:#17623f}.error{background:#fff0ef;color:#9f251d}
+.dashboard-head{display:flex;align-items:flex-end;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:22px}.dashboard-head h1{font:800 27px Manrope,sans-serif;color:var(--navy);margin:0}.dashboard-head p{color:var(--muted);font-size:13px;margin:5px 0 0}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:22px}.stat{padding:18px 19px}.stat span{font-size:11px;color:var(--muted);font-weight:700}.stat strong{display:block;font:800 28px Manrope,sans-serif;color:var(--blue);margin-top:5px}
+.layout{display:grid;grid-template-columns:minmax(300px,.85fr) minmax(0,1.5fr);gap:18px;align-items:start}.card{padding:22px}.card h2{font:800 17px Manrope,sans-serif;color:var(--navy);margin:0 0 5px}.card .sub{margin-bottom:17px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}.full{grid-column:1/-1}.checkrow{display:flex;align-items:center;gap:9px;margin:15px 0}.checkrow input{width:auto;margin:0;accent-color:var(--blue)}.checkrow label{margin:0}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.list-tools{display:flex;gap:9px;margin:15px 0;flex-wrap:wrap}.list-tools input{flex:1;min-width:150px}.list-tools select{width:auto;min-width:140px}
+.offer{border:1px solid var(--line);border-radius:12px;padding:15px;margin:11px 0;background:#fff}.offer h3{font:800 14px Manrope,sans-serif;margin:0 0 7px;color:#1b3152}.offer p{font-size:12px;color:var(--muted);margin:4px 0}.pill{display:inline-block;padding:4px 9px;border-radius:30px;background:#edf1f7;color:var(--blue);font-size:10px;font-weight:800}.pill.published{background:#e9f6ef;color:var(--green)}.pill.draft{background:#fff5df;color:#8a5a08}
+.empty{padding:25px 12px;text-align:center;color:var(--muted);font-size:13px;border:1px dashed #cbd5e1;border-radius:10px}
+@media(max-width:850px){.layout{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){main{padding:0 13px;margin:20px auto}.top{padding:18px 5%}.stats{gap:9px}.stat{padding:14px}.stat strong{font-size:23px}.card,.login{padding:18px}.form-grid{grid-template-columns:1fr}.full{grid-column:auto}.dashboard-head h1{font-size:23px}}
+</style>
 </head>
-
 <body>
-  <header>
-    <h1>Cap Avenir Afrique</h1>
-    <p>Panneau d'administration</p>
-  </header>
+<header class="top">
+  <div class="brand">CAP AVENIR <span>AFRIQUE</span><small>ESPACE D'ADMINISTRATION</small></div>
+  <a href="index.html">← Voir le site</a>
+</header>
 
-  <nav>
-    <a href="index.html">Accueil</a>
-    <a href="emplois.html">Emplois & stages</a>
-    <a href="bourses.html">Bourses</a>
-    <a href="formation.html">Formations</a>
-  </nav>
+<main>
+  <div id="message" class="notice" role="status" aria-live="polite"></div>
 
-  <main class="container">
+  <section id="connexion" class="panel login">
+    <h1>Connexion administrateur</h1>
+    <p class="sub">Connecte-toi pour gérer les opportunités de la plateforme.</p>
+    <form id="loginForm">
+      <label for="email">Adresse e-mail</label>
+      <input type="email" id="email" autocomplete="username" required>
+      <label for="password">Mot de passe</label>
+      <input type="password" id="password" autocomplete="current-password" required>
+      <button class="btn wide" type="submit">Se connecter</button>
+    </form>
+    <p class="hint">Utilise le compte créé dans Supabase Authentication. Ne partage jamais ton mot de passe.</p>
+  </section>
 
-    <section id="connexion" class="panel">
-      <h2>Connexion administrateur</h2>
+  <section id="dashboard" class="hidden">
+    <div class="dashboard-head">
+      <div><h1>Tableau de bord</h1><p>Gère, publie et mets à jour les opportunités de Cap Avenir Afrique.</p></div>
+      <button class="btn light" id="deconnexion" type="button">Se déconnecter</button>
+    </div>
 
-      <p class="muted">
-        Connecte-toi avec un compte déjà créé dans Supabase Authentication.
-      </p>
+    <div class="stats">
+      <article class="panel stat"><span>Toutes les annonces</span><strong id="statTotal">—</strong></article>
+      <article class="panel stat"><span>Publiées</span><strong id="statPubliees">—</strong></article>
+      <article class="panel stat"><span>Brouillons</span><strong id="statBrouillons">—</strong></article>
+      <article class="panel stat"><span>Expirées</span><strong id="statExpirees">—</strong></article>
+    </div>
 
-      <form id="connexionForm">
-        <div style="margin-bottom:15px;">
-          <label for="email">Adresse e-mail</label>
-          <input
-            type="email"
-            id="email"
-            autocomplete="username"
-            required
-          >
-        </div>
-
-        <div style="margin-bottom:15px;">
-          <label for="motdepasse">Mot de passe</label>
-          <input
-            type="password"
-            id="motdepasse"
-            autocomplete="current-password"
-            required
-          >
-        </div>
-
-        <button class="primary" type="submit" id="boutonConnexion">
-          Se connecter
-        </button>
-      </form>
-
-      <div id="messageConnexion" aria-live="polite"></div>
-    </section>
-
-    <section id="administration" class="hidden">
-
-      <section class="panel">
-        <h2>Gestion des offres</h2>
-
-        <p>
-          Compte connecté :
-          <strong id="compteConnecte"></strong>
-        </p>
-
-        <button type="button" class="secondary" id="actualiser">
-          Actualiser les offres
-        </button>
-
-        <button type="button" class="danger" id="deconnexion">
-          Se déconnecter
-        </button>
-
-        <div id="messageGeneral" aria-live="polite"></div>
-      </section>
-
-      <section class="panel">
-        <h2 id="titreFormulaire">Ajouter une offre</h2>
-
-        <p class="muted">
-          Les nouvelles offres ne seront pas publiées tant que tu ne coches
-          pas la case de publication.
-        </p>
-
+    <div class="layout">
+      <section class="card">
+        <h2 id="formTitle">Ajouter une opportunité</h2>
+        <p class="sub">Les champs marqués d'un astérisque sont obligatoires.</p>
         <form id="offreForm">
+          <input type="hidden" id="offreId">
+          <label for="titre">Titre de l'opportunité *</label>
+          <input id="titre" required maxlength="180" placeholder="Ex. : Recrutement de techniciens">
           <div class="form-grid">
-
             <div>
-              <label for="titre">Titre de l'offre *</label>
-              <input id="titre" name="titre" maxlength="250" required>
-            </div>
-
-            <div>
-              <label for="type">Type d'offre *</label>
-              <select id="type" name="type" required>
-                <option value="emploi">Emploi</option>
-                <option value="stage">Stage</option>
-                <option value="bourse">Bourse</option>
-                <option value="formation">Formation</option>
+              <label for="type">Catégorie *</label>
+              <select id="type" required>
+                <option value="emploi">Emploi</option><option value="stage">Stage</option>
+                <option value="bourse">Bourse</option><option value="formation">Formation</option>
+                <option value="concours">Concours</option><option value="volontariat">Volontariat</option>
+                <option value="appel_a_projets">Appel à projets</option>
               </select>
             </div>
-
             <div>
-              <label for="organisme">Organisme</label>
-              <input id="organisme" name="organisme" maxlength="250">
+              <label for="domaine">Domaine *</label>
+              <input id="domaine" required placeholder="Santé, informatique…">
             </div>
-
-            <div>
-              <label for="domaine">Domaine</label>
-              <input id="domaine" name="domaine" maxlength="250">
-            </div>
-
-            <div>
-              <label for="lieu">Lieu / Pays</label>
-              <input id="lieu" name="lieu" maxlength="250">
-            </div>
-
-            <div>
-              <label for="date_limite">Date limite</label>
-              <input id="date_limite" name="date_limite" type="date">
-            </div>
-
-            <div class="full">
-              <label for="lien_candidature">Lien de candidature</label>
-              <input
-                id="lien_candidature"
-                name="lien_candidature"
-                type="url"
-                placeholder="https://..."
-              >
-            </div>
-
-            <div class="full">
-              <label for="description">Description de l'offre</label>
-              <textarea
-                id="description"
-                name="description"
-                maxlength="20000"
-                placeholder="Présente les conditions, les critères et les modalités de candidature."
-              ></textarea>
-            </div>
-
-            <div class="full">
-              <label for="document">Document PDF (facultatif)</label>
-              <input
-                id="document"
-                name="document"
-                type="file"
-                accept=".pdf,application/pdf"
-              >
-              <p class="muted">
-                Si le stockage Supabase est configuré, tu pourras joindre un PDF.
-                Lors d'une modification, laisse ce champ vide pour conserver
-                le document déjà associé.
-              </p>
-            </div>
-
-            <div class="full">
-              <label class="checkbox-label" for="publie">
-                <input type="checkbox" id="publie" name="publie">
-                Publier cette offre sur le site
-              </label>
-              <p class="muted">
-                Case décochée par défaut : l'offre reste masquée aux visiteurs.
-              </p>
-            </div>
-
           </div>
-
-          <div id="messageFormulaire" aria-live="polite"></div>
-
-          <button class="primary" type="submit" id="enregistrer">
-            Enregistrer l'offre
-          </button>
-
-          <button
-            class="secondary hidden"
-            type="button"
-            id="annulerModification"
-          >
-            Annuler la modification
-          </button>
+          <label for="organisme">Organisme</label>
+          <input id="organisme" placeholder="Nom de l'organisme">
+          <label for="lieu">Lieu / Pays</label>
+          <input id="lieu" placeholder="Ex. : Cotonou, Bénin ou À distance">
+          <label for="description">Description et conditions *</label>
+          <textarea id="description" required placeholder="Présente l'opportunité, le profil recherché, les conditions et les pièces à fournir…"></textarea>
+          <label for="date_limite">Date limite de candidature</label>
+          <input type="date" id="date_limite">
+          <label for="lien">Lien officiel de candidature</label>
+          <input type="url" id="lien" placeholder="https://...">
+          <label for="document">Lien vers un document PDF (facultatif)</label>
+          <input type="url" id="document" placeholder="https://...">
+          <div class="checkrow"><input type="checkbox" id="publie"><label for="publie">Publier immédiatement</label></div>
+          <div class="actions">
+            <button class="btn gold" id="submitBtn" type="submit">Enregistrer l'annonce</button>
+            <button class="btn light hidden" id="annulerEdition" type="button">Annuler la modification</button>
+          </div>
         </form>
+        <p class="hint">Le lien PDF doit être accessible publiquement. L'envoi direct de fichiers sera ajouté après vérification du bucket Storage.</p>
       </section>
 
-      <section class="panel">
-        <h2>Offres enregistrées</h2>
-        <div id="listeOffres">
-          Chargement des offres...
+      <section class="card">
+        <h2>Gestion des annonces</h2>
+        <p class="sub">Retrouve une annonce, modifie-la ou change son statut.</p>
+        <div class="list-tools">
+          <input id="recherche" type="search" placeholder="Rechercher une annonce…">
+          <select id="filtreType" aria-label="Filtrer par catégorie">
+            <option value="tous">Toutes les catégories</option>
+            <option value="emploi">Emplois</option><option value="stage">Stages</option>
+            <option value="bourse">Bourses</option><option value="formation">Formations</option>
+            <option value="concours">Concours</option><option value="volontariat">Volontariat</option>
+            <option value="appel_a_projets">Appels à projets</option>
+          </select>
         </div>
+        <div id="listeOffres" aria-live="polite">Chargement des annonces…</div>
       </section>
-
-    </section>
-  </main>
-
-  <footer>
-    <p>© <span id="annee"></span> Cap Avenir Afrique</p>
-    <p>Administration du site</p>
-  </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <script>
-    const SUPABASE_URL = "https://fhqppofwnoxiexnxivfx.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_U2NwuXutHMG_F8Ee8sEuIg_mMBJ3TY0";
-
-    const supabaseClient = window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_KEY
-    );
-
-    const connexion = document.getElementById("connexion");
-    const administration = document.getElementById("administration");
-    const connexionForm = document.getElementById("connexionForm");
-    const offreForm = document.getElementById("offreForm");
-    const messageConnexion = document.getElementById("messageConnexion");
-    const messageGeneral = document.getElementById("messageGeneral");
-    const messageFormulaire = document.getElementById("messageFormulaire");
-    const listeOffres = document.getElementById("listeOffres");
-
-    let utilisateur = null;
-    let offreEnModification = null;
-    let documentActuel = null;
-    let chargementEnCours = false;
-
-    document.getElementById("annee").textContent =
-      new Date().getFullYear();
-
-    function echapper(valeur) {
-      return String(valeur ?? "").replace(/[&<>"']/g, function(caractere) {
-        return {
-          "&": "&amp;",
-          "<": "&lt;",
-          ">": "&gt;",
-          '"': "&quot;",
-          "'": "&#039;"
-        }[caractere];
-      });
-    }
-
-    function afficherMessage(element, texte, type) {
-      element.innerHTML =
-        '<div class="notice ' + type + '">' + echapper(texte) + '</div>';
-    }
-
-    function viderMessage(element) {
-      element.innerHTML = "";
-    }
-
-    function lienValide(valeur) {
-      if (!valeur) return "";
-
-      try {
-        const url = new URL(valeur);
-
-        if (url.protocol === "https:" || url.protocol === "http:") {
-          return url.href;
-        }
-      } catch (erreur) {
-        return "";
-      }
-
-      return "";
-    }
-
-    async function verifierSession() {
-      const { data, error } = await supabaseClient.auth.getSession();
-
-      if (error) {
-        afficherMessage(messageConnexion, error.message, "error");
-        return;
-      }
-
-      utilisateur = data.session ? data.session.user : null;
-      actualiserInterface();
-    }
-
-    function actualiserInterface() {
-      if (utilisateur) {
-        connexion.classList.add("hidden");
-        administration.classList.remove("hidden");
-        document.getElementById("compteConnecte").textContent =
-          utilisateur.email || "Compte connecté";
-
-        chargerOffres();
-      } else {
-        administration.classList.add("hidden");
-        connexion.classList.remove("hidden");
-      }
-    }
-
-    connexionForm.addEventListener("submit", async function(event) {
-      event.preventDefault();
-      viderMessage(messageConnexion);
-
-      const bouton = document.getElementById("boutonConnexion");
-      bouton.disabled = true;
-      bouton.textContent = "Connexion...";
-
-      const { data, error } = await supabaseClient.auth.signInWithPassword({
-        email: document.getElementById("email").value.trim(),
-        password: document.getElementById("motdepasse").value
-      });
-
-      bouton.disabled = false;
-      bouton.textContent = "Se connecter";
-
-      if (error) {
-        afficherMessage(
-          messageConnexion,
-          "Connexion impossible : " + error.message,
-          "error"
-        );
-        return;
-      }
-
-      utilisateur = data.user;
-      connexionForm.reset();
-      actualiserInterface();
-    });
-
-    document.getElementById("deconnexion").addEventListener("click", async function() {
-      const { error } = await supabaseClient.auth.signOut();
-
-      if (error) {
-        afficherMessage(messageGeneral, error.message, "error");
-        return;
-      }
-
-      utilisateur = null;
-      reinitialiserFormulaire();
-      actualiserInterface();
-    });
-
-    async function chargerOffres() {
-      if (!utilisateur || chargementEnCours) return;
-
-      chargementEnCours = true;
-      listeOffres.textContent = "Chargement des offres...";
-
-      const { data, error } = await supabaseClient
-        .from("offres")
-        .select("*")
-        .order("created_at", { ascending: false });
-
-      chargementEnCours = false;
-
-      if (error) {
-        listeOffres.textContent =
-          "Impossible de charger les offres. Vérifie la table offres, la colonne created_at et les politiques de sécurité Supabase.";
-        afficherMessage(messageGeneral, error.message, "error");
-        return;
-      }
-
-      if (!data || data.length === 0) {
-        listeOffres.innerHTML =
-          '<p class="muted">Aucune offre enregistrée pour le moment.</p>';
-        return;
-      }
-
-      listeOffres.innerHTML = data.map(function(offre) {
-        const publie = offre.publie === true;
-        const lienDocument = lienValide(offre.document_url);
-
-        return `
-          <article class="offer">
-            <h3>${echapper(offre.titre || "Sans titre")}</h3>
-
-            <p><strong>Type :</strong> ${echapper(offre.type || "Non précisé")}</p>
-            <p><strong>Organisme :</strong> ${echapper(offre.organisme || "Non précisé")}</p>
-            <p><strong>Domaine :</strong> ${echapper(offre.domaine || "Non précisé")}</p>
-            <p><strong>Lieu :</strong> ${echapper(offre.lieu || "Non précisé")}</p>
-
-            <span class="status ${publie ? "published" : "unpublished"}">
-              ${publie ? "Publiée" : "Non publiée"}
-            </span>
-
-            ${
-              lienDocument
-                ? `<p><a href="${echapper(lienDocument)}" target="_blank" rel="noopener noreferrer">Consulter le document PDF</a></p>`
-                : ""
-            }
-
-            <div>
-              <button
-                type="button"
-                class="primary"
-                data-action="modifier"
-                data-id="${echapper(offre.id)}"
-              >Modifier</button>
-
-              <button
-                type="button"
-                class="warning"
-                data-action="publier"
-                data-id="${echapper(offre.id)}"
-              >${publie ? "Dépublier" : "Publier"}</button>
-
-              <button
-                type="button"
-                class="danger"
-                data-action="supprimer"
-                data-id="${echapper(offre.id)}"
-              >Supprimer</button>
-            </div>
-          </article>
-        `;
-      }).join("");
-    }
-
-    listeOffres.addEventListener("click", async function(event) {
-      const bouton = event.target.closest("button[data-action]");
-      if (!bouton) return;
-
-      const id = bouton.dataset.id;
-      const action = bouton.dataset.action;
-
-      const { data: offre, error } = await supabaseClient
-        .from("offres")
-        .select("*")
-        .eq("id", id)
-        .single();
-
-      if (error || !offre) {
-        afficherMessage(
-          messageGeneral,
-          "Impossible de retrouver cette offre. " + (error ? error.message : ""),
-          "error"
-        );
-        return;
-      }
-
-      if (action === "modifier") {
-        offreEnModification = offre.id;
-        documentActuel = offre.document_url || null;
-
-        document.getElementById("titre").value = offre.titre || "";
-        document.getElementById("type").value = offre.type || "emploi";
-        document.getElementById("organisme").value = offre.organisme || "";
-        document.getElementById("domaine").value = offre.domaine || "";
-        document.getElementById("lieu").value = offre.lieu || "";
-        document.getElementById("description").value = offre.description || "";
-        document.getElementById("date_limite").value = offre.date_limite || "";
-        document.getElementById("lien_candidature").value =
-          offre.lien_candidature || "";
-        document.getElementById("publie").checked = offre.publie === true;
-        document.getElementById("document").value = "";
-
-        document.getElementById("titreFormulaire").textContent =
-          "Modifier une offre";
-        document.getElementById("enregistrer").textContent =
-          "Enregistrer les modifications";
-        document.getElementById("annulerModification").classList.remove("hidden");
-
-        window.scrollTo({ top: 0, behavior: "smooth" });
-        return;
-      }
-
-      if (action === "publier") {
-        const confirmation = confirm(
-          offre.publie
-            ? "Veux-tu vraiment dépublier cette offre ?"
-            : "Veux-tu vraiment publier cette offre sur le site ?"
-        );
-
-        if (!confirmation) return;
-
-        const { error: updateError } = await supabaseClient
-          .from("offres")
-          .update({ publie: !offre.publie })
-          .eq("id", id);
-
-        if (updateError) {
-          afficherMessage(messageGeneral, updateError.message, "error");
-          return;
-        }
-
-        afficherMessage(messageGeneral, "Statut de publication mis à jour.", "success");
-        await chargerOffres();
-        return;
-      }
-
-      if (action === "supprimer") {
-        const confirmation = confirm(
-          "Attention : cette suppression est définitive. Supprimer cette offre ?"
-        );
-
-        if (!confirmation) return;
-
-        const { error: deleteError } = await supabaseClient
-          .from("offres")
-          .delete()
-          .eq("id", id);
-
-        if (deleteError) {
-          afficherMessage(messageGeneral, deleteError.message, "error");
-          return;
-        }
-
-        if (String(offreEnModification) === String(id)) {
-          reinitialiserFormulaire();
-        }
-
-        afficherMessage(messageGeneral, "Offre supprimée.", "success");
-        await chargerOffres();
-      }
-    });
-
-    async function televerserPDF(fichier) {
-      if (!fichier) return documentActuel;
-
-      if (fichier.type !== "application/pdf" &&
-          !fichier.name.toLowerCase().endsWith(".pdf")) {
-        throw new Error("Le document doit être un fichier PDF.");
-      }
-
-      if (fichier.size > 10 * 1024 * 1024) {
-        throw new Error("Le PDF ne doit pas dépasser 10 Mo.");
-      }
-
-      const nomFichier = crypto.randomUUID() + ".pdf";
-      const chemin = "offres/" + nomFichier;
-
-      const { error } = await supabaseClient.storage
-        .from("Documents")
-        .upload(chemin, fichier, {
-          contentType: "application/pdf",
-          upsert: false
-        });
-
-      if (error) {
-        throw new Error(
-          "Échec du dépôt du PDF. Vérifie que le bucket documents existe et que les droits de stockage sont configurés. " +
-          error.message
-        );
-      }
-
-      const { data } = supabaseClient.storage
-        .from("Documents")
-        .getPublicUrl(chemin);
-
-      return data.publicUrl;
-    }
-
-    offreForm.addEventListener("submit", async function(event) {
-      event.preventDefault();
-
-      if (!utilisateur) {
-        afficherMessage(messageFormulaire, "Connecte-toi avant d'enregistrer.", "error");
-        return;
-      }
-
-      const bouton = document.getElementById("enregistrer");
-      bouton.disabled = true;
-      bouton.textContent = "Enregistrement...";
-      viderMessage(messageFormulaire);
-
-      try {
-        const fichier = document.getElementById("document").files[0];
-        const documentUrl = await televerserPDF(fichier);
-
-        const offre = {
-          titre: document.getElementById("titre").value.trim(),
-          type: document.getElementById("type").value,
-          organisme: document.getElementById("organisme").value.trim(),
-          domaine: document.getElementById("domaine").value.trim(),
-          lieu: document.getElementById("lieu").value.trim(),
-          description: document.getElementById("description").value.trim(),
-          date_limite: document.getElementById("date_limite").value || null,
-          lien_candidature: document.getElementById("lien_candidature").value.trim() || null,
-          document_url: documentUrl || null,
-          publie: document.getElementById("publie").checked
-        };
-
-        if (!offre.titre) {
-          throw new Error("Le titre de l'offre est obligatoire.");
-        }
-
-        if (offre.lien_candidature && !lienValide(offre.lien_candidature)) {
-          throw new Error("Le lien de candidature doit commencer par http:// ou https://.");
-        }
-
-        let resultat;
-
-        if (offreEnModification !== null) {
-          resultat = await supabaseClient
-            .from("offres")
-            .update(offre)
-            .eq("id", offreEnModification);
-        } else {
-          resultat = await supabaseClient
-            .from("offres")
-            .insert([offre]);
-        }
-
-        if (resultat.error) {
-          throw new Error(resultat.error.message);
-        }
-
-        afficherMessage(
-          messageFormulaire,
-          offreEnModification !== null
-            ? "Modifications enregistrées."
-            : "Offre enregistrée. Elle reste non publiée si tu n'as pas coché la case de publication.",
-          "success"
-        );
-
-        reinitialiserFormulaire();
-        await chargerOffres();
-
-      } catch (erreur) {
-        afficherMessage(messageFormulaire, erreur.message, "error");
-      } finally {
-        bouton.disabled = false;
-        bouton.textContent = offreEnModification !== null
-          ? "Enregistrer les modifications"
-          : "Enregistrer l'offre";
-      }
-    });
-
-    function reinitialiserFormulaire() {
-      offreForm.reset();
-      offreEnModification = null;
-      documentActuel = null;
-
-      document.getElementById("titreFormulaire").textContent = "Ajouter une offre";
-      document.getElementById("enregistrer").textContent = "Enregistrer l'offre";
-      document.getElementById("annulerModification").classList.add("hidden");
-
-      // Le formulaire est réinitialisé avec la publication décochée.
-      document.getElementById("publie").checked = false;
-    }
-
-    document.getElementById("annulerModification").addEventListener(
-      "click",
-      function() {
-        reinitialiserFormulaire();
-        viderMessage(messageFormulaire);
-      }
-    );
-
-    document.getElementById("actualiser").addEventListener(
-      "click",
-      chargerOffres
-    );
-
-    supabaseClient.auth.onAuthStateChange(function(event, session) {
-      utilisateur = session ? session.user : null;
-
-      if (event === "SIGNED_OUT") {
-        actualiserInterface();
-      }
-    });
-
-    verifierSession();
-  </script>
+    </div>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = "https://fhqppofwnoxiexnxivfx.supabase.co";
+const SUPABASE_KEY = "sb_publishable_U2NwuXutHMG_F8Ee8sEuIg_mMBJ3TY0";
+const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const $ = id => document.getElementById(id);
+let offres = [];
+
+function message(texte, erreur=false) {
+  $("message").textContent = texte;
+  $("message").className = "notice " + (erreur ? "error" : "success");
+}
+function viderMessage(){ $("message").textContent=""; $("message").className="notice"; }
+function escapeHTML(value){
+  return String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+}
+function nomType(type){
+  return ({emploi:"Emploi",stage:"Stage",bourse:"Bourse",formation:"Formation",concours:"Concours",volontariat:"Volontariat",appel_a_projets:"Appel à projets"})[type] || type || "Opportunité";
+}
+async function actualiserSession(){
+  const {data,error}=await client.auth.getSession();
+  if(error){message("Erreur de session : "+error.message,true);return;}
+  const connecte=Boolean(data.session);
+  $("connexion").classList.toggle("hidden",connecte);
+  $("dashboard").classList.toggle("hidden",!connecte);
+  if(connecte) await chargerOffres();
+}
+$("loginForm").addEventListener("submit",async e=>{
+  e.preventDefault();viderMessage();
+  const {error}=await client.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});
+  if(error){message("Connexion impossible : "+error.message,true);return;}
+  message("Connexion réussie.");await actualiserSession();
+});
+
+function actualiserStats(){
+  const aujourdHui=new Date().toISOString().slice(0,10);
+  $("statTotal").textContent=offres.length;
+  $("statPubliees").textContent=offres.filter(o=>o.publie).length;
+  $("statBrouillons").textContent=offres.filter(o=>!o.publie).length;
+  $("statExpirees").textContent=offres.filter(o=>o.date_limite && o.date_limite<aujourdHui).length;
+}
+function afficherListe(){
+  const terme=$("recherche").value.trim().toLocaleLowerCase("fr");
+  const type=$("filtreType").value;
+  const visibles=offres.filter(o=>{
+    const texte=[o.titre,o.organisme,o.domaine,o.lieu,o.description,o.type].filter(Boolean).join(" ").toLocaleLowerCase("fr");
+    return (type==="tous" || o.type===type) && (!terme || texte.includes(terme));
+  });
+  const zone=$("listeOffres");
+  if(!visibles.length){zone.innerHTML='<div class="empty">Aucune annonce ne correspond à ces critères.</div>';return;}
+  zone.innerHTML=visibles.map(o=>{
+    const status=o.publie?'<span class="pill published">Publiée</span>':'<span class="pill draft">Brouillon</span>';
+    const date=o.date_limite?escapeHTML(o.date_limite):"Non précisée";
+    return `<article class="offer">
+      <div style="display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap"><span class="pill">${escapeHTML(nomType(o.type))}</span>${status}</div>
+      <h3>${escapeHTML(o.titre)}</h3>
+      <p><b>Organisme :</b> ${escapeHTML(o.organisme||"Non précisé")} · <b>Lieu :</b> ${escapeHTML(o.lieu||"Non précisé")}</p>
+      <p><b>Date limite :</b> ${date}</p>
+      <p>${escapeHTML((o.description||"").slice(0,210))}${(o.description||"").length>210?"…":""}</p>
+      <div class="actions">
+        <button class="btn light" type="button" data-action="edit" data-id="${escapeHTML(o.id)}">Modifier</button>
+        <button class="btn ${o.publie?"light":"green"}" type="button" data-action="toggle" data-id="${escapeHTML(o.id)}">${o.publie?"Dépublier":"Publier"}</button>
+        <button class="btn red" type="button" data-action="delete" data-id="${escapeHTML(o.id)}">Supprimer</button>
+      </div>
+    </article>`;
+  }).join("");
+}
+async function chargerOffres(){
+  $("listeOffres").textContent="Chargement des annonces…";
+  const {data,error}=await client.from("offres").select("*").order("created_at",{ascending:false});
+  if(error){$("listeOffres").textContent="Impossible de charger les annonces : "+error.message;message("Vérifie les autorisations Supabase (RLS) de la table offres.",true);return;}
+  offres=data||[];actualiserStats();afficherListe();
+}
+function reinitialiserFormulaire(){
+  $("offreForm").reset();$("offreId").value="";$("formTitle").textContent="Ajouter une opportunité";
+  $("submitBtn").textContent="Enregistrer l'annonce";$("annulerEdition").classList.add("hidden");
+}
+$("offreForm").addEventListener("submit",async e=>{
+  e.preventDefault();viderMessage();
+  const {data:sessionData}=await client.auth.getSession();
+  if(!sessionData.session){message("Ta session a expiré. Reconnecte-toi.",true);await actualiserSession();return;}
+  const offre={
+    titre:$("titre").value.trim(),type:$("type").value,
+    organisme:$("organisme").value.trim()||null,domaine:$("domaine").value.trim(),
+    lieu:$("lieu").value.trim()||null,description:$("description").value.trim(),
+    date_limite:$("date_limite").value||null,
+    lien_candidature:$("lien").value.trim()||null,
+    document_url:$("document").value.trim()||null,
+    publie:$("publie").checked
+  };
+  const id=$("offreId").value;
+  const result=id
+    ? await client.from("offres").update(offre).eq("id",id)
+    : await client.from("offres").insert(offre);
+  if(result.error){
+    const detail=result.error.message;
+    if(detail.includes("document_url") || detail.includes("column")){
+      message("La table Supabase ne semble pas encore contenir le champ document_url. Retire le lien PDF pour le moment ou demande-moi de préparer la mise à jour SQL. Détail : "+detail,true);
+    } else message("Enregistrement impossible : "+detail,true);
+    return;
+  }
+  message(id?"Annonce modifiée avec succès.":"Annonce enregistrée avec succès.");
+  reinitialiserFormulaire();await chargerOffres();
+});
+$("annulerEdition").addEventListener("click",reinitialiserFormulaire);
+$("recherche").addEventListener("input",afficherListe);
+$("filtreType").addEventListener("change",afficherListe);
+
+$("listeOffres").addEventListener("click",async e=>{
+  const bouton=e.target.closest("button[data-action]");if(!bouton)return;
+  const offre=offres.find(o=>String(o.id)===bouton.dataset.id);if(!offre)return;
+  const action=bouton.dataset.action;viderMessage();
+  if(action==="edit"){
+    $("offreId").value=offre.id;$("titre").value=offre.titre||"";$("type").value=offre.type||"emploi";
+    $("organisme").value=offre.organisme||"";$("domaine").value=offre.domaine||"";
+    $("lieu").value=offre.lieu||"";$("description").value=offre.description||"";
+    $("date_limite").value=offre.date_limite||"";$("lien").value=offre.lien_candidature||"";
+    $("document").value=offre.document_url||"";$("publie").checked=Boolean(offre.publie);
+    $("formTitle").textContent="Modifier l'opportunité";$("submitBtn").textContent="Enregistrer les modifications";
+    $("annulerEdition").classList.remove("hidden");$("titre").focus();window.scrollTo({top:0,behavior:"smooth"});
+  } else if(action==="toggle"){
+    const {error}=await client.from("offres").update({publie:!offre.publie}).eq("id",offre.id);
+    if(error){message("Impossible de modifier le statut : "+error.message,true);return;}
+    message(offre.publie?"Annonce dépubliée.":"Annonce publiée.");await chargerOffres();
+  } else if(action==="delete"){
+    if(!confirm("Supprimer définitivement cette annonce ? Cette action est irréversible."))return;
+    const {error}=await client.from("offres").delete().eq("id",offre.id);
+    if(error){message("Suppression impossible : "+error.message,true);return;}
+    message("Annonce supprimée.");await chargerOffres();
+  }
+});
+$("deconnexion").addEventListener("click",async()=>{
+  const {error}=await client.auth.signOut();
+  if(error){message("Erreur de déconnexion : "+error.message,true);return;}
+  reinitialiserFormulaire();message("Déconnexion réussie.");await actualiserSession();
+});
+actualiserSession();
+</script>
 </body>
 </html>
