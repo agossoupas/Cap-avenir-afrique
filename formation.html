@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <link rel="stylesheet" href="cap-avenir-afrique-theme-bleu-nuit-or.css">
 <head>
   <link rel="icon" type="image/png" href="cap-avenir-afrique-favicon.png">
 <link rel="shortcut icon" href="favicon.ico">
+  <link rel="stylesheet" href="cap-avenir-afrique-theme-bleu-nuit-or.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -538,6 +538,16 @@
       })[caractere]);
     }
 
+    function nonExpiree(o) {
+      return !o.date_limite || o.date_limite >= new Date().toISOString().slice(0, 10);
+    }
+
+    function dateFr(d) {
+      if (!d) return "";
+      const x = new Date(d + "T00:00:00");
+      return isNaN(x) ? d : x.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+    }
+
     function lienValide(url) {
       try {
         const adresse = new URL(url);
@@ -641,7 +651,7 @@
               ${echapper(formation.lieu || "Non précisé")}<br>
 
               <strong>Date limite :</strong>
-              ${echapper(formation.date_limite || "À vérifier")}
+              ${echapper(dateFr(formation.date_limite) || "À vérifier")}
             </p>
 
             <p class="description">
@@ -690,7 +700,7 @@
           throw error;
         }
 
-        formations = data || [];
+        formations = (data || []).filter(nonExpiree);
         afficherFormations();
 
       } catch (error) {

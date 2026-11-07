@@ -126,6 +126,9 @@
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
   </style>
   <link rel="stylesheet" href="cap-avenir-afrique-theme-bleu-nuit-or.css">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebSite","name":"Cap Avenir Afrique","url":"https://agossoupas.github.io/Cap-avenir-afrique/","inLanguage":"fr","description":"Emplois, stages, bourses, formations et opportunités en Afrique et à l'international."}
+  </script>
 </head>
 <body>
   <div class="topbar">
@@ -264,6 +267,16 @@
       }[c]));
     }
 
+    function nonExpiree(o) {
+      return !o.date_limite || o.date_limite >= new Date().toISOString().slice(0, 10);
+    }
+
+    function dateFr(d) {
+      if (!d) return "";
+      const x = new Date(d + "T00:00:00");
+      return isNaN(x) ? d : x.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+    }
+
     function lienSecurise(valeur) {
       if (!valeur) return "";
       try {
@@ -308,7 +321,7 @@
             <p class="offer-meta"><strong>Organisme :</strong> ${echapper(offre.organisme || "Non précisé")}</p>
             <p class="offer-meta"><strong>Domaine :</strong> ${echapper(offre.domaine || "Non précisé")}</p>
             <p class="offer-meta"><strong>Lieu :</strong> ${echapper(offre.lieu || "Non précisé")}</p>
-            <p class="offer-meta"><strong>Date limite :</strong> ${echapper(offre.date_limite || "Non précisée")}</p>
+            <p class="offer-meta"><strong>Date limite :</strong> ${echapper(dateFr(offre.date_limite) || "Non précisée")}</p>
             ${url ? `<a class="offer-link" href="${echapper(url)}" target="_blank" rel="noopener noreferrer">${texteLien} →</a>` : ""}
           </article>`;
       }).join("");
@@ -326,7 +339,7 @@
           .select("*").eq("publie", true)
           .order("created_at", { ascending: false }).limit(30);
         if (error) throw error;
-        toutesLesOffres = data || [];
+        toutesLesOffres = (data || []).filter(nonExpiree);
         afficherOffres();
       } catch (erreur) {
         console.error("Erreur de chargement des opportunités :", erreur);

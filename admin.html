@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Espace sécurisé d'administration de Cap Avenir Afrique.">
 <meta name="theme-color" content="#0b1830">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="cap-avenir-afrique-favicon.png">
 <title>Administration | Cap Avenir Afrique</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -106,7 +108,10 @@ textarea{min-height:110px;resize:vertical}
           <input type="date" id="date_limite">
           <label for="lien">Lien officiel de candidature</label>
           <input type="url" id="lien" placeholder="https://...">
-          <label for="document">Lien vers un document PDF (facultatif)</label>
+          <label for="fichierPdf">Document PDF (facultatif, 10 Mo max)</label>
+          <input type="file" id="fichierPdf" accept="application/pdf,.pdf">
+          <div id="docActuel" class="hint hidden"></div>
+          <label for="document">…ou lien externe vers un document</label>
           <input type="url" id="document" placeholder="https://...">
           <div class="checkrow"><input type="checkbox" id="publie"><label for="publie">Publier immédiatement</label></div>
           <div class="actions">
@@ -114,7 +119,7 @@ textarea{min-height:110px;resize:vertical}
             <button class="btn light hidden" id="annulerEdition" type="button">Annuler la modification</button>
           </div>
         </form>
-        <p class="hint">Le lien PDF doit être accessible publiquement. L'envoi direct de fichiers sera ajouté après vérification du bucket Storage.</p>
+        <p class="hint">Le PDF envoyé est stocké dans Supabase Storage (bucket « documents ») et s'affiche automatiquement en « Voir le document » sur le site. Un fichier envoyé remplace le lien externe.</p>
       </section>
 
       <section class="card">
@@ -154,6 +159,37 @@ function escapeHTML(value){
 }
 function nomType(type){
   return ({emploi:"Emploi",stage:"Stage",bourse:"Bourse",formation:"Formation",concours:"Concours",volontariat:"Volontariat",appel_a_projets:"Appel à projets"})[type] || type || "Opportunité";
+}
+const BUCKET="documents", TAILLE_MAX=10*1024*1024;
+function slug(nom){
+  return nom.replace(/\.pdf$/i,"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,60)||"document";
+}
+function cheminStorage(url){
+  if(!url) return null;
+  const marque="/storage/v1/object/public/"+BUCKET+"/";
+  const i=url.indexOf(marque);
+  return i===-1?null:decodeURIComponent(url.slice(i+marque.length).split("?")[0]);
+}
+function afficherDocActuel(url){
+  const zone=$("docActuel");
+  if(!url){zone.classList.add("hidden");zone.innerHTML="";return;}
+  zone.classList.remove("hidden");
+  zone.innerHTML='Document actuel : <a href="'+escapeHTML(url)+'" target="_blank" rel="noopener noreferrer">ouvrir</a> · <a href="#" id="retirerDoc">retirer</a>';
+}
+document.addEventListener("click",e=>{
+  if(e.target.id==="retirerDoc"){e.preventDefault();$("document").value="";$("fichierPdf").value="";afficherDocActuel("");}
+});
+async function televerserPdf(fichier){
+  if(fichier.type!=="application/pdf" && !/\.pdf$/i.test(fichier.name)) throw new Error("Le fichier doit être un PDF.");
+  if(fichier.size>TAILLE_MAX) throw new Error("Le PDF dépasse 10 Mo ("+(fichier.size/1048576).toFixed(1)+" Mo).");
+  const chemin="offres/"+Date.now()+"-"+slug(fichier.name)+".pdf";
+  const {error}=await client.storage.from(BUCKET).upload(chemin,fichier,{contentType:"application/pdf",cacheControl:"3600",upsert:false});
+  if(error) throw new Error("Envoi du PDF impossible : "+error.message);
+  return client.storage.from(BUCKET).getPublicUrl(chemin).data.publicUrl;
+}
+async function supprimerFichier(url){
+  const chemin=cheminStorage(url);
+  if(chemin) await client.storage.from(BUCKET).remove([chemin]);
 }
 async function actualiserSession(){
   const {data,error}=await client.auth.getSession();
@@ -211,32 +247,44 @@ async function chargerOffres(){
 }
 function reinitialiserFormulaire(){
   $("offreForm").reset();$("offreId").value="";$("formTitle").textContent="Ajouter une opportunité";
-  $("submitBtn").textContent="Enregistrer l'annonce";$("annulerEdition").classList.add("hidden");
+  $("submitBtn").textContent="Enregistrer l'annonce";$("annulerEdition").classList.add("hidden");afficherDocActuel("");
 }
 $("offreForm").addEventListener("submit",async e=>{
   e.preventDefault();viderMessage();
   const {data:sessionData}=await client.auth.getSession();
   if(!sessionData.session){message("Ta session a expiré. Reconnecte-toi.",true);await actualiserSession();return;}
+  const fichier=$("fichierPdf").files[0];
+  const id=$("offreId").value;
+  const ancienne=id?(offres.find(o=>String(o.id)===id)||{}).document_url:null;
+  let documentUrl=$("document").value.trim()||null;
+  const bouton=$("submitBtn");
+  if(fichier){
+    bouton.disabled=true;bouton.textContent="Envoi du PDF…";
+    try{documentUrl=await televerserPdf(fichier);}
+    catch(err){message(err.message,true);bouton.disabled=false;bouton.textContent=id?"Enregistrer les modifications":"Enregistrer l'annonce";return;}
+  }
   const offre={
     titre:$("titre").value.trim(),type:$("type").value,
     organisme:$("organisme").value.trim()||null,domaine:$("domaine").value.trim(),
     lieu:$("lieu").value.trim()||null,description:$("description").value.trim(),
     date_limite:$("date_limite").value||null,
     lien_candidature:$("lien").value.trim()||null,
-    document_url:$("document").value.trim()||null,
+    document_url:documentUrl,
     publie:$("publie").checked
   };
-  const id=$("offreId").value;
   const result=id
     ? await client.from("offres").update(offre).eq("id",id)
     : await client.from("offres").insert(offre);
+  bouton.disabled=false;bouton.textContent=id?"Enregistrer les modifications":"Enregistrer l'annonce";
   if(result.error){
+    if(fichier&&documentUrl) await supprimerFichier(documentUrl);
     const detail=result.error.message;
     if(detail.includes("document_url") || detail.includes("column")){
       message("La table Supabase ne semble pas encore contenir le champ document_url. Retire le lien PDF pour le moment ou demande-moi de préparer la mise à jour SQL. Détail : "+detail,true);
     } else message("Enregistrement impossible : "+detail,true);
     return;
   }
+  if(ancienne && ancienne!==documentUrl) await supprimerFichier(ancienne);
   message(id?"Annonce modifiée avec succès.":"Annonce enregistrée avec succès.");
   reinitialiserFormulaire();await chargerOffres();
 });
@@ -253,7 +301,7 @@ $("listeOffres").addEventListener("click",async e=>{
     $("organisme").value=offre.organisme||"";$("domaine").value=offre.domaine||"";
     $("lieu").value=offre.lieu||"";$("description").value=offre.description||"";
     $("date_limite").value=offre.date_limite||"";$("lien").value=offre.lien_candidature||"";
-    $("document").value=offre.document_url||"";$("publie").checked=Boolean(offre.publie);
+    $("document").value=offre.document_url||"";$("fichierPdf").value="";afficherDocActuel(offre.document_url);$("publie").checked=Boolean(offre.publie);
     $("formTitle").textContent="Modifier l'opportunité";$("submitBtn").textContent="Enregistrer les modifications";
     $("annulerEdition").classList.remove("hidden");$("titre").focus();window.scrollTo({top:0,behavior:"smooth"});
   } else if(action==="toggle"){
@@ -264,6 +312,7 @@ $("listeOffres").addEventListener("click",async e=>{
     if(!confirm("Supprimer définitivement cette annonce ? Cette action est irréversible."))return;
     const {error}=await client.from("offres").delete().eq("id",offre.id);
     if(error){message("Suppression impossible : "+error.message,true);return;}
+    await supprimerFichier(offre.document_url);
     message("Annonce supprimée.");await chargerOffres();
   }
 });
