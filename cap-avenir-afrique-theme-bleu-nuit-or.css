@@ -121,3 +121,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   header { gap: 12px; }
   nav { gap: 10px !important; }
 }
+
+/* Correctif : texte des boutons invisible dans .related-links */
+.related-links a.button { color: var(--caa-white) !important; }
+.related-links a.button-secondary { color: var(--caa-navy) !important; }
