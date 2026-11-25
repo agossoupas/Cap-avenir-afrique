@@ -739,6 +739,8 @@
         const { value, done } = await reader.read();
         if (done) break;
         buffer += decoder.decode(value, { stream: true });
+        // Gemini peut envoyer les événements SSE avec des fins de ligne CRLF.
+        buffer = buffer.replace(/\r\n/g, "\n");
         const evenements = buffer.split("\n\n");
         buffer = evenements.pop() || "";
         for (const evenement of evenements) traiterEvenement(evenement);
