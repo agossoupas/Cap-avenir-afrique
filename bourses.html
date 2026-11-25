@@ -225,7 +225,7 @@
     <a href="emplois.html">Emplois et stages</a>
     <a href="bourses.html" aria-current="page">Bourses</a>
     <a href="formation.html">Formations</a>
-  </nav>
+  <a href="espace-candidat.html">Mon espace</a></nav>
 
   <main>
     <section class="section">
@@ -425,7 +425,9 @@
       }
     }
 
-    function afficherBourses() {
+    function lienSuivi(o){const q=new URLSearchParams({titre:o.titre||"",organisme:o.organisme||"",lien:o.lien_candidature||o.document_url||"",offre_id:o.id||""});return 'espace-candidat.html?'+q.toString()}
+
+function afficherBourses() {
       const mot = recherche.value.trim().toLowerCase();
       const endroit = lieu.value.trim().toLowerCase();
 
