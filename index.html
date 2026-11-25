@@ -298,7 +298,9 @@
       return types[String(type || "").toLowerCase()] || "Opportunité";
     }
 
-    function afficherOffres() {
+    function lienSuivi(o){const q=new URLSearchParams({titre:o.titre||"",organisme:o.organisme||"",lien:o.lien_candidature||o.document_url||"",offre_id:o.id||""});return 'espace-candidat.html?'+q.toString()}
+
+function afficherOffres() {
       const terme = recherche.value.trim().toLocaleLowerCase("fr");
       const resultats = toutesLesOffres.filter(offre => {
         const type = String(offre.type || "").toLowerCase();
@@ -326,7 +328,7 @@
             <p class="offer-meta"><strong>Domaine :</strong> ${echapper(offre.domaine || "Non précisé")}</p>
             <p class="offer-meta"><strong>Lieu :</strong> ${echapper(offre.lieu || "Non précisé")}</p>
             <p class="offer-meta"><strong>Date limite :</strong> ${echapper(dateFr(offre.date_limite) || "Non précisée")}</p>
-            ${url ? `<a class="offer-link" href="${echapper(url)}" target="_blank" rel="noopener noreferrer">${texteLien} →</a>` : ""}
+            ${url ? `<a class="offer-link" href="${echapper(url)}" target="_blank" rel="noopener noreferrer">${texteLien} →</a>` : ""}<a class="offer-link" href="${lienSuivi(offre)}">＋ Ajouter à mon suivi →</a>
           </article>`;
       }).join("");
     }
