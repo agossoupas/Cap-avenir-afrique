@@ -715,10 +715,10 @@
 
       function traiterEvenement(eventText) {
         const dataText = eventText
-          .split("\\n")
+          .split("\n")
           .filter(line => line.startsWith("data:"))
           .map(line => line.slice(5).trim())
-          .join("\\n");
+          .join("\n");
         if (!dataText || dataText === "[DONE]") return;
         try {
           const chunk = JSON.parse(dataText);
@@ -739,7 +739,7 @@
         const { value, done } = await reader.read();
         if (done) break;
         buffer += decoder.decode(value, { stream: true });
-        const evenements = buffer.split("\\n\\n");
+        const evenements = buffer.split("\n\n");
         buffer = evenements.pop() || "";
         for (const evenement of evenements) traiterEvenement(evenement);
       }
