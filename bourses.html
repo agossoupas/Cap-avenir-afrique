@@ -484,6 +484,7 @@ function afficherBourses() {
             ${documentUrl
               ? `<a class="button secondary" href="${echapper(documentUrl)}" target="_blank" rel="noopener noreferrer">Voir le document</a>`
               : ""}
+          <a class="button secondary" href="${lienSuivi(b)}">＋ Ajouter à mon suivi</a>
           </article>
         `;
       }).join("");
