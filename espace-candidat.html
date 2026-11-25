@@ -269,13 +269,16 @@ $("logout").addEventListener("click",async()=>{const {error}=await sb.auth.signO
 async function init(){
  if(!window.supabase||!window.supabase.createClient){message("Le service de compte ne s'est pas chargé. Vérifie ta connexion puis recharge la page.",true);return}
  sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
- await loadOffers();await refresh();
+ // Écouter immédiatement les événements : Supabase peut détecter le retour e-mail
+ // pendant l'initialisation de la session, avant le chargement des offres.
  sb.auth.onAuthStateChange((event,newSession)=>{
   if(event==="PASSWORD_RECOVERY"){recoveryMode=true;$("authBox").classList.add("hidden");$("recoveryBox").classList.remove("hidden");message("Lien valide. Définis ton nouveau mot de passe.");return}
   if(event==="SIGNED_IN"||event==="SIGNED_OUT"||event==="TOKEN_REFRESHED"){session=newSession;showAuth();if(!recoveryMode)setTimeout(()=>refresh(),0)}
  });
- if(new URLSearchParams(location.search).get("error_description"))message("Le lien reçu a expiré ou n'est plus valide. Demande un nouveau lien.",true);
- if(location.hash.includes("type=recovery")){recoveryMode=true;$("authBox").classList.add("hidden");$("recoveryBox").classList.remove("hidden");message("Lien de récupération détecté. Choisis ton nouveau mot de passe.");}
+ const params=new URLSearchParams(location.search),hashParams=new URLSearchParams(location.hash.replace(/^#/,""));
+ if(params.get("error_description")||hashParams.get("error_description"))message("Le lien reçu a expiré ou n'est plus valide. Demande un nouveau lien.",true);
+ if(params.get("type")==="recovery"||hashParams.get("type")==="recovery"){recoveryMode=true;$("authBox").classList.add("hidden");$("recoveryBox").classList.remove("hidden");message("Lien de récupération détecté. Choisis ton nouveau mot de passe.");}
+ await loadOffers();await refresh();
 }
 init();
 })();
