@@ -34,7 +34,8 @@ body main p{color:var(--caa-muted)}
 .filters input{flex:1;min-width:180px}
 button,.button,.related-links a.button{border:0!important;border-radius:11px!important;background:var(--caa-navy)!important;color:#fff!important;font-weight:800!important;padding:11px 17px!important;text-decoration:none!important;transition:transform .18s,background .18s}
 button:hover,.button:hover,.related-links a.button:hover{background:var(--caa-navy-3)!important;transform:translateY(-1px)}
-.button-secondary,.related-links a.button-secondary{background:var(--caa-gold)!important;color:var(--caa-navy)!important}
+.button-secondary,.secondary,.related-links a.button-secondary{background:var(--caa-gold)!important;border-color:var(--caa-gold)!important;color:var(--caa-navy)!important}
+.button-secondary:hover,.secondary:hover,.related-links a.button-secondary:hover{background:#d6a63c!important;color:var(--caa-navy)!important}
 .notice{background:#fff8e8!important;border:1px solid #f0dfb7!important;border-left:4px solid var(--caa-gold)!important;border-radius:12px!important;padding:15px 17px!important;color:#655022!important}
 .message{background:#fff!important;border:1px dashed #cbd3e4!important;border-radius:14px!important;padding:24px!important;color:var(--caa-muted)!important}
 .badge,.pill{display:inline-block;background:var(--caa-gold-light)!important;color:#75520b!important;border-radius:30px!important;padding:5px 10px!important;font-size:11px!important;font-weight:800!important}
