@@ -36,6 +36,13 @@ footer{text-align:center;color:#87938c;font-size:11px;padding:28px 15px}
  <div class="auth-actions"><button class="btn" id="login">Se connecter</button><button class="btn light" id="signup">Créer mon compte</button><button class="linkbtn" id="reset">Mot de passe oublié ?</button></div>
  <p class="muted" style="margin-top:10px">La consultation des offres reste accessible sans compte. Le compte sert à conserver ton profil et ton suivi personnel.</p>
 </section>
+<section id="recoveryBox" class="authbox hidden">
+ <h2>Choisir un nouveau mot de passe</h2>
+ <p class="muted">Le lien de récupération a été reconnu. Choisis un nouveau mot de passe.</p>
+ <div class="field"><label for="newPassword">Nouveau mot de passe</label><input id="newPassword" type="password" autocomplete="new-password" placeholder="Au moins 8 caractères"></div>
+ <div class="field"><label for="confirmPassword">Confirmer le mot de passe</label><input id="confirmPassword" type="password" autocomplete="new-password" placeholder="Répète le mot de passe"></div>
+ <button class="btn" id="saveNewPassword">Enregistrer le nouveau mot de passe</button>
+</section>
 <div class="stats">
  <div class="stat"><span>Offres disponibles</span><strong id="statOffers">—</strong></div>
  <div class="stat"><span>Mes candidatures</span><strong id="statApps">—</strong></div>
@@ -92,7 +99,7 @@ const SUPABASE_URL="https://fhqppofwnoxiexnxivfx.supabase.co";
 const SUPABASE_KEY="sb_publishable_U2NwuXutHMG_F8Ee8sEuIg_mB3JTY0";
 const $=id=>document.getElementById(id);
 const notice=$("notice");
-let sb=null,session=null,offers=[],applications=[];
+let sb=null,session=null,offers=[],applications=[],recoveryMode=false;
 function message(t,error){notice.textContent=t;notice.classList.toggle("error",!!error);notice.classList.remove("hidden");}
 function setBusy(btn,busy,label){btn.disabled=busy;if(busy){btn.dataset.label=btn.textContent;btn.textContent=label||"Patiente…"}else{btn.textContent=btn.dataset.label||btn.textContent}}
 function safeUrl(value){try{const u=new URL(value);return ["https:","http:"].includes(u.protocol)?u.href:""}catch(_){return ""}}
@@ -237,6 +244,18 @@ async function signup(){
  }catch(e){message("Le service de création de compte est momentanément inaccessible. Réessaie dans un instant.",true)}
  finally{setBusy(btn,false)}
 }
+async function saveNewPassword(){
+ const password=$("newPassword").value,confirm=$("confirmPassword").value;
+ if(password.length<8){message("Le mot de passe doit contenir au moins 8 caractères.",true);return}
+ if(password!==confirm){message("Les deux mots de passe ne correspondent pas.",true);return}
+ const btn=$("saveNewPassword");setBusy(btn,true,"Mise à jour…");
+ const {error}=await sb.auth.updateUser({password});setBusy(btn,false);
+ if(error){message("Modification impossible : "+error.message,true);return}
+ recoveryMode=false;$("recoveryBox").classList.add("hidden");$("authBox").classList.remove("hidden");
+ $("newPassword").value="";$("confirmPassword").value="";
+ await refresh();message("Mot de passe modifié avec succès.");
+}
+$("saveNewPassword").addEventListener("click",saveNewPassword);
 async function resetPassword(){
  const email=$("email").value.trim();if(!email){message("Saisis d'abord ton adresse e-mail pour recevoir le lien de réinitialisation.",true);$("email").focus();return}
  const btn=$("reset");btn.disabled=true;
@@ -251,8 +270,12 @@ async function init(){
  if(!window.supabase||!window.supabase.createClient){message("Le service de compte ne s'est pas chargé. Vérifie ta connexion puis recharge la page.",true);return}
  sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
  await loadOffers();await refresh();
- sb.auth.onAuthStateChange((event,newSession)=>{if(event==="SIGNED_IN"||event==="SIGNED_OUT"||event==="TOKEN_REFRESHED"){session=newSession;showAuth();setTimeout(()=>refresh(),0)}});
- if(new URLSearchParams(location.search).get("error_description"))message("Le lien de confirmation n'a pas pu être validé. Demande un nouveau lien ou connecte-toi.",true);
+ sb.auth.onAuthStateChange((event,newSession)=>{
+  if(event==="PASSWORD_RECOVERY"){recoveryMode=true;$("authBox").classList.add("hidden");$("recoveryBox").classList.remove("hidden");message("Lien valide. Définis ton nouveau mot de passe.");return}
+  if(event==="SIGNED_IN"||event==="SIGNED_OUT"||event==="TOKEN_REFRESHED"){session=newSession;showAuth();if(!recoveryMode)setTimeout(()=>refresh(),0)}
+ });
+ if(new URLSearchParams(location.search).get("error_description"))message("Le lien reçu a expiré ou n'est plus valide. Demande un nouveau lien.",true);
+ if(location.hash.includes("type=recovery")){recoveryMode=true;$("authBox").classList.add("hidden");$("recoveryBox").classList.remove("hidden");message("Lien de récupération détecté. Choisis ton nouveau mot de passe.");}
 }
 init();
 })();
