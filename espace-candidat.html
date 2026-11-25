@@ -21,7 +21,7 @@ $("login").onclick=async()=>{const {error}=await sb.auth.signInWithPassword({ema
 $("signup").onclick=async()=>{
  const email=$("email").value.trim(),password=$("password").value;
  if(!email){msg("Saisis ton adresse email.");$("email").focus();return}
- if(!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)){msg("L'adresse email semble incorrecte.");$("email").focus();return}
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){msg("L'adresse email semble incorrecte.");$("email").focus();return}
  if(password.length<6){msg("Le mot de passe doit contenir au moins 6 caractères.");$("password").focus();return}
  const btn=$("signup");btn.disabled=true;btn.textContent="Création en cours…";
  try{
