@@ -338,7 +338,7 @@
       <a href="emplois.html" aria-current="page">Emplois &amp; stages</a>
       <a href="bourses.html">Bourses</a>
       <a href="formation.html">Formations</a>
-    </nav>
+    <a href="espace-candidat.html">Mon espace</a></nav>
   </header>
 
   <main>
@@ -561,7 +561,9 @@
       return "";
     }
 
-    function afficherOffres() {
+    function lienSuivi(o){const q=new URLSearchParams({titre:o.titre||"",organisme:o.organisme||"",lien:o.lien_candidature||o.document_url||"",offre_id:o.id||""});return 'espace-candidat.html?'+q.toString()}
+
+function afficherOffres() {
       const motCle = recherche.value.trim().toLowerCase();
       const typeChoisi = filtreType.value;
       const lieuChoisi = filtreLieu.value.trim().toLowerCase();
