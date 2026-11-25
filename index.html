@@ -701,21 +701,59 @@
         }
       );
 
-      const result = await response.json();
-
-      attente.remove();
-
-      if (!response.ok || !result.success) {
-        throw new Error(
-          result.error || "Le service IA est momentanément indisponible."
-        );
+      if (!response.ok || !response.body) {
+        const detail = await response.text();
+        throw new Error(detail || "Le service IA est momentanément indisponible.");
       }
 
-      ajouterMessage(result.reply, "caf-bot");
+      // Afficher la réponse au fil de sa génération.
+      attente.textContent = "";
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
+      let reply = "";
+
+      function traiterEvenement(eventText) {
+        const dataText = eventText
+          .split("\\n")
+          .filter(line => line.startsWith("data:"))
+          .map(line => line.slice(5).trim())
+          .join("\\n");
+        if (!dataText || dataText === "[DONE]") return;
+        try {
+          const chunk = JSON.parse(dataText);
+          const morceaux = chunk?.candidates?.[0]?.content?.parts || [];
+          for (const morceau of morceaux) {
+            if (typeof morceau.text === "string") {
+              reply += morceau.text;
+              attente.textContent = reply;
+              messages.scrollTop = messages.scrollHeight;
+            }
+          }
+        } catch (e) {
+          console.warn("Fragment de réponse IA illisible.", e);
+        }
+      }
+
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const evenements = buffer.split("\\n\\n");
+        buffer = evenements.pop() || "";
+        for (const evenement of evenements) traiterEvenement(evenement);
+      }
+      buffer += decoder.decode();
+      if (buffer.trim()) traiterEvenement(buffer);
+
+      if (!reply.trim()) {
+        attente.remove();
+        throw new Error("L'assistant n'a pas retourné de réponse.");
+      }
 
       historique.push({
         role: "assistant",
-        text: result.reply
+        text: reply
       });
 
       historique = historique.slice(-12);
