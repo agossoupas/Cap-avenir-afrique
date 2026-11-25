@@ -48,7 +48,7 @@ footer{text-align:center;color:#87938c;font-size:11px;padding:28px 15px}
   <button class="navbtn" data-view="explore"><span>⌕</span>Explorer les offres</button>
   <button class="navbtn" data-view="profile"><span>◎</span>Mon profil</button>
   <button class="navbtn" data-view="applications"><span>▤</span>Mes candidatures</button>
-  <button class="navbtn" id="logout" class="hidden"><span>↪</span>Déconnexion</button>
+  <button class="navbtn hidden" id="logout"><span>↪</span>Déconnexion</button>
   <div class="side-note">Les informations de ton profil et de tes candidatures sont privées et liées à ton compte.</div>
  </aside>
  <div class="content">
@@ -170,7 +170,7 @@ function renderApplications(){
  });
 }
 async function loadApplications(){
- const {data,error}=await sb.from("candidatures").select("id,titre_offre,organisme,lien,notes,statut,created_at").order("created_at",{ascending:false});
+ const {data,error}=await sb.from("candidatures").select("id,offre_id,titre_offre,organisme,lien,notes,statut,created_at").order("created_at",{ascending:false});
  if(error){message("Impossible de charger ton suivi : "+error.message,true);return}
  applications=data||[];renderApplications();
 }
