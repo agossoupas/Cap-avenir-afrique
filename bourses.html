@@ -436,24 +436,29 @@
 
     function lienSuivi(o){const q=new URLSearchParams({titre:o.titre||"",organisme:o.organisme||"",lien:o.lien_candidature||o.document_url||"",offre_id:o.id||""});return 'espace-candidat.html?'+q.toString()}
 
-function afficherBourses() {
-      const mot = recherche.value.trim().toLowerCase();
-      const endroit = lieu.value.trim().toLowerCase();
+function normaliserRecherche(value) {
+      return String(value ?? "").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim();
+    }
+    function scoreRecherche(offre, query) {
+      const termes = normaliserRecherche(query).split(/\s+/).filter(Boolean);
+      if (!termes.length) return 0;
+      const titre = normaliserRecherche(offre.titre), organisme = normaliserRecherche(offre.organisme);
+      const domaine = normaliserRecherche(offre.domaine), lieu = normaliserRecherche(offre.lieu);
+      const description = normaliserRecherche(offre.description), tout = [titre,organisme,domaine,lieu,description].join(" ");
+      if (!termes.every(t => tout.includes(t))) return -1;
+      return termes.reduce((score,t) => score + (titre.includes(t)?8:0) + (domaine.includes(t)?4:0) + (organisme.includes(t)?3:0) + (lieu.includes(t)?2:0) + (description.includes(t)?1:0),0);
+    }
+    function offreType(offre) { return String(offre.type || "").toLowerCase(); }
 
-      const filtrees = bourses.filter(b => {
-        const contenu = [
-          b.titre,
-          b.organisme,
-          b.domaine,
-          b.lieu,
-          b.description
-        ].join(" ").toLowerCase();
+    function afficherBourses() {
+      const mot = recherche.value;
+      const endroit = normaliserRecherche(lieu.value);
+      const filtrees = bourses.map(b => ({offre:b,score:scoreRecherche(b,mot)}))
+        .filter(item => item.score >= 0 && normaliserRecherche(item.offre.lieu).includes(endroit))
+        .sort((a,b) => b.score-a.score || new Date(b.offre.created_at||0)-new Date(a.offre.created_at||0))
+        .map(item => item.offre);
 
-        return contenu.includes(mot) &&
-          String(b.lieu || "").toLowerCase().includes(endroit);
-      });
-
-      const idPartage = new URLSearchParams(location.search).get("offre");
+const idPartage = new URLSearchParams(location.search).get("offre");
       const listeAffichee = idPartage ? filtrees.filter(o => String(o.id) === idPartage) : filtrees;
 
       compteur.textContent = listeAffichee.length === 1
