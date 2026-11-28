@@ -163,7 +163,7 @@ function estLienCandidatureDirect(url){
   try {
     const parsed=new URL(url);
     if(!["https:","http:"].includes(parsed.protocol)) return false;
-    return !/(^|\\.)setondji\\.org$/i.test(parsed.hostname);
+    return !/(^|\.)setondji\.org$/i.test(parsed.hostname);
   } catch { return false; }
 }
 function nomType(type){
