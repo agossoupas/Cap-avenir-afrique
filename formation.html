@@ -568,7 +568,8 @@
 
         if (
           adresse.protocol === "https:" ||
-          adresse.protocol === "http:"
+          adresse.protocol === "http:" ||
+          adresse.protocol === "mailto:"
         ) {
           return adresse.href;
         }
@@ -683,7 +684,7 @@ function afficherFormations() {
                       href="${echapper(candidature)}"
                       target="_blank"
                       rel="noopener noreferrer">
-                      S'inscrire directement
+                      ${/^mailto:/i.test(candidature) ? "Envoyer ma candidature" : "Accéder à la candidature"}
                    </a>`
                 : ""
             }
