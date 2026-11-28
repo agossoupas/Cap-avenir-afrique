@@ -9,6 +9,7 @@ const APP_SHELL = [
   "./conseils.html",
   "./contact.html",
   "./espace-candidat.html",
+  "./push-setup.html",
   "./confidentialite.html",
   "./mentions-legales.html",
   "./offline.html",
