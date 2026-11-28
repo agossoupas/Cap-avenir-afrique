@@ -588,11 +588,13 @@ function afficherOffres() {
         );
       });
 
-      compteur.textContent = filtrees.length === 1
+      const idPartage = new URLSearchParams(location.search).get("offre");
+      const listeAffichee = idPartage ? filtrees.filter(o => String(o.id) === idPartage) : filtrees;
+      compteur.textContent = listeAffichee.length === 1
         ? "1 opportunité trouvée."
-        : filtrees.length + " opportunité(s) trouvée(s).";
+        : listeAffichee.length + " opportunité(s) trouvée(s).";
 
-      if (filtrees.length === 0) {
+      if (listeAffichee.length === 0) {
         if (offres.length === 0) {
           resultats.innerHTML = `
             <div class="message">
@@ -633,7 +635,7 @@ function afficherOffres() {
         return;
       }
 
-      resultats.innerHTML = filtrees.map(function(offre) {
+      resultats.innerHTML = listeAffichee.map(function(offre) {
         const lienCandidature = lienSecurise(offre.lien_candidature);
         const lienDocument = lienSecurise(offre.document_url);
 
@@ -688,7 +690,7 @@ function afficherOffres() {
             ${boutons}
           <a class="button secondary" href="${lienSuivi(offre)}">＋ Ajouter à mon suivi</a>
           <button class="button button-secondary" type="button" data-favori="${echapper(offre.id)}" onclick="cliquerFavori(this)">${lireFavoris().includes(String(offre.id)) ? "♥ Enregistrée" : "♡ Ajouter aux favoris"}</button>
-          <button class="button button-secondary" type="button" data-partage="${echapper(offre.titre||&quot;Offre&quot;)}" data-lieu="${echapper(offre.lieu||&quot;&quot;)}" data-offre-id="${echapper(offre.id)}" onclick="partagerOffre(this)">↗ Partager</button>
+          <button class="button button-secondary" type="button" data-partage="${echapper(offre.titre||"Offre")}" data-lieu="${echapper(offre.lieu||"")}" data-offre-id="${echapper(offre.id)}" onclick="partagerOffre(this)">↗ Partager</button>
           </article>
         `;
       }).join("");
