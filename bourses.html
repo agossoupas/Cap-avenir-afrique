@@ -421,7 +421,7 @@
     function lienValide(url) {
       try {
         const adresse = new URL(url);
-        return ["https:", "http:"].includes(adresse.protocol)
+        return ["https:", "http:", "mailto:"].includes(adresse.protocol)
           ? adresse.href
           : "";
       } catch {
@@ -482,7 +482,7 @@ function afficherBourses() {
             )}</p>
 
             ${candidature
-              ? `<a class="button" href="${echapper(candidature)}" target="_blank" rel="noopener noreferrer">Candidater directement</a>`
+              ? `<a class="button" href="${echapper(candidature)}" target="_blank" rel="noopener noreferrer">${/^mailto:/i.test(candidature) ? "Envoyer ma candidature" : "Accéder à la candidature"}</a>`
               : ""}
 
             ${documentUrl
