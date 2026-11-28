@@ -262,7 +262,7 @@
     <a href="bourses.html">Bourses</a>
     <a href="formation.html" aria-current="page">Formations</a>
       <a href="conseils.html">Conseils pratiques</a>
-  <a href="espace-candidat.html">Mon espace</a></nav>
+  <a href="espace-candidat.html">Mon espace</a><a href="favoris.html">Mes favoris</a></nav>
 
   <main>
     <section class="hero">
@@ -538,6 +538,11 @@
     const lieu = document.getElementById("lieu");
 
     let formations = [];
+    const CLE_FAVORIS = "caa_favoris_v1";
+    function lireFavoris(){try{return JSON.parse(localStorage.getItem(CLE_FAVORIS)||"[]").map(String)}catch(e){return []}}
+    function basculerFavori(id){const ids=lireFavoris(),k=String(id),next=ids.includes(k)?ids.filter(x=>x!==k):ids.concat(k);localStorage.setItem(CLE_FAVORIS,JSON.stringify(next));return next.includes(k)}
+    function boutonFavori(id){return `<button class="button secondary" type="button" data-favori="${echapper(id)}" onclick="cliquerFavori(this)">${lireFavoris().includes(String(id))?"♥ Enregistrée":"♡ Ajouter aux favoris"}</button>`}
+    function cliquerFavori(btn){const active=basculerFavori(btn.dataset.favori);btn.textContent=active?"♥ Enregistrée":"♡ Ajouter aux favoris"}
 
     document.getElementById("annee").textContent =
       new Date().getFullYear();
@@ -603,11 +608,14 @@ function afficherFormations() {
             .toLowerCase().includes(endroit);
       });
 
-      compteur.textContent = filtrees.length === 1
-        ? "1 formation trouvée."
-        : filtrees.length + " formation(s) trouvée(s).";
+      const idPartage = new URLSearchParams(location.search).get("offre");
+      const listeAffichee = idPartage ? filtrees.filter(o => String(o.id) === idPartage) : filtrees;
 
-      if (filtrees.length === 0) {
+      compteur.textContent = listeAffichee.length === 1
+        ? "1 formation trouvée."
+        : listeAffichee.length + " formation(s) trouvée(s).";
+
+      if (listeAffichee.length === 0) {
         if (formations.length === 0) {
           resultats.innerHTML = `
             <div class="message">
@@ -649,7 +657,7 @@ function afficherFormations() {
         return;
       }
 
-      resultats.innerHTML = filtrees.map(formation => {
+      resultats.innerHTML = listeAffichee.map(formation => {
         const candidature = lienValide(formation.lien_candidature);
         const documentUrl = lienValide(formation.document_url);
 
@@ -700,6 +708,7 @@ function afficherFormations() {
                 : ""
             }
           <a class="button secondary" href="${lienSuivi(formation)}">＋ Ajouter à mon suivi</a>
+          ${boutonFavori(formation.id)}
           </article>
         `;
       }).join("");
