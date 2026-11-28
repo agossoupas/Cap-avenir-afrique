@@ -185,6 +185,20 @@ const ALERTS_KEY="caa_alertes_v1";
 function normaliserAlerte(value){return String(value||"").normalize("NFD").replace(/[\\u0300-\\u036f]/g,"").toLocaleLowerCase("fr").replace(/[^a-z0-9]+/g," ").trim()}
 function readAlerts(){try{const v=JSON.parse(localStorage.getItem(ALERTS_KEY)||"[]");return Array.isArray(v)?v.filter(a=>a&&typeof a==="object"):[]}catch(_){return []}}
 function saveAlerts(items){try{localStorage.setItem(ALERTS_KEY,JSON.stringify(items));return true}catch(_){message("Impossible d'enregistrer tes alertes. Vérifie l'espace disponible dans ton navigateur.",true);return false}}
+function alertSignature(a){return [normaliserAlerte(a.keywords),a.type||"",normaliserAlerte(a.place)].join("|")}
+async function syncAlertsWithAccount(){
+ if(!session?.user?.id)return;
+ try{
+  const {data:remote,error}=await sb.from("push_alert_rules").select("id,keywords,type,place,label,created_at").eq("user_id",session.user.id);
+  if(error)throw error;
+  const local=readAlerts(),merged=[...(remote||[])];
+  const signatures=new Set(merged.map(alertSignature));
+  for(const a of local){const sig=alertSignature(a);if(!signatures.has(sig)){merged.push({...a,id:a.id||crypto.randomUUID()});signatures.add(sig)}}
+  const rows=merged.map(a=>({id:String(a.id||crypto.randomUUID()),user_id:session.user.id,keywords:a.keywords||"",type:a.type||"",place:a.place||"",label:a.label||"Ma recherche",updated_at:new Date().toISOString()}));
+  if(rows.length){const {error:upsertError}=await sb.from("push_alert_rules").upsert(rows,{onConflict:"id"});if(upsertError)throw upsertError}
+  saveAlerts(merged);renderAlerts();
+ }catch(error){console.warn("Synchronisation des alertes:",error);message("Tes alertes restent enregistrées sur cet appareil. Synchronisation du compte momentanément indisponible.",true)}
+}
 function matchingOffers(alert){
  const terms=normaliserAlerte(alert.keywords).split(/\\s+/).filter(Boolean),place=normaliserAlerte(alert.place);
  return offers.filter(o=>{
@@ -203,20 +217,20 @@ function renderAlerts(){
   box.append(node("p","muted",criteria||"Toutes les offres publiées"));
   const actions=node("div","alert-actions"),show=node("button","smallbtn","Voir ces offres"),remove=node("button","smallbtn danger","Supprimer");
   show.type=remove.type="button";show.addEventListener("click",()=>{const exactPlace=[...$("countryFilter").options].some(opt=>opt.value===alert.place);$("searchOffers").value=[alert.keywords,alert.place&&!exactPlace?alert.place:""].filter(Boolean).join(" ");$("typeFilter").value=alert.type||"";$("countryFilter").value=exactPlace?alert.place||"":"";switchView("explore");renderOffers();});
-  remove.addEventListener("click",()=>{const next=readAlerts();next.splice(index,1);if(saveAlerts(next)){renderAlerts();message("Alerte supprimée.");}});
+  remove.addEventListener("click",async()=>{const removed=readAlerts()[index];const next=readAlerts();next.splice(index,1);if(saveAlerts(next)){if(session&&removed?.id){const {error}=await sb.from("push_alert_rules").delete().eq("id",String(removed.id)).eq("user_id",session.user.id);if(error)message("Alerte supprimée de cet appareil, mais pas encore du compte.",true)}renderAlerts();message("Alerte supprimée.");}});
   actions.append(show,remove);box.append(actions);
   if(matches.length){const grid=node("div","alert-matches");matches.slice(0,2).forEach(o=>grid.append(offerCard(o,true)));box.append(grid);if(matches.length>2)box.append(node("p","muted","Et "+(matches.length-2)+" autre(s) offre(s) correspondante(s)."))}
   else box.append(node("p","muted","Aucune offre ne correspond pour le moment. Cette alerte sera comparée aux offres disponibles lors de ta prochaine visite."));
   wrap.append(box);
  });
 }
-function createAlert(){
+async function createAlert(){
  const keywords=$("alertKeywords").value.trim(),type=$("alertType").value,place=$("alertPlace").value.trim();
  if(!keywords&&!type&&!place){message("Ajoute au moins un mot-clé, une catégorie ou un lieu pour créer une alerte.",true);return}
  const alerts=readAlerts(),signature=[normaliserAlerte(keywords),type,normaliserAlerte(place)].join("|");
  if(alerts.some(a=>[normaliserAlerte(a.keywords),a.type||"",normaliserAlerte(a.place)].join("|")===signature)){message("Cette alerte existe déjà.");return}
  alerts.unshift({id:String(Date.now()),keywords,type,place,label:[keywords,type,place].filter(Boolean).join(" · ")||"Ma recherche"});
- if(saveAlerts(alerts)){ $("alertKeywords").value="";$("alertType").value="";$("alertPlace").value="";renderAlerts();message("Alerte enregistrée sur cet appareil.");}
+ if(saveAlerts(alerts)){ $("alertKeywords").value="";$("alertType").value="";$("alertPlace").value="";renderAlerts();if(session)await syncAlertsWithAccount();message(session?"Alerte enregistrée sur ton compte et cet appareil.":"Alerte enregistrée sur cet appareil. Connecte-toi pour la synchroniser.");}
 }
 $("saveAlert").addEventListener("click",createAlert);
 function renderOffers(){
@@ -325,7 +339,7 @@ function showAuth(){
 async function refresh(){
  const {data,error}=await sb.auth.getSession();if(error){message("Vérification de session impossible : "+error.message,true);return}
  session=data.session;showAuth();updatePushStatus();
- if(session){await Promise.all([loadProfile(),loadApplications()]);await importPendingOffer()}
+ if(session){await Promise.all([loadProfile(),loadApplications(),syncAlertsWithAccount()]);await importPendingOffer()}
 }
 async function importPendingOffer(){
  const q=new URLSearchParams(location.search),title=q.get("titre");if(!title)return;
