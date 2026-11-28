@@ -1,0 +1,57 @@
+/* Cap Avenir Afrique — refonte visuelle légère et cohérente */
+:root{
+  --caa-green:#087443;--caa-green-dark:#064b2e;--caa-green-soft:#eaf5ee;
+  --caa-ink:#183327;--caa-muted:#65756c;--caa-paper:#f6f9f7;
+  --caa-line:#e3ebe6;--caa-gold:#f3bd52;--caa-white:#fff;
+  --caa-shadow:0 8px 24px rgba(16,55,34,.06);
+}
+html{scroll-behavior:smooth}
+body{background:var(--caa-paper)!important;color:var(--caa-ink)!important;font-family:"DM Sans",Arial,sans-serif!important;line-height:1.6!important}
+h1,h2,h3{font-family:Manrope,"DM Sans",Arial,sans-serif}
+h2{font-size:clamp(21px,3vw,28px)!important;line-height:1.25!important}
+p{line-height:1.65}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--caa-gold)!important;outline-offset:3px}
+header{background:#fff!important;color:var(--caa-ink)!important;border-bottom:1px solid var(--caa-line)!important;box-shadow:0 3px 14px rgba(16,55,34,.04)!important}
+header h1,header h2,header h3,header p,header .brand-name,header .logo{color:var(--caa-green-dark)!important}
+header nav{background:transparent!important}
+header nav a,body>nav a{color:#405449!important;text-decoration:none!important;font-size:13px!important;font-weight:700!important;padding:8px 10px!important;border-radius:9px!important}
+header nav a:hover,body>nav a:hover,header nav a[aria-current=page],body>nav a[aria-current=page]{background:var(--caa-green-soft)!important;color:var(--caa-green-dark)!important}
+body>nav{background:#fff!important;color:var(--caa-ink)!important;border-bottom:1px solid var(--caa-line)!important;box-shadow:none!important}
+.hero{background:linear-gradient(120deg,#064b2e,#087443)!important;color:#fff!important}
+.hero h1,.hero h2,.hero p{color:#fff!important}
+main,.container{max-width:1080px!important}
+main>section,.section,.panel{border-radius:16px!important}
+.section,.panel,.card,.info-box,.step,.about-panel,.category,.offer-card,.faq,.intro,.article-section,.checklist{box-shadow:var(--caa-shadow)!important;border:1px solid var(--caa-line)!important}
+h2,.panel h2,.section h2,.results-heading,h3{color:var(--caa-green-dark)!important}
+main p,main li,.meta,.results-info,.section-sub{color:var(--caa-muted)}
+input,select,textarea,.filters input{border:1px solid #d9e4dc!important;border-radius:10px!important;min-height:44px}
+button,.button,.cta{background:var(--caa-green)!important;color:#fff!important;border-radius:10px!important}
+button:hover,.button:hover,.cta:hover{background:var(--caa-green-dark)!important}
+.badge,.pill{background:var(--caa-green-soft)!important;color:var(--caa-green-dark)!important}
+.notice{background:#fff8e8!important;border-color:#f0dfb7!important;color:#655022!important}
+footer{background:#103b29!important;color:#e8f2ec!important}
+footer p,footer a{color:#d7e7dc!important}
+.topbar{background:var(--caa-green-dark)!important}
+.brand-mark,.mark{background:var(--caa-green)!important}
+.nav-cta{background:var(--caa-green)!important;color:#fff!important}
+#dernieresOffres,#resultats{gap:14px!important}
+#dernieresOffres .offer-card,#resultats .card{border-radius:14px!important;padding:18px!important}
+@media(max-width:700px){
+  header{position:relative!important;display:flex!important;flex-direction:column!important;align-items:stretch!important;padding:13px 4%!important;gap:10px!important}
+  header nav,body>nav{display:flex!important;justify-content:flex-start!important;flex-wrap:nowrap!important;overflow-x:auto!important;white-space:nowrap!important;gap:5px!important;padding:8px 0!important;scrollbar-width:thin}
+  header nav a,body>nav a{flex:0 0 auto!important;font-size:12px!important;padding:8px 9px!important}
+  .hero{padding:38px 5%!important;text-align:left!important}
+  .hero h1{font-size:clamp(27px,8vw,36px)!important;letter-spacing:-.7px!important}
+  .hero p{font-size:14px!important}
+  main,.container{width:92%!important;margin:20px auto!important;padding-left:0!important;padding-right:0!important}
+  .section,.panel,.card,.intro,.article-section,.checklist,.faq{padding:17px!important}
+  .filters{display:grid!important;grid-template-columns:1fr!important}
+  .filters input,.filters select{width:100%!important;min-width:0!important}
+  .category-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+  .category{min-height:0!important;padding:13px!important}
+  #dernieresOffres{grid-template-columns:1fr!important}
+  .stats{grid-template-columns:1fr!important}
+  .about-grid{grid-template-columns:1fr!important;gap:18px!important}
+  .steps{grid-template-columns:1fr!important}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
