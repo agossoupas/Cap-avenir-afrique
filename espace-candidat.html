@@ -28,7 +28,7 @@ footer{text-align:center;color:#87938c;font-size:11px;padding:28px 15px}
 </head>
 <body>
 <div class="top"><span>Ton espace personnel pour avancer dans tes projets</span><a href="index.html">← Retour à Cap Avenir Afrique</a></div>
-<header><a class="brand" href="index.html"><span class="mark">↗</span><span>CAP AVENIR AFRIQUE<small>ESPACE CANDIDAT</small></span></a><div class="header-right"><span id="userLabel" class="muted">Visiteur</span><a href="index.html">Accueil du site</a></div></header>
+<header><a class="brand" href="index.html"><span class="mark">↗</span><span>CAP AVENIR AFRIQUE<small>ESPACE CANDIDAT</small></span></a><div class="header-right"><span id="userLabel" class="muted">Visiteur</span><a href="favoris.html">Mes favoris</a><a href="index.html">Accueil du site</a></div></header>
 <main>
 <section class="welcome"><div><h1>Construis ton prochain parcours.</h1><p>Découvre les opportunités publiées, organise tes candidatures et garde ton profil à jour au même endroit.</p></div><span class="tag">Un espace pensé pour tes ambitions</span></section>
 <div id="notice" class="notice" role="status">Chargement de ton espace…</div>
@@ -57,13 +57,14 @@ footer{text-align:center;color:#87938c;font-size:11px;padding:28px 15px}
   <button class="navbtn" data-view="explore"><span>⌕</span>Explorer les offres</button>
   <button class="navbtn" data-view="profile"><span>◎</span>Mon profil</button>
   <button class="navbtn" data-view="applications"><span>▤</span>Mes candidatures</button>
+  <a class="navbtn" href="favoris.html" style="text-decoration:none"><span>★</span>Mes favoris</a>
   <button class="navbtn hidden" id="logout"><span>↪</span>Déconnexion</button>
   <div class="side-note">Les informations de ton profil et de tes candidatures sont privées et liées à ton compte.</div>
  </aside>
  <div class="content">
   <section class="view active" id="view-overview">
    <div class="panel"><div class="panel-head"><div><h2>Bienvenue dans ton espace</h2><p class="muted">Voici les outils essentiels pour faire avancer ton projet.</p></div><button class="btn light" data-goto="explore">Voir les offres</button></div>
-    <div class="authgrid"><div class="item"><h3>1. Complète ton profil</h3><p class="muted">Présente ta formation, ton domaine et tes compétences pour préparer tes prochaines candidatures.</p><button class="smallbtn" data-goto="profile">Compléter mon profil →</button></div><div class="item"><h3>2. Repère les opportunités</h3><p class="muted">Filtre les offres par catégorie et consulte les informations de candidature.</p><button class="smallbtn" data-goto="explore">Explorer les offres →</button></div><div class="item"><h3>3. Organise tes démarches</h3><p class="muted">Ajoute une offre à ton suivi puis actualise son statut à chaque étape.</p><button class="smallbtn" data-goto="applications">Voir mon suivi →</button></div><div class="item"><h3>4. Prépare tes candidatures</h3><p class="muted">Retrouve les conseils et l'assistant de Cap Avenir Afrique depuis la page d'accueil.</p><a class="smallbtn" href="index.html">Accéder aux conseils →</a></div></div>
+    <div class="authgrid"><div class="item"><h3>1. Complète ton profil</h3><p class="muted">Présente ta formation, ton domaine et tes compétences pour préparer tes prochaines candidatures.</p><button class="smallbtn" data-goto="profile">Compléter mon profil →</button></div><div class="item"><h3>2. Repère les opportunités</h3><p class="muted">Filtre les offres par catégorie et consulte les informations de candidature.</p><button class="smallbtn" data-goto="explore">Explorer les offres →</button></div><div class="item"><h3>3. Organise tes démarches</h3><p class="muted">Ajoute une offre à ton suivi puis actualise son statut à chaque étape.</p><button class="smallbtn" data-goto="applications">Voir mon suivi →</button></div><div class="item"><h3>4. Prépare tes candidatures</h3><p class="muted">Retrouve les conseils et l'assistant de Cap Avenir Afrique depuis la page d'accueil.</p><a class="smallbtn" href="conseils.html">Accéder aux conseils →</a></div><div class="item"><h3>5. Garde tes offres préférées</h3><p class="muted"><strong id="favoriteTotal">—</strong> offre(s) enregistrée(s) dans les favoris de cet appareil. Elles restent disponibles sans compte.</p><a class="smallbtn" href="favoris.html">Ouvrir mes favoris →</a></div></div>
    </div>
    <div class="panel"><div class="panel-head"><div><h2>Opportunités récentes</h2><p class="muted">Les dernières offres publiées sur Cap Avenir Afrique.</p></div><button class="btn light" data-goto="explore">Tout voir</button></div><div class="offers" id="recentOffers"><div class="empty">Chargement des offres…</div></div></div>
   </section>
@@ -141,6 +142,11 @@ async function loadOffers(){
  places.forEach(p=>{const opt=node("option","",p);opt.value=p;$("countryFilter").append(opt)});
 }
 $("searchOffers").addEventListener("input",renderOffers);$("typeFilter").addEventListener("change",renderOffers);$("countryFilter").addEventListener("change",renderOffers);
+function updateFavoriteTotal(){
+ try{const ids=JSON.parse(localStorage.getItem("caa_favoris_v1")||"[]");$("favoriteTotal").textContent=Array.isArray(ids)?ids.length:0;}catch(_){$("favoriteTotal").textContent="0";}
+}
+updateFavoriteTotal();
+window.addEventListener("pageshow",updateFavoriteTotal);
 function updateProfileProgress(){
  const fields=["nom","pays","formation","domaine","competences","objectif"],done=fields.filter(k=>$(k).value.trim()).length,pct=Math.round(done/fields.length*100);
  $("profilePercent").textContent=pct+" % complété";$("profileBar").style.width=pct+"%";$("statProfile").textContent=pct+"%";
