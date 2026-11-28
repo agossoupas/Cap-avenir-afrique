@@ -1,4 +1,4 @@
-const CACHE_NAME = "cap-avenir-afrique-v16";
+const CACHE_NAME = "cap-avenir-afrique-v17";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -36,6 +36,37 @@ self.addEventListener("activate", event => {
       ))
       .then(() => self.clients.claim())
   );
+});
+
+self.addEventListener("push", event => {
+  let payload = {};
+  try { payload = event.data ? event.data.json() : {}; }
+  catch (_) { payload = { body: event.data ? event.data.text() : "" }; }
+  const title = payload.title || "Cap Avenir Afrique";
+  const options = {
+    body: payload.body || "Une nouvelle opportunité pourrait t'intéresser.",
+    icon: "./app-icon.svg",
+    badge: "./cap-avenir-afrique-favicon.png",
+    data: { url: payload.url || "./espace-candidat.html" },
+    tag: payload.tag || "cap-avenir-afrique",
+    renotify: false
+  };
+  event.waitUntil(self.registration.showNotification(title, options));
+});
+
+self.addEventListener("notificationclick", event => {
+  event.notification.close();
+  const target = new URL(event.notification.data?.url || "./espace-candidat.html", self.location.origin);
+  if (target.origin !== self.location.origin) return;
+  event.waitUntil(clients.matchAll({ type: "window", includeUncontrolled: true }).then(list => {
+    for (const client of list) {
+      if (new URL(client.url).origin === self.location.origin) {
+        client.navigate(target.href);
+        return client.focus();
+      }
+    }
+    return clients.openWindow(target.href);
+  }));
 });
 
 self.addEventListener("fetch", event => {
