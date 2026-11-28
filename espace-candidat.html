@@ -155,7 +155,7 @@ function renderAlerts(){
   const criteria=[alert.keywords,alert.type,alert.place].filter(Boolean).join(" · ");
   box.append(node("p","muted",criteria||"Toutes les offres publiées"));
   const actions=node("div","alert-actions"),show=node("button","smallbtn","Voir ces offres"),remove=node("button","smallbtn danger","Supprimer");
-  show.type=remove.type="button";show.addEventListener("click",()=>{ $("searchOffers").value=alert.keywords||"";$("typeFilter").value=alert.type||"";$("countryFilter").value=alert.place||"";switchView("explore");renderOffers();});
+  show.type=remove.type="button";show.addEventListener("click",()=>{const exactPlace=[...$("countryFilter").options].some(opt=>opt.value===alert.place);$("searchOffers").value=[alert.keywords,alert.place&&!exactPlace?alert.place:""].filter(Boolean).join(" ");$("typeFilter").value=alert.type||"";$("countryFilter").value=exactPlace?alert.place||"":"";switchView("explore");renderOffers();});
   remove.addEventListener("click",()=>{const next=readAlerts();next.splice(index,1);if(saveAlerts(next)){renderAlerts();message("Alerte supprimée.");}});
   actions.append(show,remove);box.append(actions);
   if(matches.length){const grid=node("div","alert-matches");matches.slice(0,2).forEach(o=>grid.append(offerCard(o,true)));box.append(grid);if(matches.length>2)box.append(node("p","muted","Et "+(matches.length-2)+" autre(s) offre(s) correspondante(s)."))}
