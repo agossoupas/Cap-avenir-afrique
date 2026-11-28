@@ -163,7 +163,14 @@ function estLienCandidatureDirect(url){
   try {
     const parsed=new URL(url);
     if(!["https:","http:"].includes(parsed.protocol)) return false;
-    return !/(^|\.)setondji\.org$/i.test(parsed.hostname);
+    const domainesIntermediaires=[
+      "setondji.org","opportafrik.com","jobsbenin.org",
+      "jobrelais.com","opportunitepourtous.com"
+    ];
+    return !domainesIntermediaires.some(domaine =>
+      parsed.hostname.toLowerCase()===domaine ||
+      parsed.hostname.toLowerCase().endsWith("."+domaine)
+    );
   } catch { return false; }
 }
 function nomType(type){
