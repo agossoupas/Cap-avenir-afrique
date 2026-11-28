@@ -646,7 +646,7 @@ function afficherOffres() {
             <a class="button"
                href="${echapper(lienCandidature)}"
                target="_blank"
-               rel="noopener noreferrer">${/^mailto:/i.test(lienCandidature) ? "Envoyer ma candidature" : "Accéder à la candidature"}</a>
+               rel="noopener noreferrer">${/^mailto:/i.test(lienCandidature) ? "Envoyer ma candidature" : /dedras-benin\.org/i.test(lienCandidature) ? "Contacter DEDRAS / lieux de dépôt" : "Accéder à la candidature"}</a>
           `;
         }
 
