@@ -646,7 +646,7 @@ function afficherOffres() {
             <a class="button"
                href="${echapper(lienCandidature)}"
                target="_blank"
-               rel="noopener noreferrer">Postuler directement</a>
+               rel="noopener noreferrer">${/^mailto:/i.test(lienCandidature) ? "Envoyer ma candidature" : "Accéder à la candidature"}</a>
           `;
         }
 
