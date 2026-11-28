@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#064b2e"><title>Configuration des notifications | Cap Avenir Afrique</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f3f7f4;color:#193729;font:15px system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.55}.wrap{max-width:820px;margin:36px auto;padding:0 18px}.card{background:white;border:1px solid #dce8df;border-radius:18px;padding:24px;margin:16px 0;box-shadow:0 8px 28px #123d2b0b}h1,h2{color:#064b2e}h1{font-size:26px;margin:0 0 8px}h2{font-size:19px;margin:0 0 10px}.muted{color:#65786d;font-size:13px}.btn{border:0;border-radius:9px;padding:12px 16px;background:#087443;color:white;font-weight:800;cursor:pointer}.btn.secondary{background:#eaf5ee;color:#064b2e}textarea,input{width:100%;border:1px solid #dce8df;border-radius:9px;padding:12px;font:12px ui-monospace,monospace;margin:7px 0 12px}textarea{min-height:100px;overflow-wrap:anywhere}code{background:#edf4ef;padding:2px 5px;border-radius:5px;overflow-wrap:anywhere}.warning{background:#fff6df;border:1px solid #f2dfab;padding:12px;border-radius:10px;color:#6d4b0c}.success{background:#eaf5ee;padding:12px;border-radius:10px}.step{display:flex;gap:12px;align-items:flex-start}.num{background:#087443;color:white;border-radius:50%;width:27px;height:27px;display:grid;place-items:center;flex:none;font-weight:800}a{color:#087443}footer{font-size:12px;color:#718178;padding:20px 0}
+</style></head><body><main class="wrap">
+<a href="espace-candidat.html">← Retour à mon espace candidat</a>
+<div class="card"><h1>Activer les notifications Android</h1><p class="muted">Cette page génère les clés nécessaires directement dans ton navigateur. Elles ne sont envoyées ni à GitHub ni à un autre serveur depuis cette page.</p>
+<div class="warning"><strong>Important :</strong> génère les clés une seule fois. Ne partage jamais la clé privée. Ne la colle jamais dans un fichier du site ou dans GitHub.</div>
+<p><button class="btn" id="generate">Générer mes clés sécurisées</button></p><div id="result" hidden>
+<h2>1. Clé privée VAPID — à garder secrète</h2><textarea id="private" readonly></textarea><button class="btn secondary" data-copy="private">Copier la clé privée</button>
+<h2 style="margin-top:22px">2. Jeton de planification — à garder secret</h2><textarea id="cron" readonly></textarea><button class="btn secondary" data-copy="cron">Copier le jeton</button>
+<h2 style="margin-top:22px">3. Clé publique</h2><textarea id="public" readonly></textarea><button class="btn secondary" data-copy="public">Copier la clé publique</button>
+<div class="success" style="margin-top:16px">Garde ces valeurs dans un endroit sûr avant de fermer cette page. La clé publique pourra être utilisée par l'application ; les deux autres valeurs restent secrètes.</div></div>
+</div>
+<div class="card"><h2>Où enregistrer les secrets Supabase ?</h2>
+<div class="step"><span class="num">1</span><div>Ouvre <a href="https://supabase.com/dashboard/project/fhqppofwnoxiexnxivfx/functions/secrets" target="_blank" rel="noopener">Supabase → Edge Function Secrets</a>.</div></div>
+<div class="step"><span class="num">2</span><div>Ajoute les variables suivantes :<p><code>VAPID_PRIVATE_JWK</code> = le contenu complet du champ « Clé privée » (JSON).</p><p><code>PUSH_CRON_TOKEN</code> = le jeton de planification.</p><p><code>VAPID_SUBJECT</code> = <code>https://agossoupas.github.io/Cap-avenir-afrique/</code></p></div></div>
+<div class="step"><span class="num">3</span><div>Enregistre les secrets. Ne les mets pas dans GitHub, dans le code du site ou dans un message public.</div></div>
+<p class="muted">La clé publique sera récupérée automatiquement par l'espace candidat depuis le serveur. Il ne faut pas la coller dans le code.</p>
+</div>
+<div class="card"><h2>Après l'enregistrement</h2><p>Retourne dans ton espace candidat, connecte-toi, active les notifications et utilise « Tester les notifications ». L'automatisation des nouvelles offres nécessite encore l'activation du déclencheur planifié dans la base de données.</p><a class="btn" href="espace-candidat.html">Ouvrir mon espace candidat</a></div>
+<footer>Cap Avenir Afrique · Page technique privée · Ne partage aucune clé secrète.</footer>
+</main><script>
+const $=id=>document.getElementById(id);
+function b64url(bytes){let binary="";for(const b of bytes)binary+=String.fromCharCode(b);return btoa(binary).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"")}
+$("generate").addEventListener("click",async()=>{
+ const button=$("generate");button.disabled=true;button.textContent="Génération…";
+ try{
+  const pair=await crypto.subtle.generateKey({name:"ECDSA",namedCurve:"P-256"},true,["sign","verify"]);
+  const jwk=await crypto.subtle.exportKey("jwk",pair.privateKey);
+  const privateJwk={kty:jwk.kty,crv:jwk.crv,x:jwk.x,y:jwk.y,d:jwk.d,ext:true,key_ops:["sign"]};
+  const raw=new Uint8Array(65);raw[0]=4;
+  const x=Uint8Array.from(atob(jwk.x.replace(/-/g,"+").replace(/_/g,"/")+"=="),c=>c.charCodeAt(0));
+  const y=Uint8Array.from(atob(jwk.y.replace(/-/g,"+").replace(/_/g,"/")+"=="),c=>c.charCodeAt(0));
+  raw.set(x,1);raw.set(y,33);
+  const token=new Uint8Array(32);crypto.getRandomValues(token);
+  $("private").value=JSON.stringify(privateJwk);
+  $("public").value=b64url(raw);
+  $("cron").value=b64url(token);
+  $("result").hidden=false;button.textContent="Clés générées";
+ }catch(error){alert("La génération a échoué : "+error.message);button.disabled=false;button.textContent="Réessayer"}
+});
+document.querySelectorAll("[data-copy]").forEach(button=>button.addEventListener("click",async()=>{
+ const value=$(button.dataset.copy).value;
+ try{await navigator.clipboard.writeText(value);button.textContent="Copié !";setTimeout(()=>button.textContent="Copier",1500)}
+ catch(_){$(button.dataset.copy).focus();$(button.dataset.copy).select();alert("Sélectionne le texte puis copie-le manuellement.")}
+}));
+</script></body></html>
