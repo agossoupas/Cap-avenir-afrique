@@ -1,0 +1,31 @@
+{
+  "id": "./",
+  "name": "Cap Avenir Afrique",
+  "short_name": "Cap Avenir",
+  "description": "Emplois, stages, bourses, formations et opportunités en Afrique et à l'international.",
+  "lang": "fr",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f7faf8",
+  "theme_color": "#087443",
+  "categories": [
+    "education",
+    "business"
+  ],
+  "icons": [
+    {
+      "src": "./app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "./app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
