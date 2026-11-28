@@ -139,19 +139,23 @@
     <span>🌍 <strong>Les opportunités qui font avancer l'Afrique</strong></span>
     <span>Des annonces à explorer. Des projets à construire.</span>
   </div>
-  <header>
+  <header class="site-header">
     <a class="brand" href="index.html" aria-label="Cap Avenir Afrique, accueil">
       <span class="brand-mark">C</span>
       <span class="brand-name">CAP AVENIR AFRIQUE<small>INFORMER · ORIENTER · INSPIRER</small></span>
     </a>
-    <nav aria-label="Navigation principale">
+    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="siteMenu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="site-menu" id="siteMenu" aria-label="Menu principal" hidden>
       <a href="index.html" aria-current="page">Accueil</a>
       <a href="emplois.html">Emplois & stages</a>
-      <a href="bourses.html">Bourses</a>
+      <a href="bourses.html">Bourses d'études</a>
       <a href="formation.html">Formations</a>
+      <a href="concours.html">Concours & volontariat</a>
       <a href="conseils.html">Conseils pratiques</a>
-      <a href="espace-candidat.html">Mon espace</a>
-      <a class="nav-cta" href="#dernieres-offres">Voir les opportunités&nbsp; ↗</a>
+      <a href="espace-candidat.html">Mon espace candidat</a>
+      <a href="contact.html">Contact</a>
     </nav>
   </header>
 
@@ -161,10 +165,8 @@
         <div class="eyebrow"><i></i> TON PROCHAIN DÉPART COMMENCE ICI</div>
         <h1>Ne passe pas à côté de <span>ta prochaine opportunité.</span></h1>
         <p class="hero-copy">Emplois, stages, bourses, formations et bien plus : découvre des opportunités en Afrique et à l'international pour faire avancer tes ambitions.</p>
-        <form class="search-panel" id="searchForm" role="search">
-          <label class="search-field" for="searchInput"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Que recherches-tu ? (ex. bourse, stage, santé…)" autocomplete="off"></label>
-          <button class="search-button" type="submit">Rechercher les offres</button>
-        </form>
+        <a class="home-primary-cta" href="emplois.html">Explorer les opportunités <span aria-hidden="true">→</span></a>
+        <p class="hero-note">Des pistes concrètes pour apprendre, travailler et construire ton avenir.</p>
         <p class="hero-note">Recherche parmi les annonces publiées sur <strong>Cap Avenir Afrique</strong>.</p>
       </div>
     </section>
@@ -185,25 +187,14 @@
       </div>
     </section>
 
-    <section class="latest" id="dernieres-offres">
-      <div class="wrap">
-        <div class="section-head">
-          <div><div class="kicker">À ne pas manquer</div><h2>Les dernières opportunités</h2><p class="section-sub">Les annonces récemment publiées sur notre plateforme.</p></div>
-          <a class="text-link" href="emplois.html">Parcourir les offres ↗</a>
+    <section class="home-discover">
+      <div class="wrap home-discover-inner">
+        <div>
+          <div class="kicker">À ton rythme</div>
+          <h2>Explore les opportunités qui correspondent à ton projet.</h2>
+          <p class="section-sub">Les annonces sont classées dans leurs rubriques pour te permettre de trouver plus facilement ce que tu recherches.</p>
         </div>
-        <div class="filters" aria-label="Filtrer les opportunités">
-          <button class="filter active" type="button" data-type="tous">Toutes</button>
-          <button class="filter" type="button" data-type="emploi">Emplois</button>
-          <button class="filter" type="button" data-type="stage">Stages</button>
-          <button class="filter" type="button" data-type="bourse">Bourses</button>
-          <button class="filter" type="button" data-type="formation">Formations</button>
-          <button class="filter" type="button" data-type="concours">Concours</button>
-          <button class="filter" type="button" data-type="volontariat">Volontariat</button>
-          <button class="filter" type="button" data-type="appel_a_projets">Appels à projets</button>
-        </div>
-        <div id="dernieresOffres" aria-live="polite" aria-busy="true">
-          <div class="message">Chargement des opportunités…</div>
-        </div>
+        <a class="home-secondary-cta" href="emplois.html">Voir toutes les opportunités →</a>
       </div>
     </section>
 
@@ -233,132 +224,32 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    // Configuration publique Supabase existante du projet.
-    const SUPABASE_URL = "https://fhqppofwnoxiexnxivfx.supabase.co";
-    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZocXBwb2Z3bm94aWV4bnhpdmZ4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3Nzc5OTksImV4cCI6MjEwODM1Mzk5OX0.SMRr2Fp2xd8KJC6U4mtTVpByb3AKoJAaLDtYudyf1k8";
-
-    const affichage = document.getElementById("dernieresOffres");
-    const recherche = document.getElementById("searchInput");
-    let toutesLesOffres = [];
-    let filtreActif = "tous";
-
     document.getElementById("annee").textContent = new Date().getFullYear();
 
-    function echapper(valeur) {
-      return String(valeur ?? "").replace(/[&<>"']/g, c => ({
-        "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#039;"
-      }[c]));
-    }
-
-    function nonExpiree(o) {
-      return !o.date_limite || o.date_limite >= new Date().toISOString().slice(0, 10);
-    }
-
-    function dateFr(d) {
-      if (!d) return "";
-      const x = new Date(d + "T00:00:00");
-      return isNaN(x) ? d : x.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
-    }
-
-    function lienSecurise(valeur) {
-      if (!valeur) return "";
-      try {
-        const url = new URL(valeur);
-        return (url.protocol === "https:" || url.protocol === "http:") ? url.href : "";
-      } catch (_) { return ""; }
-    }
-
-    function nomType(type) {
-      const types = {
-        emploi:"Emploi", stage:"Stage", bourse:"Bourse", formation:"Formation",
-        concours:"Concours", volontariat:"Volontariat",
-        appel_a_projets:"Appel à projets", "appel à projets":"Appel à projets"
-      };
-      return types[String(type || "").toLowerCase()] || "Opportunité";
-    }
-
-    function lienSuivi(o){const q=new URLSearchParams({titre:o.titre||"",organisme:o.organisme||"",lien:o.lien_candidature||o.document_url||"",offre_id:o.id||""});return 'espace-candidat.html?'+q.toString()}
-
-function afficherOffres() {
-      const terme = recherche.value.trim().toLocaleLowerCase("fr");
-      const resultats = toutesLesOffres.filter(offre => {
-        const type = String(offre.type || "").toLowerCase();
-        const correspondType = filtreActif === "tous" || type === filtreActif;
-        const contenu = [offre.titre, offre.type, offre.organisme, offre.domaine, offre.lieu, offre.description]
-          .filter(Boolean).join(" ").toLocaleLowerCase("fr");
-        return correspondType && (!terme || contenu.includes(terme));
-      });
-
-      if (!resultats.length) {
-        affichage.innerHTML = '<div class="message">Aucune annonce ne correspond à cette recherche. Essaie un autre mot-clé ou une autre catégorie.</div>';
-        return;
+    (function () {
+      const toggle = document.getElementById("menuToggle");
+      const menu = document.getElementById("siteMenu");
+      if (!toggle || !menu) return;
+      function closeMenu() {
+        menu.hidden = true;
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.setAttribute("aria-label", "Ouvrir le menu");
+        toggle.classList.remove("is-open");
       }
-
-      affichage.innerHTML = resultats.map(offre => {
-        const candidature = lienSecurise(offre.lien_candidature);
-        const documentPdf = lienSecurise(offre.document_url);
-        const url = candidature || documentPdf;
-        const texteLien = candidature ? "Voir les modalités et postuler" : "Consulter le document";
-        return `
-          <article class="offer-card">
-            <div class="offer-top"><span class="badge">${echapper(nomType(offre.type))}</span></div>
-            <h3>${echapper(offre.titre || "Opportunité")}</h3>
-            <p class="offer-meta"><strong>Organisme :</strong> ${echapper(offre.organisme || "Non précisé")}</p>
-            <p class="offer-meta"><strong>Domaine :</strong> ${echapper(offre.domaine || "Non précisé")}</p>
-            <p class="offer-meta"><strong>Lieu :</strong> ${echapper(offre.lieu || "Non précisé")}</p>
-            <p class="offer-meta"><strong>Date limite :</strong> ${echapper(dateFr(offre.date_limite) || "Non précisée")}</p>
-            ${url ? `<a class="offer-link" href="${echapper(url)}" target="_blank" rel="noopener noreferrer">${texteLien} →</a>` : ""}<a class="offer-link" href="${lienSuivi(offre)}">＋ Ajouter à mon suivi →</a>
-          </article>`;
-      }).join("");
-    }
-
-    async function chargerDernieresOffres() {
-      if (!window.supabase) {
-        affichage.innerHTML = '<div class="message">Le service de chargement est momentanément indisponible. Tu peux consulter les catégories ci-dessus.</div>';
-        affichage.setAttribute("aria-busy", "false");
-        return;
-      }
-      try {
-        const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-        const { data, error } = await client.from("offres")
-          .select("*").eq("publie", true)
-          .order("created_at", { ascending: false }).limit(30);
-        if (error) throw error;
-        toutesLesOffres = (data || []).filter(nonExpiree);
-        afficherOffres();
-      } catch (erreur) {
-        console.error("Erreur de chargement des opportunités :", erreur);
-        affichage.innerHTML = '<div class="message">Les opportunités ne sont pas disponibles pour le moment. Réessaie dans quelques instants.</div>';
-      } finally {
-        affichage.setAttribute("aria-busy", "false");
-      }
-    }
-
-    document.getElementById("searchForm").addEventListener("submit", event => {
-      event.preventDefault();
-      afficherOffres();
-      document.getElementById("dernieres-offres").scrollIntoView({ behavior:"smooth" });
-    });
-    recherche.addEventListener("input", afficherOffres);
-
-    document.querySelectorAll(".filter").forEach(bouton => {
-      bouton.addEventListener("click", () => {
-        filtreActif = bouton.dataset.type;
-        document.querySelectorAll(".filter").forEach(b => b.classList.toggle("active", b === bouton));
-        afficherOffres();
+      toggle.addEventListener("click", function () {
+        const open = toggle.getAttribute("aria-expanded") === "true";
+        menu.hidden = open;
+        toggle.setAttribute("aria-expanded", String(!open));
+        toggle.setAttribute("aria-label", open ? "Ouvrir le menu" : "Fermer le menu");
+        toggle.classList.toggle("is-open", !open);
       });
-    });
-
-    document.querySelectorAll("[data-filter]").forEach(lien => {
-      lien.addEventListener("click", () => {
-        filtreActif = lien.dataset.filter;
-        document.querySelectorAll(".filter").forEach(b => b.classList.toggle("active", b.dataset.type === filtreActif));
-        setTimeout(afficherOffres, 0);
+      menu.querySelectorAll("a").forEach(link => link.addEventListener("click", closeMenu));
+      document.addEventListener("keydown", event => { if (event.key === "Escape") closeMenu(); });
+      document.addEventListener("click", event => {
+        if (!menu.hidden && !menu.contains(event.target) && !toggle.contains(event.target)) closeMenu();
       });
-    });
-
-    chargerDernieresOffres();
-  </script>
+    })();
+    </script>
   <!-- ASSISTANT IA CAP AVENIR AFRIQUE -->
 <style>
 #caf-chat-button {
