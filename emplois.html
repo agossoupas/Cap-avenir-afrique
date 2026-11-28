@@ -550,17 +550,14 @@
 
     function lienSecurise(valeur) {
       if (!valeur) return "";
-
-      try {
-        const url = new URL(valeur);
-
-        if (url.protocol === "https:" || url.protocol === "http:") {
-          return url.href;
-        }
-      } catch (erreur) {
-        return "";
+      const texte = String(valeur).trim();
+      if (/^mailto:/i.test(texte)) {
+        return /^mailto:[^\\s@]+@[^\\s@]+(?:\\?.*)?$/i.test(texte) ? texte : "";
       }
-
+      try {
+        const url = new URL(texte);
+        if (url.protocol === "https:" || url.protocol === "http:") return url.href;
+      } catch (erreur) { return ""; }
       return "";
     }
 
