@@ -69,7 +69,8 @@ footer{text-align:center;color:#87938c;font-size:11px;padding:28px 15px}
    <div class="panel" id="pushPanel">
     <div class="panel-head"><div><h2>Notifications sur ton téléphone</h2><p class="muted">Reçois les alertes importantes de Cap Avenir Afrique même lorsque l'application n'est pas ouverte.</p></div><span class="pill" id="pushStatus">Configuration en cours</span></div>
     <div class="notice">Les notifications Android nécessitent ton autorisation, un compte candidat et une configuration sécurisée du serveur. Aucun message ne sera envoyé sans ton accord.</div>
-    <div class="item-foot"><span class="muted" id="pushHelp">La préparation technique est en cours. L'activation sera disponible après la configuration des clés sécurisées du service de notification.</span><button class="btn" id="togglePush" type="button">Activer les notifications</button></div>
+    <div class="item-foot"><span class="muted" id="pushHelp">Le serveur vérifie la configuration des notifications.</span><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" id="togglePush" type="button">Activer les notifications</button><button class="btn light" id="testPush" type="button" disabled>Tester les notifications</button></div></div>
+    <p class="muted" style="margin:10px 0 0">Si la configuration n'est pas encore terminée, <a href="push-setup.html">ouvrir le guide de configuration technique</a>.</p>
    </div>
    <div class="panel" id="alertsPanel">
     <div class="panel-head"><div><h2>Mes alertes personnalisées</h2><p class="muted">Enregistre tes critères et retrouve ici les offres qui y correspondent.</p></div><span class="pill" id="alertTotal">0 alerte</span></div>
@@ -139,7 +140,12 @@ function offerCard(o,compact){
  const favorite=node("button","btn light",isFavorite(o.id)?"★ Dans mes favoris":"☆ Ajouter aux favoris");favorite.type="button";favorite.addEventListener("click",()=>{toggleFavorite(o.id);favorite.textContent=isFavorite(o.id)?"★ Dans mes favoris":"☆ Ajouter aux favoris";updateFavoriteTotal();message(isFavorite(o.id)?"Offre enregistrée dans tes favoris.":"Offre retirée de tes favoris.");});actions.append(favorite);
  card.append(actions);return card;
 }
-const VAPID_PUBLIC_KEY="";
+let VAPID_PUBLIC_KEY="";
+const PUSH_FUNCTION_URL=SUPABASE_URL+"/functions/v1/push-notifications";
+async function loadVapidPublicKey(){
+ if(VAPID_PUBLIC_KEY)return VAPID_PUBLIC_KEY;
+ try{const response=await fetch(PUSH_FUNCTION_URL+"?action=public-key",{cache:"no-store"});if(!response.ok)return "";const data=await response.json();VAPID_PUBLIC_KEY=data.publicKey||"";return VAPID_PUBLIC_KEY}catch(_){return ""}
+}
 function base64UrlToBytes(value){
  const padding="=".repeat((4-value.length%4)%4),base=value.replace(/-/g,"+").replace(/_/g,"/")+padding;
  return Uint8Array.from(atob(base),ch=>ch.charCodeAt(0));
@@ -149,12 +155,13 @@ async function updatePushStatus(){
  const status=$("pushStatus"),button=$("togglePush"),help=$("pushHelp");
  if(!supported){status.textContent="Non compatible";button.disabled=true;help.textContent="Ce navigateur ne prend pas en charge les notifications push.";return}
  if(!session){status.textContent="Connexion requise";button.disabled=true;help.textContent="Connecte-toi à ton compte candidat pour associer ce téléphone à tes notifications.";return}
- if(!VAPID_PUBLIC_KEY){status.textContent="Configuration en cours";button.disabled=false;help.textContent="Le serveur doit encore recevoir ses clés VAPID sécurisées. L'inscription aux notifications sera activée dès que cette étape sera terminée.";button.textContent="Activation bientôt disponible";return}
+ if(!VAPID_PUBLIC_KEY)await loadVapidPublicKey();
+ if(!VAPID_PUBLIC_KEY){status.textContent="Configuration en cours";button.disabled=true;help.textContent="Le serveur doit encore recevoir ses clés VAPID sécurisées. Consulte le guide de configuration.";button.textContent="Activation indisponible";$("testPush").disabled=true;return}
  try{
   const reg=await navigator.serviceWorker.ready,sub=await reg.pushManager.getSubscription();
   status.textContent=sub?"Activées sur cet appareil":"Désactivées";
   button.textContent=sub?"Désactiver les notifications":"Activer les notifications";
-  button.disabled=false;help.textContent=sub?"Ce téléphone est inscrit aux notifications.":"Autorise les notifications pour recevoir les alertes.";
+  button.disabled=false;help.textContent=sub?"Ce téléphone est inscrit aux notifications.":"Autorise les notifications pour recevoir les alertes.";$("testPush").disabled=!sub;
  }catch(_){status.textContent="Indisponible";button.disabled=true;help.textContent="Impossible de vérifier l'état des notifications sur cet appareil."}
 }
 async function togglePushNotifications(){
@@ -181,6 +188,13 @@ async function togglePushNotifications(){
  finally{await updatePushStatus()}
 }
 $("togglePush").addEventListener("click",togglePushNotifications);
+$("testPush").addEventListener("click",async()=>{
+ if(!session){message("Connecte-toi pour tester les notifications.",true);return}
+ const button=$("testPush");button.disabled=true;button.textContent="Envoi…";
+ try{const {data,error}=await sb.functions.invoke("push-notifications",{body:{action:"test"}});if(error)throw error;if(data?.error)throw new Error(data.error);message(data.sent>0?"Notification test envoyée. Vérifie ton téléphone.":"Aucune notification n'a pu être envoyée.",data.sent===0)}
+ catch(error){message(error.message||"Échec du test. Vérifie la configuration du serveur.",true)}
+ finally{button.textContent="Tester les notifications";await updatePushStatus()}
+});
 const ALERTS_KEY="caa_alertes_v1";
 function normaliserAlerte(value){return String(value||"").normalize("NFD").replace(/[\\u0300-\\u036f]/g,"").toLocaleLowerCase("fr").replace(/[^a-z0-9]+/g," ").trim()}
 function readAlerts(){try{const v=JSON.parse(localStorage.getItem(ALERTS_KEY)||"[]");return Array.isArray(v)?v.filter(a=>a&&typeof a==="object"):[]}catch(_){return []}}
