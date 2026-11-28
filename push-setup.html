@@ -10,12 +10,14 @@
 <h2>1. Clé privée VAPID — à garder secrète</h2><textarea id="private" readonly></textarea><button class="btn secondary" data-copy="private">Copier la clé privée</button>
 <h2 style="margin-top:22px">2. Jeton de planification — à garder secret</h2><textarea id="cron" readonly></textarea><button class="btn secondary" data-copy="cron">Copier le jeton</button>
 <h2 style="margin-top:22px">3. Clé publique</h2><textarea id="public" readonly></textarea><button class="btn secondary" data-copy="public">Copier la clé publique</button>
+<h2 style="margin-top:22px">4. Script SQL pour programmer l'envoi automatique</h2><p class="muted">Après avoir enregistré le jeton dans Supabase Vault sous le nom <code>push_cron_token</code>, copie ce script dans l'éditeur SQL du projet.</p><textarea id="sql" readonly></textarea><button class="btn secondary" data-copy="sql">Copier le script SQL</button>
 <div class="success" style="margin-top:16px">Garde ces valeurs dans un endroit sûr avant de fermer cette page. La clé publique pourra être utilisée par l'application ; les deux autres valeurs restent secrètes.</div></div>
 </div>
 <div class="card"><h2>Où enregistrer les secrets Supabase ?</h2>
 <div class="step"><span class="num">1</span><div>Ouvre <a href="https://supabase.com/dashboard/project/fhqppofwnoxiexnxivfx/functions/secrets" target="_blank" rel="noopener">Supabase → Edge Function Secrets</a>.</div></div>
 <div class="step"><span class="num">2</span><div>Ajoute les variables suivantes :<p><code>VAPID_PRIVATE_JWK</code> = le contenu complet du champ « Clé privée » (JSON).</p><p><code>PUSH_CRON_TOKEN</code> = le jeton de planification.</p><p><code>VAPID_SUBJECT</code> = <code>https://agossoupas.github.io/Cap-avenir-afrique/</code></p></div></div>
 <div class="step"><span class="num">3</span><div>Enregistre les secrets. Ne les mets pas dans GitHub, dans le code du site ou dans un message public.</div></div>
+<div class="step"><span class="num">4</span><div>Ouvre <a href="https://supabase.com/dashboard/project/fhqppofwnoxiexnxivfx/editor" target="_blank" rel="noopener">l'éditeur SQL</a> et exécute le script généré ci-dessous. Il active la planification toutes les minutes et appelle le serveur de notifications.</div></div>
 <p class="muted">La clé publique sera récupérée automatiquement par l'espace candidat depuis le serveur. Il ne faut pas la coller dans le code.</p>
 </div>
 <div class="card"><h2>Après l'enregistrement</h2><p>Retourne dans ton espace candidat, connecte-toi, active les notifications et utilise « Tester les notifications ». L'automatisation des nouvelles offres nécessite encore l'activation du déclencheur planifié dans la base de données.</p><a class="btn" href="espace-candidat.html">Ouvrir mon espace candidat</a></div>
@@ -37,6 +39,24 @@ $("generate").addEventListener("click",async()=>{
   $("private").value=JSON.stringify(privateJwk);
   $("public").value=b64url(raw);
   $("cron").value=b64url(token);
+  $("sql").value=`create extension if not exists pg_cron;
+create extension if not exists pg_net;
+select cron.unschedule(jobid) from cron.job where jobname = 'cap-avenir-push-dispatch';
+select cron.schedule(
+  'cap-avenir-push-dispatch',
+  '* * * * *',
+  $
+  select net.http_post(
+    url := 'https://fhqppofwnoxiexnxivfx.supabase.co/functions/v1/push-notifications',
+    headers := jsonb_build_object(
+      'Content-Type', 'application/json',
+      'apikey', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZocXBwb2Z3bm94aWV4bnhpdmZ4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3Nzc5OTksImV4cCI6MjEwODM1Mzk5OX0.SMRr2Fp2xd8KJC6U4mtTVpByb3AKoJAaLDtYudyf1k8',
+      'x-push-cron-token', (select decrypted_secret from vault.decrypted_secrets where name = 'push_cron_token')
+    ),
+    body := '{"action":"dispatch"}'::jsonb
+  );
+  $
+);`;
   $("result").hidden=false;button.textContent="Clés générées";
  }catch(error){alert("La génération a échoué : "+error.message);button.disabled=false;button.textContent="Réessayer"}
 });
