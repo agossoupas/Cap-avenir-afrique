@@ -341,7 +341,7 @@
       <a href="bourses.html">Bourses</a>
       <a href="formation.html">Formations</a>
       <a href="conseils.html">Conseils pratiques</a>
-    <a href="espace-candidat.html">Mon espace</a></nav>
+    <a href="espace-candidat.html">Mon espace</a><a href="favoris.html">Mes favoris</a></nav>
   </header>
 
   <main>
@@ -522,6 +522,9 @@
     const filtreLieu = document.getElementById("lieu");
 
     let offres = [];
+    const CLE_FAVORIS = "caa_favoris_v1";
+    function lireFavoris(){try{return JSON.parse(localStorage.getItem(CLE_FAVORIS)||"[]").map(String)}catch(e){return []}}
+    function basculerFavori(id){const ids=lireFavoris(),k=String(id),next=ids.includes(k)?ids.filter(x=>x!==k):ids.concat(k);localStorage.setItem(CLE_FAVORIS,JSON.stringify(next));return next.includes(k)}
 
     document.getElementById("annee").textContent =
       new Date().getFullYear();
@@ -684,23 +687,15 @@ function afficherOffres() {
 
             ${boutons}
           <a class="button secondary" href="${lienSuivi(offre)}">＋ Ajouter à mon suivi</a>
-          <button class="button button-secondary" type="button" data-partage="${echapper(offre.titre||'Offre')}" data-lieu="${echapper(offre.lieu||'')}" onclick="partagerOffre(this)">↗ Partager</button>
+          <button class="button button-secondary" type="button" data-favori="${echapper(offre.id)}" onclick="cliquerFavori(this)">${lireFavoris().includes(String(offre.id)) ? "♥ Enregistrée" : "♡ Ajouter aux favoris"}</button>
+          <button class="button button-secondary" type="button" data-partage="${echapper(offre.titre||&quot;Offre&quot;)}" data-lieu="${echapper(offre.lieu||&quot;&quot;)}" data-offre-id="${echapper(offre.id)}" onclick="partagerOffre(this)">↗ Partager</button>
           </article>
         `;
       }).join("");
     }
 
-    async function partagerOffre(btn) {
-      const titre = btn.dataset.partage || "Opportunité";
-      const url = location.href.split("?")[0];
-      const texte = titre + (btn.dataset.lieu ? " — " + btn.dataset.lieu : "") + "\\nDécouverte sur Cap Avenir Afrique";
-      if (navigator.share) {
-        try { await navigator.share({title:titre,text:texte,url}); } catch(e) {}
-      } else {
-        try { await navigator.clipboard.writeText(texte + "\\n" + url); btn.textContent="Lien copié !"; }
-        catch(e) { alert(texte + "\\n" + url); }
-      }
-    }
+    function cliquerFavori(btn){const active=basculerFavori(btn.dataset.favori);btn.textContent=active?'♥ Enregistrée':'♡ Ajouter aux favoris';}
+    async function partagerOffre(btn){const titre=btn.dataset.partage||'Opportunité';const url=new URL(location.href);url.search='';url.searchParams.set('offre',btn.dataset.offreId||'');const texte=titre+(btn.dataset.lieu?' — '+btn.dataset.lieu:'')+'\nDécouverte sur Cap Avenir Afrique';if(navigator.share){try{await navigator.share({title:titre,text:texte,url:url.href})}catch(e){}}else{try{await navigator.clipboard.writeText(texte+'\n'+url.href);btn.textContent='Lien copié !'}catch(e){alert(texte+'\n'+url.href)}}}
 
     async function chargerOffres() {
       resultats.innerHTML =
