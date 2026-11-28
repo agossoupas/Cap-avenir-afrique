@@ -119,7 +119,9 @@ function offerCard(o,compact){
  if(!compact&&o.description)card.append(node("p","desc",o.description.length>190?o.description.slice(0,187)+"…":o.description));
  const actions=node("div","offer-actions"),url=safeUrl(o.lien_candidature);
  if(url){const a=node("a","btn light","Voir l'offre ↗");a.href=url;a.target="_blank";a.rel="noopener noreferrer";actions.append(a)}
- const add=node("button","btn","Ajouter à mon suivi");add.type="button";add.addEventListener("click",()=>addOffer(o));actions.append(add);card.append(actions);return card;
+ const add=node("button","btn","Ajouter à mon suivi");add.type="button";add.addEventListener("click",()=>addOffer(o));actions.append(add);
+ const favorite=node("button","btn light",isFavorite(o.id)?"★ Dans mes favoris":"☆ Ajouter aux favoris");favorite.type="button";favorite.addEventListener("click",()=>{toggleFavorite(o.id);favorite.textContent=isFavorite(o.id)?"★ Dans mes favoris":"☆ Ajouter aux favoris";updateFavoriteTotal();message(isFavorite(o.id)?"Offre enregistrée dans tes favoris.":"Offre retirée de tes favoris.");});actions.append(favorite);
+ card.append(actions);return card;
 }
 function renderOffers(){
  const term=$("searchOffers").value.trim().toLocaleLowerCase("fr"),type=$("typeFilter").value,place=$("countryFilter").value;
@@ -142,6 +144,9 @@ async function loadOffers(){
  places.forEach(p=>{const opt=node("option","",p);opt.value=p;$("countryFilter").append(opt)});
 }
 $("searchOffers").addEventListener("input",renderOffers);$("typeFilter").addEventListener("change",renderOffers);$("countryFilter").addEventListener("change",renderOffers);
+function favoriteIds(){try{const v=JSON.parse(localStorage.getItem("caa_favoris_v1")||"[]");return Array.isArray(v)?v.map(String):[]}catch(_){return []}}
+function isFavorite(id){return favoriteIds().includes(String(id))}
+function toggleFavorite(id){const ids=favoriteIds(),key=String(id),next=ids.includes(key)?ids.filter(x=>x!==key):[...ids,key];localStorage.setItem("caa_favoris_v1",JSON.stringify(next))}
 function updateFavoriteTotal(){
  try{const ids=JSON.parse(localStorage.getItem("caa_favoris_v1")||"[]");$("favoriteTotal").textContent=Array.isArray(ids)?ids.length:0;}catch(_){$("favoriteTotal").textContent="0";}
 }
