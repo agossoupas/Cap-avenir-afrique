@@ -1,4 +1,4 @@
-const CACHE_NAME = "cap-avenir-afrique-v12";
+const CACHE_NAME = "cap-avenir-afrique-v13";
 const APP_SHELL = [
   "./",
   "./index.html",
