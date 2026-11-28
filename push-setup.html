@@ -17,7 +17,8 @@
 <div class="step"><span class="num">1</span><div>Ouvre <a href="https://supabase.com/dashboard/project/fhqppofwnoxiexnxivfx/functions/secrets" target="_blank" rel="noopener">Supabase → Edge Function Secrets</a>.</div></div>
 <div class="step"><span class="num">2</span><div>Ajoute les variables suivantes :<p><code>VAPID_PRIVATE_JWK</code> = le contenu complet du champ « Clé privée » (JSON).</p><p><code>PUSH_CRON_TOKEN</code> = le jeton de planification.</p><p><code>VAPID_SUBJECT</code> = <code>https://agossoupas.github.io/Cap-avenir-afrique/</code></p></div></div>
 <div class="step"><span class="num">3</span><div>Enregistre les secrets. Ne les mets pas dans GitHub, dans le code du site ou dans un message public.</div></div>
-<div class="step"><span class="num">4</span><div>Ouvre <a href="https://supabase.com/dashboard/project/fhqppofwnoxiexnxivfx/editor" target="_blank" rel="noopener">l'éditeur SQL</a> et exécute le script généré ci-dessous. Il active la planification toutes les minutes et appelle le serveur de notifications.</div></div>
+<div class="step"><span class="num">4</span><div>Ouvre <a href="https://supabase.com/dashboard/project/fhqppofwnoxiexnxivfx/vault/secrets" target="_blank" rel="noopener">Supabase Vault</a> et enregistre deux secrets : <code>push_cron_token</code> (le jeton généré) et <code>supabase_secret_key</code> (la clé secrète du projet, disponible dans <a href="https://supabase.com/dashboard/project/fhqppofwnoxiexnxivfx/settings/api-keys" target="_blank" rel="noopener">Settings → API Keys</a>). Ne partage jamais cette clé.</div></div>
+<div class="step"><span class="num">5</span><div>Ouvre <a href="https://supabase.com/dashboard/project/fhqppofwnoxiexnxivfx/editor" target="_blank" rel="noopener">l'éditeur SQL</a> et exécute le script généré ci-dessous. Il lance la vérification des nouvelles offres toutes les cinq minutes.</div></div>
 <p class="muted">La clé publique sera récupérée automatiquement par l'espace candidat depuis le serveur. Il ne faut pas la coller dans le code.</p>
 </div>
 <div class="card"><h2>Après l'enregistrement</h2><p>Retourne dans ton espace candidat, connecte-toi, active les notifications et utilise « Tester les notifications ». L'automatisation des nouvelles offres nécessite encore l'activation du déclencheur planifié dans la base de données.</p><a class="btn" href="espace-candidat.html">Ouvrir mon espace candidat</a></div>
@@ -44,13 +45,13 @@ create extension if not exists pg_net;
 select cron.unschedule(jobid) from cron.job where jobname = 'cap-avenir-push-dispatch';
 select cron.schedule(
   'cap-avenir-push-dispatch',
-  '* * * * *',
+  '*/5 * * * *',
   $
   select net.http_post(
     url := 'https://fhqppofwnoxiexnxivfx.supabase.co/functions/v1/push-notifications',
     headers := jsonb_build_object(
       'Content-Type', 'application/json',
-      'apikey', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZocXBwb2Z3bm94aWV4bnhpdmZ4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3Nzc5OTksImV4cCI6MjEwODM1Mzk5OX0.SMRr2Fp2xd8KJC6U4mtTVpByb3AKoJAaLDtYudyf1k8',
+      'apikey', (select decrypted_secret from vault.decrypted_secrets where name = 'supabase_secret_key'),
       'x-push-cron-token', (select decrypted_secret from vault.decrypted_secrets where name = 'push_cron_token')
     ),
     body := '{"action":"dispatch"}'::jsonb
