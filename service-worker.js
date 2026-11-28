@@ -1,4 +1,4 @@
-const CACHE_NAME = "cap-avenir-afrique-v3";
+const CACHE_NAME = "cap-avenir-afrique-v4";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -14,7 +14,8 @@ const APP_SHELL = [
   "./manifest.webmanifest",
   "./app-icon.svg",
   "./cap-avenir-afrique-favicon.png",
-  "./cap-avenir-afrique-theme-bleu-nuit-or.css"
+  "./cap-avenir-afrique-theme-bleu-nuit-or.css",
+  "./refonte.css"
 ];
 
 self.addEventListener("install", event => {
