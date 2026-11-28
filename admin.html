@@ -106,8 +106,9 @@ textarea{min-height:110px;resize:vertical}
           <textarea id="description" required placeholder="Présente l'opportunité, le profil recherché, les conditions et les pièces à fournir…"></textarea>
           <label for="date_limite">Date limite de candidature</label>
           <input type="date" id="date_limite">
-          <label for="lien">Lien officiel de candidature</label>
-          <input type="url" id="lien" placeholder="https://...">
+          <label for="lien">Lien direct pour postuler *</label>
+          <input type="url" id="lien" placeholder="https://formulaire-officiel..." >
+          <p class="hint">Colle ici le lien qui ouvre directement le formulaire ou le portail de candidature de l'organisme. Ne mets pas le lien d'un article intermédiaire (Setondji, par exemple). Si tu ne trouves pas le lien direct, garde l'annonce en brouillon.</p>
           <label for="fichierPdf">Document PDF (facultatif, 10 Mo max)</label>
           <input type="file" id="fichierPdf" accept="application/pdf,.pdf">
           <div id="docActuel" class="hint hidden"></div>
@@ -156,6 +157,14 @@ function message(texte, erreur=false) {
 function viderMessage(){ $("message").textContent=""; $("message").className="notice"; }
 function escapeHTML(value){
   return String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+}
+function estLienCandidatureDirect(url){
+  if(!url) return false;
+  try {
+    const parsed=new URL(url);
+    if(!["https:","http:"].includes(parsed.protocol)) return false;
+    return !/(^|\\.)setondji\\.org$/i.test(parsed.hostname);
+  } catch { return false; }
 }
 function nomType(type){
   return ({emploi:"Emploi",stage:"Stage",bourse:"Bourse",formation:"Formation",concours:"Concours",volontariat:"Volontariat",appel_a_projets:"Appel à projets"})[type] || type || "Opportunité";
@@ -263,14 +272,21 @@ $("offreForm").addEventListener("submit",async e=>{
     try{documentUrl=await televerserPdf(fichier);}
     catch(err){message(err.message,true);bouton.disabled=false;bouton.textContent=id?"Enregistrer les modifications":"Enregistrer l'annonce";return;}
   }
+  const lienCandidature=$("lien").value.trim();
+  const publier=$("publie").checked;
+  if(publier && !estLienCandidatureDirect(lienCandidature)){
+    message("Publication bloquée : ajoute un lien direct vers le formulaire ou le portail officiel de candidature. Un lien Setondji ou une page d'article ne convient pas.",true);
+    bouton.disabled=false;bouton.textContent=id?"Enregistrer les modifications":"Enregistrer l'annonce";
+    return;
+  }
   const offre={
     titre:$("titre").value.trim(),type:$("type").value,
     organisme:$("organisme").value.trim()||null,domaine:$("domaine").value.trim(),
     lieu:$("lieu").value.trim()||null,description:$("description").value.trim(),
     date_limite:$("date_limite").value||null,
-    lien_candidature:$("lien").value.trim()||null,
+    lien_candidature:lienCandidature||null,
     document_url:documentUrl,
-    publie:$("publie").checked
+    publie:publier
   };
   const result=id
     ? await client.from("offres").update(offre).eq("id",id)
@@ -305,6 +321,9 @@ $("listeOffres").addEventListener("click",async e=>{
     $("formTitle").textContent="Modifier l'opportunité";$("submitBtn").textContent="Enregistrer les modifications";
     $("annulerEdition").classList.remove("hidden");$("titre").focus();window.scrollTo({top:0,behavior:"smooth"});
   } else if(action==="toggle"){
+    if(!offre.publie && !estLienCandidatureDirect(offre.lien_candidature)){
+      message("Publication bloquée : cette annonce doit d'abord recevoir un lien direct vers le formulaire ou le portail officiel de candidature.",true);return;
+    }
     const {error}=await client.from("offres").update({publie:!offre.publie}).eq("id",offre.id);
     if(error){message("Impossible de modifier le statut : "+error.message,true);return;}
     message(offre.publie?"Annonce dépubliée.":"Annonce publiée.");await chargerOffres();
