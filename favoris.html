@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#087443"><meta name="description" content="Retrouvez les offres enregistrées sur Cap Avenir Afrique.">
+<title>Mes favoris | Cap Avenir Afrique</title><link rel="icon" href="cap-avenir-afrique-favicon.png"><link rel="manifest" href="manifest.webmanifest">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f8f6;color:#183327;font:15px Arial,sans-serif;line-height:1.6}header{background:#fff;padding:15px 5%;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid #e2eae5}header a{color:#087443;text-decoration:none;font-weight:bold}main{max-width:1050px;width:92%;margin:35px auto}.hero{background:linear-gradient(120deg,#064b2e,#0b9658);color:white;padding:28px;border-radius:18px;margin-bottom:22px}.hero h1{margin:0 0 6px;font-size:30px}.hero p{margin:0;color:#e1f2e7}#liste{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}.card,.empty{background:#fff;border:1px solid #e2eae5;border-radius:14px;padding:19px}.card{display:flex;flex-direction:column;gap:8px}.card h2{font-size:18px;color:#064b2e;margin:4px 0}.meta{font-size:13px;color:#68776f}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:10px}.btn{display:inline-block;padding:9px 13px;border-radius:9px;background:#087443;color:#fff!important;text-decoration:none;border:0;font-weight:bold;font-size:13px;cursor:pointer}.btn.light{background:#eaf5ee;color:#064b2e!important}.empty{grid-column:1/-1;text-align:center}.empty a{color:#087443;font-weight:bold}footer{text-align:center;padding:25px;color:#68776f;font-size:12px}@media(max-width:600px){header{flex-direction:column}}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head><body>
+<header><a href="index.html">Cap Avenir Afrique</a><nav><a href="index.html">Accueil</a> · <a href="emplois.html">Emplois & stages</a> · <a href="espace-candidat.html">Mon espace</a></nav></header>
+<main><section class="hero"><h1>Mes offres favorites</h1><p>Retrouve rapidement les opportunités qui t'intéressent.</p></section><p id="compteur" class="meta" aria-live="polite">Chargement…</p><section id="liste"><div class="empty">Chargement de tes favoris…</div></section></main>
+<footer>Les favoris sont enregistrés sur cet appareil et ce navigateur. Ils ne sont pas synchronisés entre plusieurs appareils.</footer>
+<script>
+(function(){
+const KEY="caa_favoris_v1",URL="https://fhqppofwnoxiexnxivfx.supabase.co",API="sb_publishable_U2NwuXutHMG_F8Ee8sEuIg_mMBJ3TY0";
+const list=document.getElementById("liste"),count=document.getElementById("compteur");
+function ids(){try{return JSON.parse(localStorage.getItem(KEY)||"[]").map(String)}catch(e){return []}}
+function el(tag,cls,txt){const x=document.createElement(tag);if(cls)x.className=cls;if(txt!==undefined)x.textContent=txt;return x}
+function empty(){list.replaceChildren();const box=el("div","empty");box.append(el("h2","","Aucun favori pour le moment"),el("p","","Sur une annonce, appuie sur Ajouter aux favoris pour la retrouver ici."));const a=el("a","","Découvrir les offres →");a.href="emplois.html";box.append(a);list.append(box)}
+function render(rows){list.replaceChildren();if(!rows.length){empty();return}rows.forEach(o=>{const c=el("article","card");c.append(el("span","meta",(o.type||"Opportunité").toUpperCase()),el("h2","",o.titre||"Offre sans titre"),el("p","meta",(o.organisme||"Organisme non précisé")+" · "+(o.lieu||"Lieu non précisé")));if(o.date_limite)c.append(el("p","meta","Date limite : "+new Date(o.date_limite+"T00:00:00").toLocaleDateString("fr-FR")));const actions=el("div","actions"),a=el("a","btn","Consulter l'offre");a.href="emplois.html?offre="+encodeURIComponent(o.id);actions.append(a);const rm=el("button","btn light","Retirer");rm.type="button";rm.addEventListener("click",()=>{localStorage.setItem(KEY,JSON.stringify(ids().filter(x=>x!==String(o.id))));load()});actions.append(rm);c.append(actions);list.append(c)})}
+async function load(){const saved=ids();count.textContent=saved.length+" favori(s) enregistré(s)";if(!saved.length){empty();return}try{if(!window.supabase)throw new Error("Supabase indisponible");const client=window.supabase.createClient(URL,API);const result=await client.from("offres").select("id,titre,type,organisme,lieu,date_limite,publie").eq("publie",true).in("id",saved);if(result.error)throw result.error;const rows=(result.data||[]).filter(o=>!o.date_limite||o.date_limite>=new Date().toISOString().slice(0,10));count.textContent=rows.length+" offre(s) favorite(s) disponible(s)";render(rows)}catch(e){count.textContent="Impossible de charger les favoris pour le moment.";empty()}}
+load();
+})();
+</script></body></html>
