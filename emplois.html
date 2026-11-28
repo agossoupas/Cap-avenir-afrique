@@ -684,9 +684,22 @@ function afficherOffres() {
 
             ${boutons}
           <a class="button secondary" href="${lienSuivi(offre)}">＋ Ajouter à mon suivi</a>
+          <button class="button button-secondary" type="button" data-partage="${echapper(offre.titre||'Offre')}" data-lieu="${echapper(offre.lieu||'')}" onclick="partagerOffre(this)">↗ Partager</button>
           </article>
         `;
       }).join("");
+    }
+
+    async function partagerOffre(btn) {
+      const titre = btn.dataset.partage || "Opportunité";
+      const url = location.href.split("?")[0];
+      const texte = titre + (btn.dataset.lieu ? " — " + btn.dataset.lieu : "") + "\\nDécouverte sur Cap Avenir Afrique";
+      if (navigator.share) {
+        try { await navigator.share({title:titre,text:texte,url}); } catch(e) {}
+      } else {
+        try { await navigator.clipboard.writeText(texte + "\\n" + url); btn.textContent="Lien copié !"; }
+        catch(e) { alert(texte + "\\n" + url); }
+      }
     }
 
     async function chargerOffres() {
