@@ -1,4 +1,4 @@
-const CACHE_NAME = "cap-avenir-afrique-v2";
+const CACHE_NAME = "cap-avenir-afrique-v3";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -48,7 +48,9 @@ self.addEventListener("fetch", event => {
         .then(response => {
           if (response.ok) {
             const copy = response.clone();
-            caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
+            event.waitUntil(
+              caches.open(CACHE_NAME).then(cache => cache.put(request, copy))
+            );
           }
           return response;
         })
@@ -60,16 +62,25 @@ self.addEventListener("fetch", event => {
     return;
   }
 
+  // Les ressources déjà en cache s'affichent immédiatement, tout en étant
+  // actualisées en arrière-plan lorsqu'une connexion est disponible.
+  const cachedResponse = caches.match(request);
+  const networkUpdate = fetch(request).then(response => {
+    if (response.ok) {
+      const copy = response.clone();
+      return caches.open(CACHE_NAME)
+        .then(cache => cache.put(request, copy))
+        .then(() => response);
+    }
+    return response;
+  });
+
+  event.waitUntil(networkUpdate.then(() => undefined).catch(() => undefined));
   event.respondWith(
-    caches.match(request).then(cached => {
-      if (cached) return cached;
-      return fetch(request).then(response => {
-        if (response.ok) {
-          const copy = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
-        }
-        return response;
-      });
-    })
+    cachedResponse.then(cached => cached || networkUpdate)
+      .catch(() => new Response("Ressource indisponible hors connexion.", {
+        status: 503,
+        headers: { "Content-Type": "text/plain; charset=utf-8" }
+      }))
   );
 });
