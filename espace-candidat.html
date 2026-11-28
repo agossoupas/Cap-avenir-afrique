@@ -66,6 +66,11 @@ footer{text-align:center;color:#87938c;font-size:11px;padding:28px 15px}
    <div class="panel"><div class="panel-head"><div><h2>Bienvenue dans ton espace</h2><p class="muted">Voici les outils essentiels pour faire avancer ton projet.</p></div><button class="btn light" data-goto="explore">Voir les offres</button></div>
     <div class="authgrid"><div class="item"><h3>1. Complète ton profil</h3><p class="muted">Présente ta formation, ton domaine et tes compétences pour préparer tes prochaines candidatures.</p><button class="smallbtn" data-goto="profile">Compléter mon profil →</button></div><div class="item"><h3>2. Repère les opportunités</h3><p class="muted">Filtre les offres par catégorie et consulte les informations de candidature.</p><button class="smallbtn" data-goto="explore">Explorer les offres →</button></div><div class="item"><h3>3. Organise tes démarches</h3><p class="muted">Ajoute une offre à ton suivi puis actualise son statut à chaque étape.</p><button class="smallbtn" data-goto="applications">Voir mon suivi →</button></div><div class="item"><h3>4. Prépare tes candidatures</h3><p class="muted">Retrouve les conseils et l'assistant de Cap Avenir Afrique depuis la page d'accueil.</p><a class="smallbtn" href="conseils.html">Accéder aux conseils →</a></div><div class="item"><h3>5. Garde tes offres préférées</h3><p class="muted"><strong id="favoriteTotal">—</strong> offre(s) enregistrée(s) dans les favoris de cet appareil. Elles restent disponibles sans compte.</p><a class="smallbtn" href="favoris.html">Ouvrir mes favoris →</a></div></div>
    </div>
+   <div class="panel" id="pushPanel">
+    <div class="panel-head"><div><h2>Notifications sur ton téléphone</h2><p class="muted">Reçois les alertes importantes de Cap Avenir Afrique même lorsque l'application n'est pas ouverte.</p></div><span class="pill" id="pushStatus">Configuration en cours</span></div>
+    <div class="notice">Les notifications Android nécessitent ton autorisation, un compte candidat et une configuration sécurisée du serveur. Aucun message ne sera envoyé sans ton accord.</div>
+    <div class="item-foot"><span class="muted" id="pushHelp">La préparation technique est en cours. L'activation sera disponible après la configuration des clés sécurisées du service de notification.</span><button class="btn" id="togglePush" type="button">Activer les notifications</button></div>
+   </div>
    <div class="panel" id="alertsPanel">
     <div class="panel-head"><div><h2>Mes alertes personnalisées</h2><p class="muted">Enregistre tes critères et retrouve ici les offres qui y correspondent.</p></div><span class="pill" id="alertTotal">0 alerte</span></div>
     <div class="toolbar" style="grid-template-columns:1.4fr 1fr 1fr">
@@ -134,6 +139,48 @@ function offerCard(o,compact){
  const favorite=node("button","btn light",isFavorite(o.id)?"★ Dans mes favoris":"☆ Ajouter aux favoris");favorite.type="button";favorite.addEventListener("click",()=>{toggleFavorite(o.id);favorite.textContent=isFavorite(o.id)?"★ Dans mes favoris":"☆ Ajouter aux favoris";updateFavoriteTotal();message(isFavorite(o.id)?"Offre enregistrée dans tes favoris.":"Offre retirée de tes favoris.");});actions.append(favorite);
  card.append(actions);return card;
 }
+const VAPID_PUBLIC_KEY="";
+function base64UrlToBytes(value){
+ const padding="=".repeat((4-value.length%4)%4),base=value.replace(/-/g,"+").replace(/_/g,"/")+padding;
+ return Uint8Array.from(atob(base),ch=>ch.charCodeAt(0));
+}
+async function updatePushStatus(){
+ const supported="serviceWorker" in navigator&&"PushManager" in window&&"Notification" in window;
+ const status=$("pushStatus"),button=$("togglePush"),help=$("pushHelp");
+ if(!supported){status.textContent="Non compatible";button.disabled=true;help.textContent="Ce navigateur ne prend pas en charge les notifications push.";return}
+ if(!session){status.textContent="Connexion requise";button.disabled=true;help.textContent="Connecte-toi à ton compte candidat pour associer ce téléphone à tes notifications.";return}
+ if(!VAPID_PUBLIC_KEY){status.textContent="Configuration en cours";button.disabled=false;help.textContent="Le serveur doit encore recevoir ses clés VAPID sécurisées. L'inscription aux notifications sera activée dès que cette étape sera terminée.";button.textContent="Activation bientôt disponible";return}
+ try{
+  const reg=await navigator.serviceWorker.ready,sub=await reg.pushManager.getSubscription();
+  status.textContent=sub?"Activées sur cet appareil":"Désactivées";
+  button.textContent=sub?"Désactiver les notifications":"Activer les notifications";
+  button.disabled=false;help.textContent=sub?"Ce téléphone est inscrit aux notifications.":"Autorise les notifications pour recevoir les alertes.";
+ }catch(_){status.textContent="Indisponible";button.disabled=true;help.textContent="Impossible de vérifier l'état des notifications sur cet appareil."}
+}
+async function togglePushNotifications(){
+ if(!session){message("Connecte-toi pour associer les notifications à ton compte.",true);return}
+ if(!VAPID_PUBLIC_KEY){message("L'activation des notifications est presque prête : la clé publique VAPID et la clé privée du serveur doivent d'abord être configurées en toute sécurité.",true);return}
+ const btn=$("togglePush");btn.disabled=true;
+ try{
+  const reg=await navigator.serviceWorker.ready,existing=await reg.pushManager.getSubscription();
+  if(existing){
+   const {error}=await sb.from("push_subscriptions").delete().eq("endpoint",existing.endpoint).eq("user_id",session.user.id);
+   if(error)throw error;
+   await existing.unsubscribe();message("Notifications désactivées sur cet appareil.");
+  }else{
+   if(Notification.permission==="denied")throw new Error("Les notifications sont bloquées dans les paramètres du navigateur. Autorise-les pour ce site.");
+   const permission=Notification.permission==="granted"?"granted":await Notification.requestPermission();
+   if(permission!=="granted")throw new Error("Autorisation de notification non accordée.");
+   const subscription=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:base64UrlToBytes(VAPID_PUBLIC_KEY)});
+   const json=subscription.toJSON(),keys=json.keys||{};
+   const {error}=await sb.from("push_subscriptions").upsert({user_id:session.user.id,endpoint:json.endpoint,p256dh:keys.p256dh,auth:keys.auth,user_agent:navigator.userAgent,updated_at:new Date().toISOString()},{onConflict:"endpoint"});
+   if(error){await subscription.unsubscribe();throw error}
+   message("Ce téléphone est maintenant inscrit aux notifications.");
+  }
+ }catch(error){message(error.message||"Impossible de modifier les notifications.",true)}
+ finally{await updatePushStatus()}
+}
+$("togglePush").addEventListener("click",togglePushNotifications);
 const ALERTS_KEY="caa_alertes_v1";
 function normaliserAlerte(value){return String(value||"").normalize("NFD").replace(/[\\u0300-\\u036f]/g,"").toLocaleLowerCase("fr").replace(/[^a-z0-9]+/g," ").trim()}
 function readAlerts(){try{const v=JSON.parse(localStorage.getItem(ALERTS_KEY)||"[]");return Array.isArray(v)?v.filter(a=>a&&typeof a==="object"):[]}catch(_){return []}}
@@ -277,7 +324,7 @@ function showAuth(){
 }
 async function refresh(){
  const {data,error}=await sb.auth.getSession();if(error){message("Vérification de session impossible : "+error.message,true);return}
- session=data.session;showAuth();
+ session=data.session;showAuth();updatePushStatus();
  if(session){await Promise.all([loadProfile(),loadApplications()]);await importPendingOffer()}
 }
 async function importPendingOffer(){
@@ -336,7 +383,7 @@ async function init(){
  // pendant l'initialisation de la session, avant le chargement des offres.
  sb.auth.onAuthStateChange((event,newSession)=>{
   if(event==="PASSWORD_RECOVERY"){recoveryMode=true;$("authBox").classList.add("hidden");$("recoveryBox").classList.remove("hidden");message("Lien valide. Définis ton nouveau mot de passe.");return}
-  if(event==="SIGNED_IN"||event==="SIGNED_OUT"||event==="TOKEN_REFRESHED"){session=newSession;showAuth();if(!recoveryMode)setTimeout(()=>refresh(),0)}
+  if(event==="SIGNED_IN"||event==="SIGNED_OUT"||event==="TOKEN_REFRESHED"){session=newSession;showAuth();updatePushStatus();if(!recoveryMode)setTimeout(()=>refresh(),0)}
  });
  const params=new URLSearchParams(location.search),hashParams=new URLSearchParams(location.hash.replace(/^#/,""));
  if(params.get("error_description")||hashParams.get("error_description"))message("Le lien reçu a expiré ou n'est plus valide. Demande un nouveau lien.",true);
