@@ -229,7 +229,7 @@
     <a href="bourses.html" aria-current="page">Bourses</a>
     <a href="formation.html">Formations</a>
       <a href="conseils.html">Conseils pratiques</a>
-  <a href="espace-candidat.html">Mon espace</a></nav>
+  <a href="espace-candidat.html">Mon espace</a><a href="favoris.html">Mes favoris</a></nav>
 
   <main>
     <section class="section">
@@ -395,6 +395,11 @@
     const compteur = document.getElementById("compteur");
 
     let bourses = [];
+    const CLE_FAVORIS = "caa_favoris_v1";
+    function lireFavoris(){try{return JSON.parse(localStorage.getItem(CLE_FAVORIS)||"[]").map(String)}catch(e){return []}}
+    function basculerFavori(id){const ids=lireFavoris(),k=String(id),next=ids.includes(k)?ids.filter(x=>x!==k):ids.concat(k);localStorage.setItem(CLE_FAVORIS,JSON.stringify(next));return next.includes(k)}
+    function boutonFavori(id){return `<button class="button secondary" type="button" data-favori="${echapper(id)}" onclick="cliquerFavori(this)">${lireFavoris().includes(String(id))?"♥ Enregistrée":"♡ Ajouter aux favoris"}</button>`}
+    function cliquerFavori(btn){const active=basculerFavori(btn.dataset.favori);btn.textContent=active?"♥ Enregistrée":"♡ Ajouter aux favoris"}
 
     document.getElementById("annee").textContent = new Date().getFullYear();
 
@@ -448,11 +453,14 @@ function afficherBourses() {
           String(b.lieu || "").toLowerCase().includes(endroit);
       });
 
-      compteur.textContent = filtrees.length === 1
-        ? "1 bourse affichée."
-        : `${filtrees.length} bourse(s) affichée(s).`;
+      const idPartage = new URLSearchParams(location.search).get("offre");
+      const listeAffichee = idPartage ? filtrees.filter(o => String(o.id) === idPartage) : filtrees;
 
-      if (!filtrees.length) {
+      compteur.textContent = listeAffichee.length === 1
+        ? "1 bourse affichée."
+        : `${listeAffichee.length} bourse(s) affichée(s).`;
+
+      if (!listeAffichee.length) {
         resultats.innerHTML = `
           <div class="message">
             Aucune bourse ne correspond à votre recherche pour le moment.
@@ -462,7 +470,7 @@ function afficherBourses() {
         return;
       }
 
-      resultats.innerHTML = filtrees.map(b => {
+      resultats.innerHTML = listeAffichee.map(b => {
         const candidature = lienValide(b.lien_candidature);
         const documentUrl = lienValide(b.document_url);
 
@@ -489,6 +497,7 @@ function afficherBourses() {
               ? `<a class="button secondary" href="${echapper(documentUrl)}" target="_blank" rel="noopener noreferrer">Voir le document</a>`
               : ""}
           <a class="button secondary" href="${lienSuivi(b)}">＋ Ajouter à mon suivi</a>
+          ${boutonFavori(b.id)}
           </article>
         `;
       }).join("");
