@@ -106,8 +106,8 @@ textarea{min-height:110px;resize:vertical}
           <textarea id="description" required placeholder="Présente l'opportunité, le profil recherché, les conditions et les pièces à fournir…"></textarea>
           <label for="date_limite">Date limite de candidature</label>
           <input type="date" id="date_limite">
-          <label for="lien">Lien direct pour postuler *</label>
-          <input type="url" id="lien" placeholder="https://formulaire-officiel..." >
+          <label for="lien">Lien direct de candidature (URL ou e-mail) *</label>
+          <input type="text" id="lien" placeholder="https://... ou mailto:recrutement@organisme.bj" >
           <p class="hint">Colle ici le lien qui ouvre directement le formulaire ou le portail de candidature de l'organisme. Ne mets pas le lien d'un article intermédiaire (Setondji, par exemple). Si tu ne trouves pas le lien direct, garde l'annonce en brouillon.</p>
           <label for="fichierPdf">Document PDF (facultatif, 10 Mo max)</label>
           <input type="file" id="fichierPdf" accept="application/pdf,.pdf">
@@ -160,6 +160,7 @@ function escapeHTML(value){
 }
 function estLienCandidatureDirect(url){
   if(!url) return false;
+  if(/^mailto:[^@\s]+@[^@\s]+\.[^@\s]+(?:\?.*)?$/i.test(url)) return true;
   try {
     const parsed=new URL(url);
     if(!["https:","http:"].includes(parsed.protocol)) return false;
